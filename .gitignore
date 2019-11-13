@@ -1,0 +1,27 @@
+# Exclude maven generated files.
+target/
+pom.xml.*
+dependency-reduced-pom.xml
+.mvn/timing.properties
+
+# Exclude emacs backups
+*~
+
+# Exclude eclipse generated files.
+.metadata
+.checkstyle
+.classpath
+.project
+.settings
+.cache-main
+.cache-tests
+.tmpBin
+.factorypath
+.pydevproject
+
+# Exclude IntelliJ generated files
+.idea
+*.iml
+
+# Exclude macOS extraneous files
+.DS_Store
