@@ -8,7 +8,7 @@ def officialMaster = 'git@github.com:Exabel/api.git:master'
 
 // Build levels
 def BUILD_NONE = 0    // Build nothing -- assuming no code changes
-def BUILD_PUBLISH = 1 // Build only what's needed to publish docker images
+def BUILD_PUBLISH = 1 // Build only what's needed to publish maven artifacts
 def BUILD_ALL = 2     // Build, test and publish everything
 
 // List of files that do not contain any code
