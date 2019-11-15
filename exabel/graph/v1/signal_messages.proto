@@ -3,7 +3,7 @@ syntax = "proto3";
 package exabel.graph.v1;
 
 option java_multiple_files = true;
-option java_outer_classname = "SignalTypesProto";
+option java_outer_classname = "SignalMessagesProto";
 option java_package = "com.exabel.graph.v1";
 
 import "exabel/math/aggregation.proto";

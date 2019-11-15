@@ -6,7 +6,7 @@ option java_multiple_files = true;
 option java_outer_classname = "EntityServiceProto";
 option java_package = "com.exabel.graph.v1";
 
-import "exabel/graph/v1/entity_types.proto";
+import "exabel/graph/v1/entity_messages.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";

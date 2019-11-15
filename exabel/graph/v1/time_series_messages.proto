@@ -3,7 +3,7 @@ syntax = "proto3";
 package exabel.graph.v1;
 
 option java_multiple_files = true;
-option java_outer_classname = "TimeSeriesTypesProto";
+option java_outer_classname = "TimeSeriesMessagesProto";
 option java_package = "com.exabel.graph.v1";
 
 import "exabel/time/time_range.proto";
