@@ -16,7 +16,7 @@ message Signal {
   // The signal name must match the regex [a-zA-Z]\w{0,63}. Additionally, the
   // signal namespace and name must be unique across all entity types.
   string name = 1;
-  // The display name of the signal.
+  // Required. The display name of the signal.
   string display_name = 2;
   // One or more paragraphs of text description.
   string description = 3;

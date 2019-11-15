@@ -14,7 +14,7 @@ message EntityType {
   // The namespace must be one of the predetermined namespaces the customer has access to.
   // The type name must match the regex [a-zA-Z][\w\.-_]{0,63}.
   string name = 1;
-  // The display name of the entity type.
+  // Required. The display name of the entity type.
   string display_name = 2;
   // One or more paragraphs of text description.
   string description = 3;
@@ -27,7 +27,7 @@ message Entity {
   // The namespaces must be one of the predetermined namespaces the customer has access to.
   // The entity name must match the regex [a-zA-Z][\w\.-_]{0,63}.
   string name = 1;
-  // The display name of the entity.
+  // Required. The display name of the entity.
   string display_name = 2;
   // One or more paragraphs of text description.
   string description = 3;
