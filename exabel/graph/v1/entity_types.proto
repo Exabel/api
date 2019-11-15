@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package exabel.graph.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "EntityTypesProto";
+option java_package = "com.exabel.graph.v1";
+
+import "google/protobuf/struct.proto";
+
+// An entity type resource in the graph API.
+message EntityType {
+  // Required. The resource name of the entity type, for example "entityTypes/namespace.entityTypeName".
+  // The namespace must be one of the predetermined namespaces the customer has access to.
+  // The type name must consist of 1-63 characters from the set [a-zA-Z0-9_-.,].
+  string name = 1;
+  // The display name of the entity type.
+  string display_name = 2;
+  // One or more paragraphs of text description.
+  string description = 3;
+}
+
+// An entity resource in the graph API. All entities have one entity type as its parent.
+message Entity {
+  // Required. The resource name of the entity, for example
+  // "entityTypes/namespace1.entityTypeName/entities/namespace2.entityName".
+  // The namespaces must be one of the predetermined namespaces the customer has access to.
+  // The entity name must consist of 1-63 characters from the set [a-zA-Z0-9_-.,].
+  string name = 1;
+  // The display name of the entity.
+  string display_name = 2;
+  // One or more paragraphs of text description.
+  string description = 3;
+  // The arbitrary properties of this entity.
+  google.protobuf.Struct properties = 100;
+}

@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package exabel.graph.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "EntityServiceProto";
+option java_package = "com.exabel.graph.v1";
+
+import "exabel/graph/v1/entity_types.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+
+// Manages entity types and entities in the graph API.
+// TODO(nordli): Implement support for listing/searching for entities.
+service EntityService {
+  // Lists all known entity types.
+  rpc ListEntityTypes(ListEntityTypesRequest) returns (ListEntityTypesResponse) {
+    option (google.api.http) = {
+      get: "/v1/entityTypes"
+    };
+  }
+  // Gets one entity type.
+  rpc GetEntityType(GetEntityTypeRequest) returns (EntityType) {
+    option (google.api.http) = {
+      get: "/v1/{name=entityTypes/*}"
+    };
+  }
+  // Gets one entity.
+  rpc GetEntity(GetEntityRequest) returns (Entity) {
+    option (google.api.http) = {
+      get: "/v1/{name=entityTypes/*/entities/*}"
+    };
+  }
+  // Creates one entity and returns it.
+  rpc CreateEntity(CreateEntityRequest) returns (Entity) {
+    option (google.api.http) = {
+      post: "/v1/{parent=entityTypes/*}/entities"
+      body: "entity"
+    };
+  }
+  // Updates one entity and returns it.
+  rpc UpdateEntity(UpdateEntityRequest) returns (Entity) {
+    option (google.api.http) = {
+      patch: "/v1/{entity.name=entityTypes/*/entities/*}"
+      body: "entity"
+    };
+  }
+  // Deletes one entity. ALL relationships and time series for this entity will
+  // also be deleted.
+  rpc DeleteEntity(DeleteEntityRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=entityTypes/*/entities/*}"
+    };
+  }
+}
+
+// The request to list entity types.
+message ListEntityTypesRequest {}
+
+// The response to list entity types. Returns all known entity types.
+message ListEntityTypesResponse {
+  // The resulting entity types.
+  repeated EntityType entity_types = 1;
+}
+
+// The request to get one entity type.
+message GetEntityTypeRequest {
+  // The resource name of the requested entity type, for example "entityTypes/ns.type1".
+  string name = 1;
+}
+
+// The request to get one entity.
+message GetEntityRequest {
+  // The resource name of the requested entity, for example "entityTypes/ns.type1/entity/ns.entity1".
+  string name = 1;
+}
+
+// The response to create one entity.
+message CreateEntityRequest {
+  // The parent entity type of the created entity, for example "entityTypes/ns.type1".
+  string parent = 1;
+  // The entity to create.
+  Entity entity = 2;
+}
+
+// The request to update one entity.
+message UpdateEntityRequest {
+  // The entity to update.
+  Entity entity = 1;
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
+  // modified.
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+// The request to delete one entity.
+message DeleteEntityRequest {
+  // The resource name of the entity to delete, for example "entityTypes/ns.type1/entity/ns.entity1".
+  string name = 1;
+}

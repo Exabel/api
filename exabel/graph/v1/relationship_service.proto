@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package exabel.graph.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "RelationshipServiceProto";
+option java_package = "com.exabel.graph.v1";
+
+import "exabel/graph/v1/relationship_types.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+
+// Manages relationship types and relationships in the graph API.
+service RelationshipService {
+  // List all relationship types from a common catalog.
+  rpc ListRelationshipTypes(ListRelationshipTypesRequest) returns (ListRelationshipTypesResponse) {
+    option (google.api.http) = {
+      get: "/v1/relationshipTypes"
+    };
+  }
+  // Gets one relationship type.
+  rpc GetRelationshipType(GetRelationshipTypeRequest) returns (RelationshipType) {
+    option (google.api.http) = {
+      get: "/v1/{name=relationshipTypes/*}"
+    };
+  }
+  // Creates one relationship type and returns it.
+  rpc CreateRelationshipType(CreateRelationshipTypeRequest) returns (RelationshipType) {
+    option (google.api.http) = {
+      post: "/v1/relationshipTypes"
+      body: "relationship_type"
+    };
+  }
+  // Updates one relationship type and returns it.
+  rpc UpdateRelationshipType(UpdateRelationshipTypeRequest) returns (RelationshipType) {
+    option (google.api.http) = {
+      patch: "/v1/{relationship_type.name=relationshipTypes/*}"
+      body: "relationship_type"
+    };
+  }
+  // Delete not supported.
+  // Gets one relationship.
+  rpc GetRelationship(GetRelationshipRequest) returns (Relationship) {
+    option (google.api.http) = {
+      get: "/v1/{parent=relationshipTypes/*}/relationships"
+    };
+  }
+  // Creates one relationship and returns it.
+  rpc CreateRelationship(CreateRelationshipRequest) returns (Relationship) {
+    option (google.api.http) = {
+      post: "/v1/{parent=relationshipTypes/*}/relationships"
+      body: "relationship"
+    };
+  }
+  // Updates one relationship and returns it. Only full update is supported.
+  rpc UpdateRelationship(UpdateRelationshipRequest) returns (Relationship) {
+    option (google.api.http) = {
+      put: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
+      body: "relationship"
+    };
+  }
+  // Deletes one relationship.
+  rpc DeleteRelatinoship(DeleteRelationshipRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
+    };
+  }
+}
+
+// The request to list relationship types.
+message ListRelationshipTypesRequest {}
+
+// The response to list relationship types. Returns all known relationship types.
+message ListRelationshipTypesResponse {
+  // The resulting relationship types.
+  repeated RelationshipType relationship_types = 1;
+}
+
+// The request to create one relationship type.
+message CreateRelationshipTypeRequest {
+  // The relationship type to create.
+  RelationshipType relationship_type = 1;
+}
+
+// The request to update one relationship type.
+message UpdateRelationshipTypeRequest {
+  // The relationship type to update.
+  RelationshipType relationship_type = 1;
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
+  // modified.
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+// The response to get one relationship type.
+message GetRelationshipTypeRequest {
+  // The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
+  string name = 1;
+}
+
+// The request to get one relationship.
+message GetRelationshipRequest {
+  // The type of the relationship, for example "relationshipTypes/ns.type1".
+  string parent = 1;
+  // The resource name of the start point of the relationship, for example
+  // "entityTypes/ns.type1/entity/ns.entity1".
+  string from_entity = 2;
+  // The resource name of the end point of the relationship, for example
+  // "entityTypes/ns.type2/entity/ns.entity2".
+  string to_entity = 3;
+}
+
+// The request to create one relationship.
+message CreateRelationshipRequest {
+  // The parent relationship type of the created entity, for example "relationshipTypes/ns.type1".
+  string type = 1;
+  // The relationship to create.
+  Relationship relationship = 2;
+}
+
+// The request to update one relationship.
+message UpdateRelationshipRequest {
+  // The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
+  // and it should be created instead.
+  Relationship relationship = 1;
+}
+
+// The request to delete one relationship.
+message DeleteRelationshipRequest {
+  // The relationship to delete.
+  Relationship relationship = 1;
+}

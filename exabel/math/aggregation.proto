@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package exabel.math;
+
+option java_multiple_files = true;
+option java_outer_classname = "AggregationProto";
+option java_package = "com.exabel.math";
+
+// Aggregation methods.
+enum Aggregation {
+  // Aggregation is unspecified and invalid. Aggregation must be set.
+  AGGREGATION_INVALID = 0;
+  // Averages the data values. Example: 2, 1, 3, 5, 4 -> 3.
+  AVERAGE = 1;
+  // Selects the first value. Example: 2, 1, 3, 5, 4 -> 2.
+  FIRST = 2;
+  // Selects the last value. Example: 2, 1, 3, 5, 4 -> 4.
+  LAST = 3;
+  // Sums the data values. Example: 2, 1, 3, 5, 4 -> 15.
+  SUM = 4;
+  // Selects the minimum value. Example: 2, 1, 3, 5, 4 -> 1.
+  MIN = 5;
+  // Selects the maximum value. Example: 2, 1, 3, 5, 4 -> 5.
+  MAX = 6;
+}

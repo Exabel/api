@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package exabel.graph.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "SignalTypesProto";
+option java_package = "com.exabel.graph.v1";
+
+import "exabel/math/aggregation.proto";
+
+// A signal resource in the graph API. All signals have one entity type as its parent.
+message Signal {
+  // Required. The resource name of the signal, for example
+  // "entityTypes/namespace1.entityTypeName/signals/namespace.signalName".
+  // The namespaces must be one of the predetermined namespaces the customer has access to.
+  // The signal name must consist of 1-63 characters from the set [a-zA-Z0-9_-.,]. Additionally, the
+  // signal namespace and name must be unique across all entity types.
+  string name = 1;
+  // The display name of the signal.
+  string display_name = 2;
+  // One or more paragraphs of text description.
+  string description = 3;
+  // The downsampling method to use when this signal is re-sampled into larger intervals. When two
+  // or more values in an interval needs to be aggregated into a single value, specifies how they
+  // are they combined?
+  math.Aggregation downsampling_method = 4;
+}

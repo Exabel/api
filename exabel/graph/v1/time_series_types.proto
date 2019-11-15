@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package exabel.graph.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "TimeSeriesTypesProto";
+option java_package = "com.exabel.graph.v1";
+
+import "exabel/time/time_range.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+// A time series resource in the graph API. All time series have one entity and one signal as its
+// parents. As such, it can be referred to as both "entityType/type1/{entity_name}/{signal_name}"
+// and "entityType/type1/{signal_name}/{entity_name}". The first version is the canonical form.
+// Some time series are provided by Exabel and their data cannot be retrieved via this API. They may
+// still be listed in a "ListTimeSeries" request and be used on the Exabel platform.
+message TimeSeries {
+  // Required. The resource name of the time series, for example
+  // "entityTypes/ns1.entityTypeName/entity/ns2.entityName/signals/ns3.signalName".
+  // An alternative name for the same time series is
+  // "entityTypes/ns1.entityTypeName/signals/ns3.signalName/entity/ns2.entityName", but the former
+  // is the canonical version which always will be returned by the server.
+  string name = 1;
+  // The time series data of this time series. Partial results may be returned from the server based
+  // on the "view" parameter of the request and whether the time series is provided by Exabel or
+  // not. When returned from the server the points are sorted increasingly by time.
+  repeated TimeSeriesPoint points = 2;
+}
+
+// A time series point of a time series.
+message TimeSeriesPoint {
+  // Required. The time stamp of this point.
+  google.protobuf.Timestamp time = 1;
+  // The value at this point. Points returned from the server always have values, but are possibly
+  // NaNs (Not a Number). Points sent to the server might have no value, in which case they are
+  // deleted or ignored.
+  google.protobuf.DoubleValue value = 2;
+}
+
+// A view of the time series, specifying which parts of its data to return. The default view is
+// to only return the name of the time series.
+message TimeSeriesView {
+  // The time range of points to return. If the time series is provided by Exabel, this field will
+  // be treated as not set. If not set, no points will be returned. If set, but empty, all points
+  // will be returned.
+  time.TimeRange time_range = 1;
+}

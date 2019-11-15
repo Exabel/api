@@ -12,6 +12,10 @@
   <packaging>pom</packaging>
   <name>Exabel API Parent Project</name>
 
+  <modules>
+    <module>exabel/graph</module>
+  </modules>
+
   <properties>
     <!-- Example: com.exabel.prereq:exabel-check -->
     <exabel.tooling.version>0.1.11</exabel.tooling.version>

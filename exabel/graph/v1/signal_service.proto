@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package exabel.graph.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "SignalServiceProto";
+option java_package = "com.exabel.graph.v1";
+
+import "exabel/graph/v1/signal_types.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+
+// Manages signals in the graph API.
+service SignalService {
+  // Gets one signal.
+  rpc GetSignal(GetSignalRequest) returns (Signal) {
+    option (google.api.http) = {
+      get: "/v1/{name=entityTypes/*/signals/*}"
+    };
+  }
+  // Creates one signal and returns it.
+  rpc CreateSignal(CreateSignalRequest) returns (Signal) {
+    option (google.api.http) = {
+      post: "/v1/{parent=entityTypes/*}/signals"
+      body: "signal"
+    };
+  }
+  // Updates one signal and returns it.
+  rpc UpdateSignal(UpdateSignalRequest) returns (Signal) {
+    option (google.api.http) = {
+      patch: "/v1/{signal.name=entityTypes/*/signals/*}"
+      body: "signal"
+    };
+  }
+  // Deletes one signal. ALL time series for this signal will also be deleted.
+  rpc DeleteSignal(DeleteSignalRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=entityTypes/*/signals/*}"
+    };
+  }
+}
+
+// The request to get one signal.
+message GetSignalRequest {
+  // The resource name of the requested signal, for example "entityTypes/ns.type1/signals/ns.signal1".
+  string name = 1;
+}
+
+// The request to create one signal.
+message CreateSignalRequest {
+  // The parent entity type of the created entity, for example "entityTypes/ns.type1".
+  string parent = 1;
+  // The signal to create.
+  Signal signal = 2;
+}
+
+// The request to update one signal.
+message UpdateSignalRequest {
+  // The signal to update.
+  Signal signal = 1;
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
+  // modified.
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+// The request to delete one signal.
+message DeleteSignalRequest {
+  // The resource name of the signal to delete, for example "entityTypes/ns.type1/signals/ns.signal1".
+  string name = 1;
+}
