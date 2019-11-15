@@ -49,7 +49,7 @@ service RelationshipService {
   // Creates one relationship and returns it.
   rpc CreateRelationship(CreateRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
-      post: "/v1/{parent=relationshipTypes/*}/relationships"
+      post: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
       body: "relationship"
     };
   }
