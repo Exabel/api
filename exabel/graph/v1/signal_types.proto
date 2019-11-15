@@ -20,8 +20,8 @@ message Signal {
   string display_name = 2;
   // One or more paragraphs of text description.
   string description = 3;
-  // The downsampling method to use when this signal is re-sampled into larger intervals. When two
-  // or more values in an interval needs to be aggregated into a single value, specifies how they
-  // are they combined?
+  // The default downsampling method to use when this signal is re-sampled into larger intervals.
+  // When two or more values in an interval needs to be aggregated into a single value, specifies
+  // how they are they combined.
   math.Aggregation downsampling_method = 4;
 }

@@ -12,7 +12,7 @@ import "google/protobuf/struct.proto";
 message EntityType {
   // Required. The resource name of the entity type, for example "entityTypes/namespace.entityTypeName".
   // The namespace must be one of the predetermined namespaces the customer has access to.
-  // The type name must match the regex [a-zA-Z][\w-.,]{0,63}.
+  // The type name must match the regex [a-zA-Z][\w\.-_]{0,63}.
   string name = 1;
   // The display name of the entity type.
   string display_name = 2;
@@ -25,7 +25,7 @@ message Entity {
   // Required. The resource name of the entity, for example
   // "entityTypes/namespace1.entityTypeName/entities/namespace2.entityName".
   // The namespaces must be one of the predetermined namespaces the customer has access to.
-  // The entity name must match the regex [a-zA-Z][\w-.,]{0,63}.
+  // The entity name must match the regex [a-zA-Z][\w\.-_]{0,63}.
   string name = 1;
   // The display name of the entity.
   string display_name = 2;

@@ -15,10 +15,8 @@ message RelationshipType {
   // The namespace must be one of the predetermined namespaces the customer has access to.
   // The relationship type name must match the regex [A-Z][A-Z0-9_]{0,63}.
   string name = 1;
-  // The display name of the relationship type.
-  string display_name = 2;
   // One or more paragraphs of text description.
-  string description = 3;
+  string description = 2;
   // The arbitrary properties of this relationship type.
   google.protobuf.Struct properties = 100;
 }

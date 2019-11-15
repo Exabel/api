@@ -9,7 +9,7 @@ The API contains the following resources:
 * Entity types
 * Entities
 * Relationship types
-* Relations
+* Relationships
 * Signals
 * Time series.
 

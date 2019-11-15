@@ -78,8 +78,9 @@ service TimeSeriesService {
       delete: "/v1/{name=entityTypes/*/signals/*/entities/*}"
     };
   }
-  // Deletes part(s) of one time series. The time series will continue to exist, even though all
-  // its points are deleted.
+  // Deletes part(s) of one time series. The requested points will be deleted, but the time series
+  // will not. With this request, it is possible to delete all points from a time series, but not
+  // the time series itself.
   rpc DeleteTimeSeriesPoints(DeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{name=entityTypes/*/entities/*/signals/*}/points"
@@ -94,7 +95,7 @@ service TimeSeriesService {
 }
 
 // The request to list time series. This request has an implicit empty "TimeSeriesView" parameter,
-// so only the (canonical) names are returned.
+// so only the canonical names are returned.
 message ListTimeSeriesRequest {
   // The parent entity or signal of time series to list, for example "entityTypes/ns.type1/entity/ns.entity1"
   // or "entityTypes/ns.type1/signal/ns.signal1".
