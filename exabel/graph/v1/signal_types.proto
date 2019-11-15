@@ -13,7 +13,7 @@ message Signal {
   // Required. The resource name of the signal, for example
   // "entityTypes/namespace1.entityTypeName/signals/namespace.signalName".
   // The namespaces must be one of the predetermined namespaces the customer has access to.
-  // The signal name must consist of 1-63 characters from the set [a-zA-Z0-9_-.,]. Additionally, the
+  // The signal name must match the regex [a-zA-Z]\w{0,63}. Additionally, the
   // signal namespace and name must be unique across all entity types.
   string name = 1;
   // The display name of the signal.

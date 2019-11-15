@@ -13,7 +13,7 @@ message RelationshipType {
   // Required. The resource name of the relationship type, for example
   // "relationshipTypes/namespace.relationshipTypeName".
   // The namespace must be one of the predetermined namespaces the customer has access to.
-  // The relationship type name must consist of 1-63 characters from the set [a-zA-Z0-9_-.,].
+  // The relationship type name must match the regex [A-Z][A-Z0-9_]{0,63}.
   string name = 1;
   // The display name of the relationship type.
   string display_name = 2;
