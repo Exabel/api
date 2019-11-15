@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package exabel.graph.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "RelationshipMessagesProto";
+option java_package = "com.exabel.graph.v1";
+
+import "google/protobuf/struct.proto";
+
+// A relationship type resource in the graph API.
+message RelationshipType {
+  // Required. The resource name of the relationship type, for example
+  // "relationshipTypes/namespace.relationshipTypeName".
+  // The namespace must be one of the predetermined namespaces the customer has access to.
+  // The relationship type name must match the regex [A-Z][A-Z0-9_]{0,63}.
+  string name = 1;
+  // One or more paragraphs of text description.
+  string description = 2;
+  // The arbitrary properties of this relationship type.
+  google.protobuf.Struct properties = 100;
+}
+
+// A relationship resource in the graph API. All relationships have one relationship type as its
+// parent. Relationships do not have resource names, but are identified by their (type, from, to)
+// triple. There can only be one relationship of one type between two entities (as viewed by a
+// single user).
+message Relationship {
+  // Required. The parent of the relationship, for example "relationshipTypes/ns.type1". This is its
+  // relationship type.
+  string parent = 1;
+  // Required. The resource name of the start point of the relationship, for example
+  // "entityTypes/ns.type1/entity/ns.entity1".
+  string from_entity = 2;
+  // Required. The resource name of the end point of the relationship, for example
+  // "entityTypes/ns.type2/entity/ns.entity2".
+  string to_entity = 3;
+  // One or more paragraphs of text description.
+  string description = 4;
+  // The arbitrary properties of this relationship.
+  google.protobuf.Struct properties = 100;
+}

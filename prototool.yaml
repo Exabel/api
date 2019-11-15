@@ -2,6 +2,7 @@ protoc:
   version: 3.8.0
 excludes:
   - google
+  - exabel/graph/target
 lint:
   group: google
   rules:

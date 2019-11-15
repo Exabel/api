@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package exabel.graph.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "SignalMessagesProto";
+option java_package = "com.exabel.graph.v1";
+
+import "exabel/math/aggregation.proto";
+
+// A signal resource in the graph API. All signals are associated with exactly one entity type, and
+// only entities with that type can have time series data for that signal.
+message Signal {
+  // Required. The resource name of the signal, for example "signals/namespace.signalName".
+  // The namespace must be one of the predetermined namespaces the customer has access to.
+  // The signal name must match the regex [a-zA-Z]\w{0,63}.
+  string name = 1;
+  // Required. The entity type this signal is related to, for example "entityTypes/ns.type1".
+  // This cannot be changed after the signal has been created.
+  string entity_type = 2;
+  // Required. The display name of the signal.
+  string display_name = 3;
+  // One or more paragraphs of text description.
+  string description = 4;
+  // The default downsampling method to use when this signal is re-sampled into larger intervals.
+  // When two or more values in an interval needs to be aggregated into a single value, specifies
+  // how they are combined.
+  math.Aggregation downsampling_method = 5;
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package exabel.graph.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "InternalEntityServiceProto";
+option java_package = "com.exabel.graph.v1";
+
+import "exabel/graph/v1/entity_messages.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/field_mask.proto";
+
+// Manages entity types in the graph API, for internal usage.
+service InternalEntityService {
+  // Creates one entity type and returns it. (Exabel internal.)
+  rpc CreateEntityType(CreateEntityTypeRequest) returns (EntityType) {
+    option (google.api.http) = {
+      post: "/v1/entityTypes"
+      body: "entity_type"
+    };
+  }
+  // Updates one entity type and returns it.
+  // (Exabel internal.)
+  rpc UpdateEntityType(UpdateEntityTypeRequest) returns (EntityType) {
+    option (google.api.http) = {
+      patch: "/v1/{entity_type.name=entityTypes/*}"
+      body: "entity_type"
+    };
+  }
+  // Deletes not supported.
+
+}
+
+// The request to create one entity type.
+message CreateEntityTypeRequest {
+  // The entity type to create.
+  EntityType entity_type = 1;
+}
+
+// The request to update one entity type.
+message UpdateEntityTypeRequest {
+  // The entity type to update.
+  EntityType entity_type = 1;
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
+  // modified.
+  google.protobuf.FieldMask update_mask = 2;
+}
