@@ -16,13 +16,13 @@ service TimeSeriesService {
   // Lists all time series for one entity. Only the names are returned.
   rpc ListTimeSeries(ListTimeSeriesRequest) returns (ListTimeSeriesResponse) {
     option (google.api.http) = {
-      get: "/v1/{parent=entityTypes/*/entities/*}"
+      get: "/v1/{parent=entityTypes/*/entities/*}/timeSeries"
     };
   }
   // The same request as ListTimeSeries, but with an alternative path.
   rpc ListTimeSeries2(ListTimeSeriesRequest) returns (ListTimeSeriesResponse) {
     option (google.api.http) = {
-      get: "/v1/{parent=entityTypes/*/signals/*}"
+      get: "/v1/{parent=signals/*}/timeSeries"
     };
   }
   // Gets one time series.
@@ -34,7 +34,7 @@ service TimeSeriesService {
   // The same request as GetTimeSeries, but with an alternative path.
   rpc GetTimeSeries2(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      get: "/v1/{name=entityTypes/*/signals/*/entities/*}"
+      get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
     };
   }
   // Creates one time series and returns it.
@@ -47,7 +47,7 @@ service TimeSeriesService {
   // The same request as CreateTimeSeries, but with an alternative path.
   rpc CreateTimeSeries2(CreateTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      post: "/v1/{time_series.name=entityTypes/*/signals/*/entities/*}"
+      post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
       body: "time_series"
     };
   }
@@ -62,7 +62,7 @@ service TimeSeriesService {
   // The same request as UpdateTimeSeries, but with an alternative path.
   rpc UpdateTimeSeries2(UpdateTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      patch: "/v1/{time_series.name=entityTypes/*/signals/*/entities/*}"
+      patch: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
       body: "time_series"
     };
   }
@@ -75,7 +75,7 @@ service TimeSeriesService {
   // The same request as DeleteTimeSeries, but with an alternative path.
   rpc DeleteTimeSeries2(DeleteTimeSeriesRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{name=entityTypes/*/signals/*/entities/*}"
+      delete: "/v1/{name=signals/*/entityTypes/*/entities/*}"
     };
   }
   // Deletes part(s) of one time series. The requested points will be deleted, but the time series
@@ -89,7 +89,7 @@ service TimeSeriesService {
   // The same request as DeleteTimeSeries, but with an alternative path.
   rpc DeleteTimeSeriesPoints2(DeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{name=entityTypes/*/signals/*/entities/*}/points"
+      delete: "/v1/{name=signals/*/entityTypes/*/entities/*}/points"
     };
   }
 }
@@ -98,7 +98,7 @@ service TimeSeriesService {
 // so only the canonical names are returned.
 message ListTimeSeriesRequest {
   // The parent entity or signal of time series to list, for example "entityTypes/ns.type1/entity/ns.entity1"
-  // or "entityTypes/ns.type1/signal/ns.signal1".
+  // or "signal/ns.signal1".
   string parent = 1;
 }
 
@@ -113,7 +113,7 @@ message ListTimeSeriesResponse {
 message GetTimeSeriesRequest {
   // The resource name of the requested time series, for example
   // "entityTypes/ns.type1/entity/ns.entity1/signals/ns.signal1"
-  // or "entityTypes/ns.type1/signals/ns.signal1/entity/ns.entity1". The returned time series will
+  // or "signals/ns.signal1/entityTypes/ns.type1/entity/ns.entity1". The returned time series will
   // always contain its canonical name "entityTypes/ns.type1/entity/ns.entity1/signals/ns.signal1".
   string name = 1;
   // Specifies which parts of the time series should be returned in the request.
@@ -145,7 +145,7 @@ message UpdateTimeSeriesRequest {
 message DeleteTimeSeriesRequest {
   // The resource name of the time series to be deleted, for example
   // "entityTypes/ns.type1/entity/ns.entity1/signals/ns.signal1" or
-  // "entityTypes/ns.type1/signals/ns.signal1/entity/ns.entity1".
+  // "signals/ns.signal1/entityTypes/ns.type1/entity/ns.entity1".
   string name = 1;
 }
 
@@ -153,7 +153,7 @@ message DeleteTimeSeriesRequest {
 message DeleteTimeSeriesPointsRequest {
   // The resource name of the time series to be deleted, for example
   // "entityTypes/ns.type1/entity/ns.entity1/signals/ns.signal1" or
-  // "entityTypes/ns.type1/signals/ns.signal1/entity/ns.entity1".
+  // "signals/ns.signal1/entityTypes/ns.type1/entity/ns.entity1".
   string name = 1;
   // The list of time ranges to delete from the time series. To delete single points, supply a
   // closed time range of one point, or use the update method.

@@ -16,43 +16,41 @@ service SignalService {
   // Gets one signal.
   rpc GetSignal(GetSignalRequest) returns (Signal) {
     option (google.api.http) = {
-      get: "/v1/{name=entityTypes/*/signals/*}"
+      get: "/v1/{name=signals/*}"
     };
   }
   // Creates one signal and returns it.
   rpc CreateSignal(CreateSignalRequest) returns (Signal) {
     option (google.api.http) = {
-      post: "/v1/{parent=entityTypes/*}/signals"
+      post: "/v1/signals"
       body: "signal"
     };
   }
   // Updates one signal and returns it.
   rpc UpdateSignal(UpdateSignalRequest) returns (Signal) {
     option (google.api.http) = {
-      patch: "/v1/{signal.name=entityTypes/*/signals/*}"
+      patch: "/v1/{signal.name=signals/*}"
       body: "signal"
     };
   }
   // Deletes one signal. ALL time series for this signal will also be deleted.
   rpc DeleteSignal(DeleteSignalRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{name=entityTypes/*/signals/*}"
+      delete: "/v1/{name=signals/*}"
     };
   }
 }
 
 // The request to get one signal.
 message GetSignalRequest {
-  // The resource name of the requested signal, for example "entityTypes/ns.type1/signals/ns.signal1".
+  // The resource name of the requested signal, for example "signals/ns.signal1".
   string name = 1;
 }
 
 // The request to create one signal.
 message CreateSignalRequest {
-  // The parent entity type of the created entity, for example "entityTypes/ns.type1".
-  string parent = 1;
   // The signal to create.
-  Signal signal = 2;
+  Signal signal = 1;
 }
 
 // The request to update one signal.
@@ -66,6 +64,6 @@ message UpdateSignalRequest {
 
 // The request to delete one signal.
 message DeleteSignalRequest {
-  // The resource name of the signal to delete, for example "entityTypes/ns.type1/signals/ns.signal1".
+  // The resource name of the signal to delete, for example "signals/ns.signal1".
   string name = 1;
 }
