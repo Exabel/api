@@ -61,9 +61,9 @@ service RelationshipService {
     };
   }
   // Deletes one relationship.
-  rpc DeleteRelatinoship(DeleteRelationshipRequest) returns (google.protobuf.Empty) {
+  rpc DeleteRelationship(DeleteRelationshipRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
+      delete: "/v1/{parent=relationshipTypes/*}/relationships"
     };
   }
 }
@@ -127,6 +127,12 @@ message UpdateRelationshipRequest {
 
 // The request to delete one relationship.
 message DeleteRelationshipRequest {
-  // The relationship to delete.
-  Relationship relationship = 1;
+  // Required. The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
+  string parent = 1;
+  // Required. The resource name of the start point of the relationship, for example
+  // "entityTypes/ns.type1/entity/ns.entity1".
+  string from_entity = 2;
+  // Required. The resource name of the end point of the relationship, for example
+  // "entityTypes/ns.type2/entity/ns.entity2".
+  string to_entity = 3;
 }

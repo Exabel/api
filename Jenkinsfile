@@ -135,6 +135,14 @@ spec:
                 error 'Failed due to static code analysis';
               }
             }
+            stage('Test endpoint definitions') {
+              def serviceFiles = findFiles(glob: 'exabel/*/*-api.yaml').collect { it.path }
+              for (serviceFile in serviceFiles) {
+                def protoDescriptor = serviceFile[0..serviceFile.lastIndexOf('/')] +
+                  "target/generated-resources/protobuf/descriptor-sets/descriptor.pb"
+                sh "gcloud --project mimtest-151313 endpoints services deploy ${protoDescriptor} ${serviceFile} --validate-only > /dev/null"
+              }
+            }
           } finally {
             if (buildLevel >= BUILD_ALL) {
               // TODO(nordli): Enable when tests are actually running.

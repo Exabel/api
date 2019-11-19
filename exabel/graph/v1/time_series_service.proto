@@ -81,15 +81,17 @@ service TimeSeriesService {
   // Deletes part(s) of one time series. The requested points will be deleted, but the time series
   // will not. With this request, it is possible to delete all points from a time series, but not
   // the time series itself.
-  rpc DeleteTimeSeriesPoints(DeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
+  rpc BatchDeleteTimeSeriesPoints(BatchDeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{name=entityTypes/*/entities/*/signals/*}/points"
+      post: "/v1/{name=entityTypes/*/entities/*/signals/*}/points:batchDelete"
+      body: "*"
     };
   }
   // The same request as DeleteTimeSeries, but with an alternative path.
-  rpc DeleteTimeSeriesPoints2(DeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
+  rpc BatchDeleteTimeSeriesPoints2(BatchDeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{name=signals/*/entityTypes/*/entities/*}/points"
+      post: "/v1/{name=signals/*/entityTypes/*/entities/*}/points:batchDelete"
+      body: "*"
     };
   }
 }
@@ -150,7 +152,7 @@ message DeleteTimeSeriesRequest {
 }
 
 // The request to delete parts of one time series.
-message DeleteTimeSeriesPointsRequest {
+message BatchDeleteTimeSeriesPointsRequest {
   // The resource name of the time series to be deleted, for example
   // "entityTypes/ns.type1/entity/ns.entity1/signals/ns.signal1" or
   // "signals/ns.signal1/entityTypes/ns.type1/entity/ns.entity1".
