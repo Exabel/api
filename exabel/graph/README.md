@@ -35,3 +35,24 @@ When modifying any APIs, the following steps needs to be followed:
 
 7. When step 6 is completed, update the dependencies of the consuming project(s) again and create
 a new PR.
+
+# Documentation
+
+## Prerequisites
+
+* Python 3
+  ```
+  pyenv install
+  ```
+* Sphinx with theme `sphinx_rtd_theme`: https://www.sphinx-doc.org/en/master/usage/installation.html
+  ```
+  pip3 install -U sphinx
+  pip3 install sphinx_rtd_theme
+  ```
+
+## Building
+
+Produce HTML output in the folder 'target/html':
+```
+make html
+```
