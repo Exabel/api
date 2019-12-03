@@ -18,3 +18,10 @@ Custom entities must be of an *entity type* from Exabel's type catalogue. If you
 catalogue, contact support@exabel.com.
 
 *TODO: Insert sample graph drawing here*
+
+
+Data separation
+***************
+
+All customers can connect their data to the entities maintained by Exabel. However, data uploaded
+by a customer, remains private to that customer. This includes entities, relationships, signals, and time series.
