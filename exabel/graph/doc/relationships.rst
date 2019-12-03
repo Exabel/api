@@ -3,9 +3,12 @@ Relationships
 ==========================================
 
 Relationship types
+******************
 
 ...
 
+
 Relationships
+*************
 
 ...

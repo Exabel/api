@@ -1,5 +1,5 @@
 
-Exabel Signal documentation
+Exabel Graph API
 ==========================================
 
 .. toctree::
