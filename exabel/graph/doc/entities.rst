@@ -12,13 +12,135 @@ Entity types
 
 Used to retrieve the entity type catalogue.
 
-* List entity types: ``GET /v1/entityTypes``
-* Get entity type details: ``GET /v1/entityTypes/{entityTypeName}``
+List entity types
+-----------------
+
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    [
+      {
+        "name": "entityTypes/brand"
+      },
+      {
+        "name": "entityTypes/region"
+      }
+    ]
+
+
+Get entity type details
+-----------------------
+
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes/brand HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    {
+      "name": "entityTypes/brand"
+    }
+
 
 Entities
 ********
 
-* List: ``GET /v1/entityTypes/{entityTypeName}/entities``
-* Get: ``GET /v1/entityTypes/{entityTypeName}/entities/{entityName}``
-* Create:  ``POST /v1/entityTypes/{entityTypeName}/entities/{entityName}``
-* Update:  ``PUT /v1/entityTypes/{entityTypeName}/entities/{entityName}``
+List entities
+-------------
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes/brand/entities HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    [
+      {
+        "name": "entityTypes/brand/entities/audi"
+      },
+      {
+        "name": "entityTypes/brand/entities/vw"
+
+      },
+      {
+        "name": "entityTypes/brand/entities/seat"
+
+      },
+      {
+        "name": "entityTypes/brand/entities/skoda"
+      }
+    ]
+
+
+Get entity
+----------
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes/brand/entities/skoda HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+      {
+        "name": "entityTypes/brand/entities/skoda",
+        "display_name": "Škoda"
+      }
+
+
+Create entity
+-------------
+..  http:example:: curl wget python-requests
+
+    POST /v1/entityTypes/brand/entities/Foo HTTP/1.1
+    Host: graph.api.exabel.com
+    Content-Type: application/json
+
+    {
+      "name": "entityTypes/brand/entities/skoda",
+      "display_name": "Škoda"
+    }
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    {
+      "name": "entityTypes/brand/entities/skoda",
+      "display_name": "Škoda"
+    }
+
+
+Update entity
+-------------
+..  http:example:: curl wget python-requests
+
+    PUT /v1/entityTypes/brand/entities/Foo HTTP/1.1
+    Host: graph.api.exabel.com
+    Content-Type: application/json
+
+    {
+      "name": "entityTypes/brand/entities/skoda",
+      "display_name": "Škoda"
+    }
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    {
+      "name": "entityTypes/brand/entities/skoda",
+      "display_name": "Škoda"
+    }

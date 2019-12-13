@@ -41,6 +41,8 @@ release = '1.0.1'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.imgmath',
+    'sphinxcontrib.httpdomain',
+    'sphinxcontrib.httpexample',
 ]
 
 html_show_sourcelink = False
@@ -161,3 +163,5 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
+
+httpexample_scheme = 'https'
