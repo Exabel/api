@@ -60,7 +60,7 @@ Create relationship type
 ------------------------
 ..  http:example:: curl wget python-requests
 
-    POST /v1/relationshipTypes/HAS_BRAND HTTP/1.1
+    POST /v1/relationshipTypes HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
@@ -83,13 +83,13 @@ Update relationship type
 ------------------------
 ..  http:example:: curl wget python-requests
 
-    PUT /v1/relationshipTypes/HAS_BRAND HTTP/1.1
+    PATCH /v1/relationshipTypes/HAS_BRAND HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "relationshipTypes/HAS_BRAND",
-      "description": "Denotes a company that owns a brand"
+      "description": "Denotes a company that owns a brand",
+      "update_mask": ["description"]
     }
 
 
@@ -112,7 +112,7 @@ Relationships
 *************
 
 A *relationship* belongs to exactly one relationship type and defines a directed relationship between two concrete
-entities. For two specific entities, there should be at most one relationship of the same type between them.
+entities. For two specific entities, there can be at most one relationship of the same type between them.
 
 Relationships created and managed by Exabel are exclusively between Exabel’s entities.
 
@@ -151,7 +151,6 @@ Create relationship
     Content-Type: application/json; charset=utf-8
 
     {
-      "parent": "relationshipTypes/HAS_BRAND",
       "from_entity": "entityTypes/company/entities/001yfz_e-volkswagen_ag",
       "to_entity": "entityTypes/brand/entities/skoda",
       "description": "Škoda is a brand of Volkswagen AG"
@@ -178,10 +177,12 @@ Update relationship
     Content-Type: application/json; charset=utf-8
 
     {
-      "parent": "relationshipTypes/HAS_BRAND",
       "from_entity": "entityTypes/company/entities/001yfz_e-volkswagen_ag",
       "to_entity": "entityTypes/brand/entities/skoda",
-      "description": "Škoda is a brand of Volkswagen AG"
+      "description": "Škoda is a brand of Volkswagen AG",
+      "properties": {
+        "owned_since": "1994-12-19"
+      }
     }
 
 
@@ -192,7 +193,10 @@ Update relationship
       "parent": "relationshipTypes/HAS_BRAND",
       "from_entity": "entityTypes/company/entities/001yfz_e-volkswagen_ag",
       "to_entity": "entityTypes/brand/entities/skoda",
-      "description": "Škoda is a brand of Volkswagen AG"
+      "description": "Škoda is a brand of Volkswagen AG",
+      "properties": {
+        "owned_since": "1994-12-19"
+      }
     }
 
 

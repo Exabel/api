@@ -115,7 +115,7 @@ Create entity
 -------------
 ..  http:example:: curl wget python-requests
 
-    POST /v1/entityTypes/brand/entities/skoda HTTP/1.1
+    POST /v1/entityTypes/brand/entities HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
@@ -138,14 +138,16 @@ Update entity
 -------------
 ..  http:example:: curl wget python-requests
 
-    PUT /v1/entityTypes/brand/entities/skoda HTTP/1.1
+    PATCH /v1/entityTypes/brand/entities/skoda HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/brand/entities/skoda",
-      "display_name": "Škoda",
-      "description": "Simply clever"
+      "description": "Simply clever",
+      "properties": {
+        "brand_type": "car"
+      },
+      "update_mask": ["description", "properties"]
     }
 
 
@@ -156,6 +158,9 @@ Update entity
       "name": "entityTypes/brand/entities/skoda",
       "display_name": "Škoda",
       "description": "Simply clever"
+      "properties": {
+        "brand_type": "car"
+      },
     }
 
 
@@ -172,5 +177,3 @@ Delete entity
 
     HTTP/1.1 200 OK
 
-
-.. note:: TODO: Add examples with fieldmask for updating properties?
