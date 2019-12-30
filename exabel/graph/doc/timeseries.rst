@@ -49,8 +49,8 @@ List time series by signal
     }
 
 
-Get time series
----------------
+Get a specific time series
+--------------------------
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors HTTP/1.1
@@ -109,6 +109,10 @@ Create time series
 
 Update time series
 ------------------
+
+The data in this request and the existing data are merged together. All points in the request will overwrite
+the existing points with the same key, unless the new value is empty, in which case the point will be deleted.
+
 ..  http:example:: curl wget python-requests
 
     PATCH /v1/entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors HTTP/1.1

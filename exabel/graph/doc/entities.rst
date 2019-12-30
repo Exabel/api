@@ -61,37 +61,7 @@ An *entity* belongs to exactly one entity type and is usually a real-world insta
 and managed either by a customer or by Exabel, for instance Alphabet, Inc., www.amazon.com, Coca-Cola, EMEA.
 Entities are the core concept of this API.
 
-The collection id for entities is ``entities``
-
-
-List entities
--------------
-
-Retrieves a list of all entities of a given entity type.
-
-..  http:example:: curl wget python-requests
-
-    GET /v1/entityTypes/brand/entities HTTP/1.1
-    Host: graph.api.exabel.com
-
-
-    HTTP/1.1 200 OK
-    Content-Type: application/json; charset=utf-8
-
-    [
-      {
-        "name": "entityTypes/brand/entities/audi"
-      },
-      {
-        "name": "entityTypes/brand/entities/vw"
-      },
-      {
-        "name": "entityTypes/brand/entities/seat"
-      },
-      {
-        "name": "entityTypes/brand/entities/skoda"
-      }
-    ]
+The collection id for entities is ``entities``.
 
 
 Get entity
