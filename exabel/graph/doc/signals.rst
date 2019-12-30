@@ -36,7 +36,7 @@ Create signal
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "signals/customer1.visitors"
+      "name": "signals/customer1.visitors",
       "entity_type": "entityTypes/customer1.stores",
       "display_name": "Daily visitors",
       "description": "The number of visitors in a store per day"
