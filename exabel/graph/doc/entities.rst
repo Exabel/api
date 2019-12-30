@@ -1,19 +1,20 @@
 
 Entities
-==========================================
-
-Both entity type names and entity names must start with a letter, followup by letters, numbers, dot,
-hyphen (minus sign), or underscore. Names must be 1 to 64 characters long. Letters are limited to ASCII
-letters. Both uppercase and lowercase letters are allowed. Note that names are stored case sensitive,
-i.e. "APPLE" is not equal to "Apple".
+========
 
 Entity types
 ************
 
-Used to retrieve the entity type catalogue.
+An *entity type* is a group of entities having similar real world meaning, for instance company, web domain, brand,
+or region.
+
+The collection id for entity types is ``entityTypes``.
+
 
 List entity types
 -----------------
+
+Retrieves the entity type catalogue.
 
 ..  http:example:: curl wget python-requests
 
@@ -22,7 +23,7 @@ List entity types
 
 
     HTTP/1.1 200 OK
-    Content-Type: application/json
+    Content-Type: application/json; charset=utf-8
 
     [
       {
@@ -44,18 +45,30 @@ Get entity type details
 
 
     HTTP/1.1 200 OK
-    Content-Type: application/json
+    Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/brand"
+      "name": "entityTypes/brand",
+      "display_name": "Brand",
+      "description": "Brands owned by companies"
     }
 
 
 Entities
 ********
 
+An *entity* belongs to exactly one entity type and is usually a real-world instance of its type. They are created
+and managed either by a customer or by Exabel, for instance Alphabet, Inc., www.amazon.com, Coca-Cola, EMEA.
+Entities are the core concept of this API.
+
+The collection id for entities is ``entities``
+
+
 List entities
 -------------
+
+Retrieves a list of all entities of a given entity type.
+
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes/brand/entities HTTP/1.1
@@ -63,7 +76,7 @@ List entities
 
 
     HTTP/1.1 200 OK
-    Content-Type: application/json
+    Content-Type: application/json; charset=utf-8
 
     [
       {
@@ -71,11 +84,9 @@ List entities
       },
       {
         "name": "entityTypes/brand/entities/vw"
-
       },
       {
         "name": "entityTypes/brand/entities/seat"
-
       },
       {
         "name": "entityTypes/brand/entities/skoda"
@@ -92,7 +103,7 @@ Get entity
 
 
     HTTP/1.1 200 OK
-    Content-Type: application/json
+    Content-Type: application/json; charset=utf-8
 
       {
         "name": "entityTypes/brand/entities/skoda",
@@ -104,9 +115,9 @@ Create entity
 -------------
 ..  http:example:: curl wget python-requests
 
-    POST /v1/entityTypes/brand/entities/Foo HTTP/1.1
+    POST /v1/entityTypes/brand/entities/skoda HTTP/1.1
     Host: graph.api.exabel.com
-    Content-Type: application/json
+    Content-Type: application/json; charset=utf-8
 
     {
       "name": "entityTypes/brand/entities/skoda",
@@ -115,7 +126,7 @@ Create entity
 
 
     HTTP/1.1 200 OK
-    Content-Type: application/json
+    Content-Type: application/json; charset=utf-8
 
     {
       "name": "entityTypes/brand/entities/skoda",
@@ -127,20 +138,39 @@ Update entity
 -------------
 ..  http:example:: curl wget python-requests
 
-    PUT /v1/entityTypes/brand/entities/Foo HTTP/1.1
+    PUT /v1/entityTypes/brand/entities/skoda HTTP/1.1
     Host: graph.api.exabel.com
-    Content-Type: application/json
+    Content-Type: application/json; charset=utf-8
 
     {
       "name": "entityTypes/brand/entities/skoda",
-      "display_name": "Škoda"
+      "display_name": "Škoda",
+      "description": "Simply clever"
     }
 
 
     HTTP/1.1 200 OK
-    Content-Type: application/json
+    Content-Type: application/json; charset=utf-8
 
     {
       "name": "entityTypes/brand/entities/skoda",
-      "display_name": "Škoda"
+      "display_name": "Škoda",
+      "description": "Simply clever"
     }
+
+
+Delete entity
+-------------
+
+..  note:: **All** relationships and time series for this entity will also be deleted.
+
+..  http:example:: curl wget python-requests
+
+    DELETE /v1/entityTypes/brand/entities/skoda HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+
+
+.. note:: TODO: Add examples with fieldmask for updating properties?
