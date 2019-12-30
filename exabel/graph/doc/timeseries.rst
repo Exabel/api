@@ -53,7 +53,7 @@ Get a specific time series
 --------------------------
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors HTTP/1.1
+    GET /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -61,7 +61,7 @@ Get a specific time series
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors",
+      "name": "entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/customer1.signals/visitors",
       "points": [
         {"time": "2019-01-01T00:00:00Z", "value": 1223},
         {"time": "2019-01-02T00:00:00Z", "value": 3435},
@@ -74,7 +74,7 @@ Create time series
 ------------------
 ..  http:example:: curl wget python-requests
 
-    POST /v1/entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors HTTP/1.1
+    POST /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
@@ -98,7 +98,7 @@ Create time series
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors",
+      "name": "entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
       "points": [
         {"time": "2019-01-01T00:00:00Z", "value": 1223},
         {"time": "2019-01-02T00:00:00Z", "value": 3435},
@@ -115,7 +115,7 @@ the existing points with the same key, unless the new value is empty, in which c
 
 ..  http:example:: curl wget python-requests
 
-    PATCH /v1/entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors HTTP/1.1
+    PATCH /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
@@ -139,7 +139,7 @@ the existing points with the same key, unless the new value is empty, in which c
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors",
+      "name": "entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
       "points": [
         {"time": "2019-01-04T00:00:00Z", "value": 4231},
         {"time": "2019-01-05T00:00:00Z", "value": 3121},
@@ -153,7 +153,7 @@ Delete time series points
 
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors/points:batchDelete HTTP/1.1
+    DELETE /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors/points:batchDelete HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
@@ -179,7 +179,7 @@ Delete time series
 
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/entityTypes/store/entities/apple_store_fifth_avenue/signals/visitors HTTP/1.1
+    DELETE /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
     Host: graph.api.exabel.com
 
 

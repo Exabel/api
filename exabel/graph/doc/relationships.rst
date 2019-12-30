@@ -29,10 +29,10 @@ Retrieves the relationship type catalogue.
 
     [
       {
-        "name": "relationshipTypes/HAS_BRAND"
+        "name": "relationshipTypes/exabel.HAS_BRAND"
       },
       {
-        "name": "relationshipTypes/LOCATED_IN"
+        "name": "relationshipTypes/customer1.PRODUCED_AT"
       }
     ]
 
@@ -42,7 +42,7 @@ Get relationship type details
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/relationshipTypes/HAS_BRAND HTTP/1.1
+    GET /v1/relationshipTypes/exabel.HAS_BRAND HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -50,7 +50,7 @@ Get relationship type details
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "relationshipTypes/HAS_BRAND",
+      "name": "relationshipTypes/exabel.HAS_BRAND",
       "description": "Denotes a company that owns a brand"
     }
 
@@ -65,7 +65,7 @@ Create relationship type
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "relationshipTypes/HAS_BRAND",
+      "name": "relationshipTypes/exabel.HAS_BRAND",
       "description": "Denotes a company that owns a brand"
     }
 
@@ -74,7 +74,7 @@ Create relationship type
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "relationshipTypes/HAS_BRAND",
+      "name": "relationshipTypes/exabel.HAS_BRAND",
       "description": "Denotes a company that owns a brand"
     }
 
@@ -83,7 +83,7 @@ Update relationship type
 ------------------------
 ..  http:example:: curl wget python-requests
 
-    PATCH /v1/relationshipTypes/HAS_BRAND HTTP/1.1
+    PATCH /v1/relationshipTypes/exabel.HAS_BRAND HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
@@ -97,7 +97,7 @@ Update relationship type
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "relationshipTypes/HAS_BRAND",
+      "name": "relationshipTypes/exabel.HAS_BRAND",
       "description": "Denotes a company that owns a brand"
     }
 
@@ -126,7 +126,7 @@ Get relationship
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/relationshipTypes/HAS_BRAND/relationships?from_entity=entityTypes/company/entities/001yfz_e-volkswagen_ag&to_entity=entityTypes/brand/entities/skoda HTTP/1.1
+    GET /v1/relationshipTypes/exabel.HAS_BRAND/relationships?from_entity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&to_entity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -134,9 +134,9 @@ Get relationship
     Content-Type: application/json; charset=utf-8
 
     {
-      "parent": "relationshipTypes/HAS_BRAND",
-      "from_entity": "entityTypes/company/entities/001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/brand/entities/skoda",
+      "parent": "relationshipTypes/exabel.HAS_BRAND",
+      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG"
     }
 
@@ -146,13 +146,13 @@ Create relationship
 -------------------
 ..  http:example:: curl wget python-requests
 
-    POST /v1/relationshipTypes/HAS_BRAND/relationships HTTP/1.1
+    POST /v1/relationshipTypes/exabel.HAS_BRAND/relationships HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
-      "from_entity": "entityTypes/company/entities/001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/brand/entities/skoda",
+      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG"
     }
 
@@ -161,9 +161,9 @@ Create relationship
     Content-Type: application/json; charset=utf-8
 
     {
-      "parent": "relationshipTypes/HAS_BRAND",
-      "from_entity": "entityTypes/company/entities/001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/brand/entities/skoda",
+      "parent": "relationshipTypes/exabel.HAS_BRAND",
+      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG"
     }
 
@@ -172,13 +172,13 @@ Update relationship
 -------------------
 ..  http:example:: curl wget python-requests
 
-    PUT /v1/relationshipTypes/HAS_BRAND/relationships HTTP/1.1
+    PUT /v1/relationshipTypes/exabel.HAS_BRAND/relationships HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
-      "from_entity": "entityTypes/company/entities/001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/brand/entities/skoda",
+      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG",
       "properties": {
         "owned_since": "1994-12-19"
@@ -190,9 +190,9 @@ Update relationship
     Content-Type: application/json; charset=utf-8
 
     {
-      "parent": "relationshipTypes/HAS_BRAND",
-      "from_entity": "entityTypes/company/entities/001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/brand/entities/skoda",
+      "parent": "relationshipTypes/exabel.HAS_BRAND",
+      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG",
       "properties": {
         "owned_since": "1994-12-19"
@@ -204,7 +204,7 @@ Delete relationship
 -------------------
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/relationshipTypes/HAS_BRAND/relationships?from_entity=entityTypes/company/entities/001yfz_e-volkswagen_ag&to_entity=entityTypes/brand/entities/skoda HTTP/1.1
+    DELETE /v1/relationshipTypes/exabel.HAS_BRAND/relationships?from_entity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&to_entity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: graph.api.exabel.com
 
 

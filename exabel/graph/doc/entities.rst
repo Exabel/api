@@ -27,10 +27,13 @@ Retrieves the entity type catalogue.
 
     [
       {
-        "name": "entityTypes/brand"
+        "name": "entityTypes/exabel.brand"
       },
       {
-        "name": "entityTypes/region"
+        "name": "entityTypes/exabel.region"
+      },
+      {
+        "name": "entityTypes/customer1.factory"
       }
     ]
 
@@ -40,7 +43,7 @@ Get entity type details
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/brand HTTP/1.1
+    GET /v1/entityTypes/exabel.brand HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -48,7 +51,7 @@ Get entity type details
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/brand",
+      "name": "entityTypes/exabel.brand",
       "display_name": "Brand",
       "description": "Brands owned by companies"
     }
@@ -68,7 +71,7 @@ Get entity
 ----------
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/brand/entities/skoda HTTP/1.1
+    GET /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -76,7 +79,7 @@ Get entity
     Content-Type: application/json; charset=utf-8
 
       {
-        "name": "entityTypes/brand/entities/skoda",
+        "name": "entityTypes/exabel.brand/entities/customer1.skoda",
         "display_name": "Škoda"
       }
 
@@ -85,12 +88,12 @@ Create entity
 -------------
 ..  http:example:: curl wget python-requests
 
-    POST /v1/entityTypes/brand/entities HTTP/1.1
+    POST /v1/entityTypes/exabel.brand/entities HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/brand/entities/skoda",
+      "name": "entityTypes/exabel.brand/entities/customer1.skoda",
       "display_name": "Škoda"
     }
 
@@ -99,7 +102,7 @@ Create entity
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/brand/entities/skoda",
+      "name": "entityTypes/exabel.brand/entities/customer1.skoda",
       "display_name": "Škoda"
     }
 
@@ -108,7 +111,7 @@ Update entity
 -------------
 ..  http:example:: curl wget python-requests
 
-    PATCH /v1/entityTypes/brand/entities/skoda HTTP/1.1
+    PATCH /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
@@ -125,7 +128,7 @@ Update entity
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/brand/entities/skoda",
+      "name": "entityTypes/exabel.brand/entities/customer1.skoda",
       "display_name": "Škoda",
       "description": "Simply clever"
       "properties": {
@@ -141,7 +144,7 @@ Delete entity
 
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/entityTypes/brand/entities/skoda HTTP/1.1
+    DELETE /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: graph.api.exabel.com
 
 

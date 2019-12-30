@@ -42,3 +42,6 @@ letters are allowed.
 
 Note that names are stored case sensitive, in other words, "APPLE" is not equal to "apple". By convention, entities
 have lower case resource ids, and relationships have upper case ids.
+
+Resource names are prefixed with a namespace followed by a dot, either ``exabel.`` or the customer's namespace, for
+instance ``customer1.``.

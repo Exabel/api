@@ -12,7 +12,7 @@ Get signal
 ----------
 ..  http:example:: curl wget python-requests
 
-    GET /v1/signals/visitors HTTP/1.1
+    GET /v1/signals/customer1.visitors HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -20,8 +20,8 @@ Get signal
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "signals/visitors",
-      "entity_type": "entityTypes/stores",
+      "name": "signals/customer1.visitors",
+      "entity_type": "entityTypes/customer1.stores",
       "display_name": "Daily visitors",
       "description": "The number of visitors in a store per day"
     }
@@ -31,12 +31,13 @@ Create signal
 -------------
 ..  http:example:: curl wget python-requests
 
-    POST /v1/signals/visitors HTTP/1.1
+    POST /v1/signals HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
-      "entity_type": "entityTypes/stores",
+      "name": "signals/customer1.visitors"
+      "entity_type": "entityTypes/customer1.stores",
       "display_name": "Daily visitors",
       "description": "The number of visitors in a store per day"
     }
@@ -46,8 +47,8 @@ Create signal
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "signals/visitors",
-      "entity_type": "entityTypes/stores",
+      "name": "signals/customer1.visitors",
+      "entity_type": "entityTypes/customer1.stores",
       "display_name": "Daily visitors",
       "description": "The number of visitors in a store per day"
     }
@@ -57,12 +58,12 @@ Update signal
 -------------
 ..  http:example:: curl wget python-requests
 
-    PATCH /v1/signals/visitors HTTP/1.1
+    PATCH /v1/signals/customer1.visitors HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
-      "entity_type": "entityTypes/stores",
+      "entity_type": "entityTypes/customer1.stores",
       "display_name": "Daily visitors",
       "description": "The number of visitors in a store per day",
       "update_mask": ["entity_type", "display_name", "description"]
@@ -73,8 +74,8 @@ Update signal
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "signals/visitors",
-      "entity_type": "entityTypes/stores",
+      "name": "signals/customer1.visitors",
+      "entity_type": "entityTypes/customer1.stores",
       "display_name": "Daily visitors",
       "description": "The number of visitors in a store per day"
     }
@@ -85,7 +86,7 @@ Delete signal
 
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/signals/visitors HTTP/1.1
+    DELETE /v1/signals/customer1.visitors HTTP/1.1
     Host: graph.api.exabel.com
 
 
