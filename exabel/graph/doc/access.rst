@@ -5,8 +5,8 @@ Access
 The Exabel Graph API is available using gRPC and REST. For a complete reference, see
 https://endpointsportal.mimtest-151313.cloud.goog/docs/graph.api.exabel.com/g/introduction
 
-.. Note::
-   TODO: Change to prod URL when available
+.. Todo::
+   Change to prod URL when available
 
 To access the API, you need an API key provided by Exabel.
 
