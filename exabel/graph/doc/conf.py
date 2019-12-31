@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Exabel Graph API'
-copyright = '2019, Exabel AS'
+copyright = '2019-2020, Exabel AS'
 author = 'Exabel AS'
 
 # The short X.Y version
