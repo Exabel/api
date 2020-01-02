@@ -51,6 +51,17 @@ a new PR.
   pip3 install -U sphinx
   pip3 install sphinx_rtd_theme sphinxcontrib-httpexample
   ```
+* Node.js, e.g. install with `nvm`: https://github.com/creationix/nvm#install-script
+  ```
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+  nvm install
+  ```
+* Aerobatic CLI and account for Exabel: https://dashboard.aerobatic.com/account/exabel/
+  * Get invite from grotmol@exabel.com or wergeland@exabel.com
+  ```
+  npm install aerobatic-cli -g
+  aero login
+  ```
 
 ## Building
 
@@ -58,3 +69,18 @@ Produce HTML output in the folder 'target/html':
 ```
 make html
 ```
+
+
+## Deploy
+
+To production: https://exabel-api-doc.aerobaticapp.com/
+```
+nvm use
+aero deploy
+```
+
+## Auth0 integration
+
+Aerobatic uses a separate "regular web application" in Auth0 (called "Documentation"),
+and the login page hosted by Auth0. Client id, client secret, and tenant is set as
+environment properties Aerobatic: https://dashboard.aerobatic.com/exabel/exabel-api-doc/envvars
