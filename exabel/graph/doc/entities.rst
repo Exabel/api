@@ -16,6 +16,10 @@ List entity types
 
 Retrieves the entity type catalogue.
 
+..  http:get:: /v1/entityTypes
+
+    :>jsonarr string name: Entity type resource name
+
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes HTTP/1.1
@@ -41,6 +45,12 @@ Retrieves the entity type catalogue.
 Get entity type details
 -----------------------
 
+..  http:get:: /v1/entityTypes/{entityTypeId}
+
+    :>json string name: Entity type resource name
+    :>json string displayName: Entity type display name
+    :>json string description: Entity type description
+
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes/exabel.brand HTTP/1.1
@@ -52,7 +62,7 @@ Get entity type details
 
     {
       "name": "entityTypes/exabel.brand",
-      "display_name": "Brand",
+      "displayName": "Brand",
       "description": "Brands owned by companies"
     }
 
@@ -69,6 +79,15 @@ The collection id for entities is ``entities``.
 
 Get entity
 ----------
+
+..  http:get:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
+
+    :>json string name: Entity resource name
+    :>json string displayName: Entity display name
+    :>json string description: Entity description
+    :>json object properties: Entity properties
+
+
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
@@ -80,12 +99,25 @@ Get entity
 
       {
         "name": "entityTypes/exabel.brand/entities/customer1.skoda",
-        "display_name": "Škoda"
+        "displayName": "Škoda"
       }
 
 
 Create entity
 -------------
+
+..  http:post:: /v1/entityTypes/{entityTypeId}/entities
+
+    :<json string name: Entity resource name on the format ``entityTypes/{entityTypeId}/entities/{entityId}`` (required)
+    :<json string displayName: Entity display name
+    :<json string description: Entity description
+    :<json object properties: Entity properties
+
+    :>json string name: Entity resource name
+    :>json string displayName: Entity display name
+    :>json string description: Entity description
+    :>json object properties: Entity properties
+
 ..  http:example:: curl wget python-requests
 
     POST /v1/entityTypes/exabel.brand/entities HTTP/1.1
@@ -94,7 +126,7 @@ Create entity
 
     {
       "name": "entityTypes/exabel.brand/entities/customer1.skoda",
-      "display_name": "Škoda"
+      "displayName": "Škoda"
     }
 
 
@@ -103,12 +135,26 @@ Create entity
 
     {
       "name": "entityTypes/exabel.brand/entities/customer1.skoda",
-      "display_name": "Škoda"
+      "displayName": "Škoda"
     }
 
 
 Update entity
 -------------
+
+..  http:patch:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
+
+    :<json string displayName: Entity display name
+    :<json string description: Entity description
+    :<json object properties: Entity properties
+    :<json array updateMask: Field mask (required)
+
+    :>json string name: Entity resource name
+    :>json string displayName: Entity display name
+    :>json string description: Entity description
+    :>json object properties: Entity properties
+
+
 ..  http:example:: curl wget python-requests
 
     PATCH /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
@@ -118,9 +164,9 @@ Update entity
     {
       "description": "Simply clever",
       "properties": {
-        "brand_type": "car"
+        "brandType": "car"
       },
-      "update_mask": ["description", "properties"]
+      "updateMask": ["description", "properties"]
     }
 
 
@@ -129,10 +175,10 @@ Update entity
 
     {
       "name": "entityTypes/exabel.brand/entities/customer1.skoda",
-      "display_name": "Škoda",
+      "displayName": "Škoda",
       "description": "Simply clever"
       "properties": {
-        "brand_type": "car"
+        "brandType": "car"
       },
     }
 
@@ -140,7 +186,9 @@ Update entity
 Delete entity
 -------------
 
-..  note:: **All** relationships and time series for this entity will also be deleted.
+..  note:: **All** relationships and time series for this entity will also be deleted!
+
+..  http:delete:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
 
 ..  http:example:: curl wget python-requests
 

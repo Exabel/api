@@ -18,6 +18,10 @@ List relationship types
 
 Retrieves the relationship type catalogue.
 
+..  http:get:: /v1/relationshipTypes
+
+    :>jsonarr string name: Relationship type resource name
+
 ..  http:example:: curl wget python-requests
 
     GET /v1/relationshipTypes HTTP/1.1
@@ -40,6 +44,12 @@ Retrieves the relationship type catalogue.
 Get relationship type details
 -----------------------------
 
+..  http:get:: /v1/relationshipTypes/{relationshipTypeId}
+
+    :>json string name: Relationship type resource name
+    :>json string description: Relationship type description
+    :>json object properties: Relationship type properties
+
 ..  http:example:: curl wget python-requests
 
     GET /v1/relationshipTypes/exabel.HAS_BRAND HTTP/1.1
@@ -58,6 +68,18 @@ Get relationship type details
 
 Create relationship type
 ------------------------
+
+..  http:post:: /v1/relationshipTypes
+
+    :>json string name: Relationship type resource name on the format ``relationshipTypes/{relationshipTypeId}``
+        (required)
+    :>json string description: Relationship type description
+    :>json object properties: Relationship type properties
+
+    :<json string name: Relationship type resource name
+    :<json string description: Relationship type description
+    :<json object properties: Relationship type properties
+
 ..  http:example:: curl wget python-requests
 
     POST /v1/relationshipTypes HTTP/1.1
@@ -81,6 +103,17 @@ Create relationship type
 
 Update relationship type
 ------------------------
+
+..  http:patch:: /v1/relationshipTypes/{relationshipTypeId}
+
+    :>json string description: Relationship type description
+    :>json object properties: Relationship type properties
+    :>json array updateMask: Field mask (required)
+
+    :<json string name: Relationship type resource name
+    :<json string description: Relationship type description
+    :<json object properties: Relationship type properties
+
 ..  http:example:: curl wget python-requests
 
     PATCH /v1/relationshipTypes/exabel.HAS_BRAND HTTP/1.1
@@ -89,7 +122,7 @@ Update relationship type
 
     {
       "description": "Denotes a company that owns a brand",
-      "update_mask": ["description"]
+      "updateMask": ["description"]
     }
 
 
@@ -124,9 +157,22 @@ The collection id for relationships is ``relationships``.
 Get relationship
 ----------------
 
+..  http:get:: /v1/relationshipTypes/{relationshipTypeId}/relationships
+
+    :query fromEntity: The entity resource name of the start point of the relationship on the form
+        ``entityTypes/{entityTypeId}}/entities/{entityId}`` (required)
+    :query toEntity: The entity resource name of the end point of the relationship on the form
+        ``entityTypes/{entityTypeId}}/entities/{entityId}`` (required)
+
+    :<json string parent: Relationship type resource name
+    :<json string fromEntity: The entity resource name of the start point of the relationship
+    :<json string toEntity: The entity resource name of the end point of the relationship
+    :<json string description: Relationship description
+    :<json object properties: Relationship properties
+
 ..  http:example:: curl wget python-requests
 
-    GET /v1/relationshipTypes/exabel.HAS_BRAND/relationships?from_entity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&to_entity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
+    GET /v1/relationshipTypes/exabel.HAS_BRAND/relationships?fromEntity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&toEntity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -135,8 +181,8 @@ Get relationship
 
     {
       "parent": "relationshipTypes/exabel.HAS_BRAND",
-      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "fromEntity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "toEntity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG"
     }
 
@@ -144,6 +190,19 @@ Get relationship
 
 Create relationship
 -------------------
+..  http:post:: /v1/relationshipTypes/{relationshipTypeId}/relationships
+
+    :>json string fromEntity: The entity resource name of the start point of the relationship (required)
+    :>json string toEntity: The entity resource name of the end point of the relationship (required)
+    :>json string description: Relationship description
+    :>json object properties: Relationship properties
+
+    :<json string parent: Relationship type resource name
+    :<json string fromEntity: The entity resource name of the start point of the relationship
+    :<json string toEntity: The entity resource name of the end point of the relationship
+    :<json string description: Relationship description
+    :<json object properties: Relationship properties
+
 ..  http:example:: curl wget python-requests
 
     POST /v1/relationshipTypes/exabel.HAS_BRAND/relationships HTTP/1.1
@@ -151,8 +210,8 @@ Create relationship
     Content-Type: application/json; charset=utf-8
 
     {
-      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "fromEntity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "toEntity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG"
     }
 
@@ -162,14 +221,27 @@ Create relationship
 
     {
       "parent": "relationshipTypes/exabel.HAS_BRAND",
-      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "fromEntity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "toEntity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG"
     }
 
 
 Update relationship
 -------------------
+..  http:put:: /v1/relationshipTypes/{relationshipTypeId}/relationships
+
+    :>json string fromEntity: The entity resource name of the start point of the relationship (required)
+    :>json string toEntity: The entity resource name of the end point of the relationship (required)
+    :>json string description: Relationship description
+    :>json object properties: Relationship properties
+
+    :<json string parent: Relationship type resource name
+    :<json string fromEntity: The entity resource name of the start point of the relationship
+    :<json string toEntity: The entity resource name of the end point of the relationship
+    :<json string description: Relationship description
+    :<json object properties: Relationship properties
+
 ..  http:example:: curl wget python-requests
 
     PUT /v1/relationshipTypes/exabel.HAS_BRAND/relationships HTTP/1.1
@@ -177,11 +249,11 @@ Update relationship
     Content-Type: application/json; charset=utf-8
 
     {
-      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "fromEntity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "toEntity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG",
       "properties": {
-        "owned_since": "1994-12-19"
+        "ownedSince": "1994-12-19"
       }
     }
 
@@ -191,20 +263,25 @@ Update relationship
 
     {
       "parent": "relationshipTypes/exabel.HAS_BRAND",
-      "from_entity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
-      "to_entity": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "fromEntity": "entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag",
+      "toEntity": "entityTypes/exabel.brand/entities/customer1.skoda",
       "description": "Škoda is a brand of Volkswagen AG",
       "properties": {
-        "owned_since": "1994-12-19"
+        "ownedSince": "1994-12-19"
       }
     }
 
 
 Delete relationship
 -------------------
+..  http:delete:: /v1/relationshipTypes/{relationshipTypeId}/relationships
+
+    :query fromEntity: entityTypes/{entityTypeId}}/entities/{entityId} (required)
+    :query toEntity: entityTypes/{entityTypeId}}/entities/{entityId} (required)
+
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/relationshipTypes/exabel.HAS_BRAND/relationships?from_entity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&to_entity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
+    DELETE /v1/relationshipTypes/exabel.HAS_BRAND/relationships?fromEntity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&toEntity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: graph.api.exabel.com
 
 

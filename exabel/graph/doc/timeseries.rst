@@ -16,9 +16,14 @@ which always will be returned by the server.
 
 List time series by entity
 --------------------------
+
+..  http:get:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/timeSeries
+
+    :>jsonarr string name: Time series resource name
+
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/store/entity/apple_store_fifth_avenue/timeSeries HTTP/1.1
+    GET /v1/entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/timeSeries HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -26,16 +31,21 @@ List time series by entity
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/store/entity/apple_store_fifth_avenue/signals/visitors",
-      "name": "entityTypes/store/entity/apple_store_fifth_avenue/signals/total_spend_amount"
+      "name": "entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+      "name": "entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/signals/customer1.total_spend_amount"
     }
 
 
 List time series by signal
 --------------------------
+
+..  http:get:: /v1/signals/{signalId}/timeSeries
+
+    :>jsonarr string name: Time series resource name
+
 ..  http:example:: curl wget python-requests
 
-    GET /v1/signals/visitors/timeSeries HTTP/1.1
+    GET /v1/signals/customer1.visitors/timeSeries HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -43,17 +53,28 @@ List time series by signal
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/store/entity/apple_store_fifth_avenue/signals/visitors",
-      "name": "entityTypes/store/entity/apple_store_grand_central/signals/visitors",
-      "name": "entityTypes/store/entity/apple_store_upper_west_side/signals/visitors"
+      "name": "entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+      "name": "entityTypes/exabel.store/entity/customer1.apple_store_grand_central/signals/customer1.visitors",
+      "name": "entityTypes/exabel.store/entity/customer1.apple_store_upper_west_side/signals/customer1.visitors"
     }
 
 
 Get a specific time series
 --------------------------
+
+..  http:get:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}
+
+    :query timestamp view.timeRange.fromTime: The start point of the time range. By default included in the range.
+    :query boolean view.timeRange.excludeFrom: Set to true to exclude the start point from the range.
+    :query timestamp view.timeRange.toTime: The end point of the time range. By default excluded from the range.
+    :query boolean view.timeRange.includeTo: Set to true to include the end point in the range.
+
+    :>jsonarr string name: Time series resource name
+    :>json array points: Data points
+
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
+    GET /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: graph.api.exabel.com
 
 
@@ -61,7 +82,7 @@ Get a specific time series
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/customer1.signals/visitors",
+      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
       "points": [
         {"time": "2019-01-01T00:00:00Z", "value": 1223},
         {"time": "2019-01-02T00:00:00Z", "value": 3435},
@@ -72,9 +93,22 @@ Get a specific time series
 
 Create time series
 ------------------
+
+..  http:post:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}
+
+    :query timestamp view.timeRange.fromTime: The start point of the time range. By default included in the range.
+    :query boolean view.timeRange.excludeFrom: Set to true to exclude the start point from the range.
+    :query timestamp view.timeRange.toTime: The end point of the time range. By default excluded from the range.
+    :query boolean view.timeRange.includeTo: Set to true to include the end point in the range.
+
+    :<json array points: Data points
+
+    :>json string name: Time series resource name
+    :>json array points: Data points
+
 ..  http:example:: curl wget python-requests
 
-    POST /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
+    POST /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
@@ -83,14 +117,7 @@ Create time series
         {"time": "2019-01-01T00:00:00Z", "value": 1223},
         {"time": "2019-01-02T00:00:00Z", "value": 3435},
         {"time": "2019-01-03T00:00:00Z", "value": 2976}
-      ],
-      "view": {
-        "time_range": {
-          "from_time": "2019-01-01T00:00:00Z",
-          "to_time": "2019-01-03T00:00:00Z",
-          "include_to": "true"
-        }
-      }
+      ]
     }
 
 
@@ -98,7 +125,7 @@ Create time series
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
       "points": [
         {"time": "2019-01-01T00:00:00Z", "value": 1223},
         {"time": "2019-01-02T00:00:00Z", "value": 3435},
@@ -113,25 +140,31 @@ Update time series
 The data in this request and the existing data are merged together. All points in the request will overwrite
 the existing points with the same key, unless the new value is empty, in which case the point will be deleted.
 
+..  http:patch:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}
+
+    :query timestamp view.timeRange.fromTime: The start point of the time range. By default included in the range.
+    :query boolean view.timeRange.excludeFrom: Set to true to exclude the start point from the range.
+    :query timestamp view.timeRange.toTime: The end point of the time range. By default excluded from the range.
+    :query boolean view.timeRange.includeTo: Set to true to include the end point in the range.
+
+    :<json array points: Data points
+
+    :>json string name: Time series resource name
+    :>json array points: Data points
+
+
 ..  http:example:: curl wget python-requests
 
-    PATCH /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
+    PATCH /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-04T00:00:00Z&view.timeRange.fromTime=2019-01-06T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
       "points": [
         {"time": "2019-01-04T00:00:00Z", "value": 4231},
-        {"time": "2019-01-05T00:00:00Z", "value": 3121},
+        {"time": "2019-01-05T00:00:00Z"},
         {"time": "2019-01-06T00:00:00Z", "value": 3521}
-      ],
-     "view": {
-      "time_range": {
-        "from_time": "2019-01-04T00:00:00Z",
-        "to_time": "2019-01-06T00:00:00Z",
-        "include_to": "true"
-      }
-     }
+      ]
     }
 
 
@@ -139,10 +172,9 @@ the existing points with the same key, unless the new value is empty, in which c
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
       "points": [
         {"time": "2019-01-04T00:00:00Z", "value": 4231},
-        {"time": "2019-01-05T00:00:00Z", "value": 3121},
         {"time": "2019-01-06T00:00:00Z", "value": 3521}
       ]
     }
@@ -151,19 +183,23 @@ the existing points with the same key, unless the new value is empty, in which c
 Delete time series points
 -------------------------
 
+..  http:post:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}/points:batchDelete
+
+    :<json array timeRanges: List of time ranges to delete data points from.
+
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors/points:batchDelete HTTP/1.1
+    POST /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors/points:batchDelete HTTP/1.1
     Host: graph.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
-      "time_ranges": [
+      "timeRanges": [
         {
-          "from_time": "2019-01-04T00:00:00Z",
-          "exclude_from": "true",
-          "to_time": "2019-01-05T00:00:00Z",
-          "include_to": "true"
+          "fromTime": "2019-01-04T00:00:00Z",
+          "excludeFrom": "true",
+          "toTime": "2019-01-05T00:00:00Z",
+          "includeTo": "true"
         }
       ]
     }
@@ -177,9 +213,11 @@ Delete time series
 
 ..  note:: This will delete **all** points in the time series.
 
+..  http:delete:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}
+
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/entityTypes/customer1.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
+    DELETE /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
     Host: graph.api.exabel.com
 
 

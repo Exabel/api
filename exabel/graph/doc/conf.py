@@ -158,7 +158,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'ExabelGraphApi', 'Exabel Graph API Documentation',
-     author, 'ExabelGraphApi', 'One line description of project.',
+     author, 'ExabelGraphApi', 'API to access and manipulate the Exabel Knowledge Graph',
      'Miscellaneous'),
 ]
 

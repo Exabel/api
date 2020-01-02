@@ -31,7 +31,7 @@ Resource name conventions
 *************************
 
 Resource names in the Exabel Graph API follows Google Cloud API recommendation. The ``name`` property of a resource
-is a unique reference to the resource, and follows certain rules. For user friendly names, use the ``display_name``
+is a unique reference to the resource, and follows certain rules. For user friendly names, use the ``displayName``
 property. For more information, see https://cloud.google.com/apis/design/resource_names
 
 Collection ids for all collections are defined by this API.
@@ -45,3 +45,11 @@ have lower case resource ids, and relationships have upper case ids.
 
 Resource names are prefixed with a namespace followed by a dot, either ``exabel.`` or the customer's namespace, for
 instance ``customer1.``.
+
+
+Partial updates
+***************
+
+Some resources supports the ``PATCH`` method for partial update with i ``updateMask`` attribute, which is
+a ``FieldMask``. For more information on how to use field masks, see
+https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask

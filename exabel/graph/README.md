@@ -38,6 +38,8 @@ a new PR.
 
 # Documentation
 
+[Original design documentation](https://docs.google.com/document/d/1_qogmUdmApPPHqzPgY_jhs0vvpqyMZBOQs_Dm5mZdL0/edit)
+
 ## Prerequisites
 
 * Python 3
