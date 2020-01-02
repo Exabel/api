@@ -1,0 +1,200 @@
+
+Entities
+========
+
+Entity types
+************
+
+An *entity type* is a group of entities having similar real world meaning, for instance company, web domain, brand,
+or region.
+
+The collection id for entity types is ``entityTypes``.
+
+
+List entity types
+-----------------
+
+Retrieves the entity type catalogue.
+
+..  http:get:: /v1/entityTypes
+
+    :>jsonarr string name: Entity type resource name
+
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    [
+      {
+        "name": "entityTypes/exabel.brand"
+      },
+      {
+        "name": "entityTypes/exabel.region"
+      },
+      {
+        "name": "entityTypes/customer1.factory"
+      }
+    ]
+
+
+Get entity type details
+-----------------------
+
+..  http:get:: /v1/entityTypes/{entityTypeId}
+
+    :>json string name: Entity type resource name
+    :>json string displayName: Entity type display name
+    :>json string description: Entity type description
+
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes/exabel.brand HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    {
+      "name": "entityTypes/exabel.brand",
+      "displayName": "Brand",
+      "description": "Brands owned by companies"
+    }
+
+
+Entities
+********
+
+An *entity* belongs to exactly one entity type and is usually a real-world instance of its type. They are created
+and managed either by a customer or by Exabel, for instance Alphabet, Inc., www.amazon.com, Coca-Cola, EMEA.
+Entities are the core concept of this API.
+
+The collection id for entities is ``entities``.
+
+
+Get entity
+----------
+
+..  http:get:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
+
+    :>json string name: Entity resource name
+    :>json string displayName: Entity display name
+    :>json string description: Entity description
+    :>json object properties: Entity properties
+
+
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+      {
+        "name": "entityTypes/exabel.brand/entities/customer1.skoda",
+        "displayName": "Škoda"
+      }
+
+
+Create entity
+-------------
+
+..  http:post:: /v1/entityTypes/{entityTypeId}/entities
+
+    :<json string name: Entity resource name on the format ``entityTypes/{entityTypeId}/entities/{entityId}`` (required)
+    :<json string displayName: Entity display name
+    :<json string description: Entity description
+    :<json object properties: Entity properties
+
+    :>json string name: Entity resource name
+    :>json string displayName: Entity display name
+    :>json string description: Entity description
+    :>json object properties: Entity properties
+
+..  http:example:: curl wget python-requests
+
+    POST /v1/entityTypes/exabel.brand/entities HTTP/1.1
+    Host: graph.api.exabel.com
+    Content-Type: application/json; charset=utf-8
+
+    {
+      "name": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "displayName": "Škoda"
+    }
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    {
+      "name": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "displayName": "Škoda"
+    }
+
+
+Update entity
+-------------
+
+..  http:patch:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
+
+    :<json string displayName: Entity display name
+    :<json string description: Entity description
+    :<json object properties: Entity properties
+    :<json array updateMask: Field mask (required)
+
+    :>json string name: Entity resource name
+    :>json string displayName: Entity display name
+    :>json string description: Entity description
+    :>json object properties: Entity properties
+
+
+..  http:example:: curl wget python-requests
+
+    PATCH /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
+    Host: graph.api.exabel.com
+    Content-Type: application/json; charset=utf-8
+
+    {
+      "description": "Simply clever",
+      "properties": {
+        "brandType": "car"
+      },
+      "updateMask": ["description", "properties"]
+    }
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    {
+      "name": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "displayName": "Škoda",
+      "description": "Simply clever"
+      "properties": {
+        "brandType": "car"
+      },
+    }
+
+
+Delete entity
+-------------
+
+..  note:: **All** relationships and time series for this entity will also be deleted!
+
+..  http:delete:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
+
+..  http:example:: curl wget python-requests
+
+    DELETE /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+
