@@ -19,7 +19,7 @@ Get signal
     :>json string description: Signal description
     :>json string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
-        how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``
+        how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
 
 ..  http:example:: curl wget python-requests
 
