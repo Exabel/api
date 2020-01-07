@@ -11,7 +11,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
-// Manages entity types and entities in the graph API.
+// Manages entity types and entities in the Data API.
 // TODO(nordli): Implement support for searching for entities.
 // TODO(wergeland): Implement support for paginating of list entities.
 service EntityService {

@@ -25,7 +25,7 @@ Retrieves the relationship type catalogue.
 ..  http:example:: curl wget python-requests
 
     GET /v1/relationshipTypes HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -53,7 +53,7 @@ Get relationship type details
 ..  http:example:: curl wget python-requests
 
     GET /v1/relationshipTypes/exabel.HAS_BRAND HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -83,7 +83,7 @@ Create relationship type
 ..  http:example:: curl wget python-requests
 
     POST /v1/relationshipTypes HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -117,7 +117,7 @@ Update relationship type
 ..  http:example:: curl wget python-requests
 
     PATCH /v1/relationshipTypes/exabel.HAS_BRAND HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -222,7 +222,7 @@ Get relationship
 ..  http:example:: curl wget python-requests
 
     GET /v1/relationshipTypes/exabel.HAS_BRAND/relationships?fromEntity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&toEntity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -255,7 +255,7 @@ Create relationship
 ..  http:example:: curl wget python-requests
 
     POST /v1/relationshipTypes/exabel.HAS_BRAND/relationships HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -294,7 +294,7 @@ Update relationship
 ..  http:example:: curl wget python-requests
 
     PUT /v1/relationshipTypes/exabel.HAS_BRAND/relationships HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -331,7 +331,7 @@ Delete relationship
 ..  http:example:: curl wget python-requests
 
     DELETE /v1/relationshipTypes/exabel.HAS_BRAND/relationships?fromEntity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&toEntity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK

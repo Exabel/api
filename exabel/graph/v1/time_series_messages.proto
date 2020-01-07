@@ -10,7 +10,7 @@ import "exabel/time/time_range.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
-// A time series resource in the graph API. All time series have one entity and one signal as its
+// A time series resource in the Data API. All time series have one entity and one signal as its
 // parents. As such, it can be referred to as both "{entity_name}/{signal_name}" and
 // "{signal_name}/{entity_name}". The first version is the canonical form. The signal must be
 // associated with the entity's type. Some time series are provided by Exabel and their data cannot

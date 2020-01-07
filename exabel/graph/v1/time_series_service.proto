@@ -11,7 +11,7 @@ import "exabel/time/time_range.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-// Manages time series in the graph API.
+// Manages time series in the Data API.
 service TimeSeriesService {
   // Lists all time series for one entity. Only the names are returned.
   rpc ListTimeSeries(ListTimeSeriesRequest) returns (ListTimeSeriesResponse) {

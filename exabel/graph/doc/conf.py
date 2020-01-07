@@ -19,8 +19,8 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Exabel Graph API'
-copyright = '2019-2020, Exabel AS'
+project = 'Exabel Data API'
+copyright = '2019-2020, Data AS'
 author = 'Exabel AS'
 
 # The short X.Y version
@@ -109,7 +109,7 @@ html_theme = 'sphinx_rtd_theme'
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ExabelGraphApidoc'
+htmlhelp_basename = 'ExabelDataApidoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -136,7 +136,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'ExabelGraphApi.tex', 'Exabel Graph API Documentation',
+    (master_doc, 'ExabelDataApi.tex', 'Exabel Data API Documentation',
      'Exabel AS', 'manual'),
 ]
 
@@ -146,7 +146,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'exabelgraphapi', 'Exabel Graph API Documentation',
+    (master_doc, 'exabeldataapi', 'Exabel Data API Documentation',
      [author], 1)
 ]
 
@@ -157,8 +157,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'ExabelGraphApi', 'Exabel Graph API Documentation',
-     author, 'ExabelGraphApi', 'API to access and manipulate the Exabel Knowledge Graph',
+    (master_doc, 'ExabelDataApi', 'Exabel Data API Documentation',
+     author, 'ExabelDataApi', 'API to access and manipulate Exabel graph and time series data',
      'Miscellaneous'),
 ]
 

@@ -11,7 +11,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
-// Manages relationship types and relationships in the graph API.
+// Manages relationship types and relationships in the Data API.
 service RelationshipService {
   // List all relationship types from a common catalog.
   rpc ListRelationshipTypes(ListRelationshipTypesRequest) returns (ListRelationshipTypesResponse) {

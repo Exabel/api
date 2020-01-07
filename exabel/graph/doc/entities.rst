@@ -23,7 +23,7 @@ Retrieves the entity type catalogue.
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -54,7 +54,7 @@ Get entity type details
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes/exabel.brand HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -121,7 +121,7 @@ Get entity
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -151,7 +151,7 @@ Create entity
 ..  http:example:: curl wget python-requests
 
     POST /v1/entityTypes/exabel.brand/entities HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -188,7 +188,7 @@ Update entity
 ..  http:example:: curl wget python-requests
 
     PATCH /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -223,7 +223,7 @@ Delete entity
 ..  http:example:: curl wget python-requests
 
     DELETE /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK

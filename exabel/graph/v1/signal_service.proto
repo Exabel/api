@@ -11,7 +11,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
-// Manages signals in the graph API.
+// Manages signals in the Data API.
 service SignalService {
   // Gets one signal.
   rpc GetSignal(GetSignalRequest) returns (Signal) {
