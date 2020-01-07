@@ -19,7 +19,7 @@ List time series by entity
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/timeSeries
 
-    :>jsonarr string name: Time series resource name
+    :resjsonarr string name: Time series resource name
 
 ..  http:example:: curl wget python-requests
 
@@ -41,7 +41,7 @@ List time series by signal
 
 ..  http:get:: /v1/signals/{signalId}/timeSeries
 
-    :>jsonarr string name: Time series resource name
+    :resjsonarr string name: Time series resource name
 
 ..  http:example:: curl wget python-requests
 
@@ -69,8 +69,8 @@ Get a specific time series
     :query timestamp view.timeRange.toTime: The end point of the time range. By default excluded from the range.
     :query boolean view.timeRange.includeTo: Set to true to include the end point in the range.
 
-    :>jsonarr string name: Time series resource name
-    :>json array points: Data points
+    :resjsonarr string name: Time series resource name
+    :resjson array points: Data points
 
 ..  http:example:: curl wget python-requests
 
@@ -101,10 +101,10 @@ Create time series
     :query timestamp view.timeRange.toTime: The end point of the time range. By default excluded from the range.
     :query boolean view.timeRange.includeTo: Set to true to include the end point in the range.
 
-    :<json array points: Data points
+    :reqjson array points: Data points
 
-    :>json string name: Time series resource name
-    :>json array points: Data points
+    :resjson string name: Time series resource name
+    :resjson array points: Data points
 
 ..  http:example:: curl wget python-requests
 
@@ -147,10 +147,10 @@ the existing points with the same key, unless the new value is empty, in which c
     :query timestamp view.timeRange.toTime: The end point of the time range. By default excluded from the range.
     :query boolean view.timeRange.includeTo: Set to true to include the end point in the range.
 
-    :<json array points: Data points
+    :reqjson array points: Data points
 
-    :>json string name: Time series resource name
-    :>json array points: Data points
+    :resjson string name: Time series resource name
+    :resjson array points: Data points
 
 
 ..  http:example:: curl wget python-requests
@@ -185,7 +185,7 @@ Delete time series points
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}/points:batchDelete
 
-    :<json array timeRanges: List of time ranges to delete data points from.
+    :reqjson array timeRanges: List of time ranges to delete data points from.
 
 ..  http:example:: curl wget python-requests
 

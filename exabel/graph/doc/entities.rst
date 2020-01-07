@@ -18,7 +18,7 @@ Retrieves the entity type catalogue.
 
 ..  http:get:: /v1/entityTypes
 
-    :>jsonarr string name: Entity type resource name
+    :resjsonarr string name: Entity type resource name
 
 ..  http:example:: curl wget python-requests
 
@@ -47,9 +47,9 @@ Get entity type details
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}
 
-    :>json string name: Entity type resource name
-    :>json string displayName: Entity type display name
-    :>json string description: Entity type description
+    :resjson string name: Entity type resource name
+    :resjson string displayName: Entity type display name
+    :resjson string description: Entity type description
 
 ..  http:example:: curl wget python-requests
 
@@ -77,15 +77,45 @@ Entities are the core concept of this API.
 The collection id for entities is ``entities``.
 
 
+List entities
+-------------
+
+Lists all entities of a given entity type.
+
+..  http:get:: /v1/entityTypes/{entityTypeId}
+
+    :resjsonarr string name: Entity resource name
+
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes/exabel.brand HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    [
+      {
+        "name": "entityTypes/exabel.brand/entity/customer1.audi"
+      },
+      {
+        "name": "entityTypes/exabel.brand/entity/customer1.skoda"
+      },
+      {
+        "name": "entityTypes/exabel.brand/entity/customer1.vw"
+      }
+    ]
+
 Get entity
 ----------
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
 
-    :>json string name: Entity resource name
-    :>json string displayName: Entity display name
-    :>json string description: Entity description
-    :>json object properties: Entity properties
+    :resjson string name: Entity resource name
+    :resjson string displayName: Entity display name
+    :resjson string description: Entity description
+    :resjson object properties: Entity properties
 
 
 ..  http:example:: curl wget python-requests
@@ -108,15 +138,15 @@ Create entity
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities
 
-    :<json string name: Entity resource name on the format ``entityTypes/{entityTypeId}/entities/{entityId}`` (required)
-    :<json string displayName: Entity display name
-    :<json string description: Entity description
-    :<json object properties: Entity properties
+    :reqjson string name: Entity resource name on the format ``entityTypes/{entityTypeId}/entities/{entityId}`` (required)
+    :reqjson string displayName: Entity display name
+    :reqjson string description: Entity description
+    :reqjson object properties: Entity properties
 
-    :>json string name: Entity resource name
-    :>json string displayName: Entity display name
-    :>json string description: Entity description
-    :>json object properties: Entity properties
+    :resjson string name: Entity resource name
+    :resjson string displayName: Entity display name
+    :resjson string description: Entity description
+    :resjson object properties: Entity properties
 
 ..  http:example:: curl wget python-requests
 
@@ -144,15 +174,15 @@ Update entity
 
 ..  http:patch:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
 
-    :<json string displayName: Entity display name
-    :<json string description: Entity description
-    :<json object properties: Entity properties
-    :<json array updateMask: Field mask (required)
+    :reqjson string displayName: Entity display name
+    :reqjson string description: Entity description
+    :reqjson object properties: Entity properties
+    :reqjson array updateMask: Field mask (required)
 
-    :>json string name: Entity resource name
-    :>json string displayName: Entity display name
-    :>json string description: Entity description
-    :>json object properties: Entity properties
+    :resjson string name: Entity resource name
+    :resjson string displayName: Entity display name
+    :resjson string description: Entity description
+    :resjson object properties: Entity properties
 
 
 ..  http:example:: curl wget python-requests
