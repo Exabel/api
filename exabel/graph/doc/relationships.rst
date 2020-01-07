@@ -71,10 +71,10 @@ Create relationship type
 
 ..  http:post:: /v1/relationshipTypes
 
-    :resqson string name: Relationship type resource name on the format ``relationshipTypes/{relationshipTypeId}``
+    :reqjson string name: Relationship type resource name on the format ``relationshipTypes/{relationshipTypeId}``
         (required)
-    :resqson string description: Relationship type description
-    :resqson object properties: Relationship type properties
+    :reqjson string description: Relationship type description
+    :reqjson object properties: Relationship type properties
 
     :resjson string name: Relationship type resource name
     :resjson string description: Relationship type description
@@ -106,9 +106,9 @@ Update relationship type
 
 ..  http:patch:: /v1/relationshipTypes/{relationshipTypeId}
 
-    :resqson string description: Relationship type description
-    :resqson object properties: Relationship type properties
-    :resqson array updateMask: Field mask (required)
+    :reqjson string description: Relationship type description
+    :reqjson object properties: Relationship type properties
+    :reqjson array updateMask: Field mask (required)
 
     :resjson string name: Relationship type resource name
     :resjson string description: Relationship type description
@@ -241,10 +241,10 @@ Create relationship
 -------------------
 ..  http:post:: /v1/relationshipTypes/{relationshipTypeId}/relationships
 
-    :resqson string fromEntity: The entity resource name of the start point of the relationship (required)
-    :resqson string toEntity: The entity resource name of the end point of the relationship (required)
-    :resqson string description: Relationship description
-    :resqson object properties: Relationship properties
+    :reqjson string fromEntity: The entity resource name of the start point of the relationship (required)
+    :reqjson string toEntity: The entity resource name of the end point of the relationship (required)
+    :reqjson string description: Relationship description
+    :reqjson object properties: Relationship properties
 
     :resjson string parent: Relationship type resource name
     :resjson string fromEntity: The entity resource name of the start point of the relationship
@@ -280,10 +280,10 @@ Update relationship
 -------------------
 ..  http:put:: /v1/relationshipTypes/{relationshipTypeId}/relationships
 
-    :resqson string fromEntity: The entity resource name of the start point of the relationship (required)
-    :resqson string toEntity: The entity resource name of the end point of the relationship (required)
-    :resqson string description: Relationship description
-    :resqson object properties: Relationship properties
+    :reqjson string fromEntity: The entity resource name of the start point of the relationship (required)
+    :reqjson string toEntity: The entity resource name of the end point of the relationship (required)
+    :reqjson string description: Relationship description
+    :reqjson object properties: Relationship properties
 
     :resjson string parent: Relationship type resource name
     :resjson string fromEntity: The entity resource name of the start point of the relationship

@@ -138,10 +138,10 @@ Create entity
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities
 
-    :resqson string name: Entity resource name on the format ``entityTypes/{entityTypeId}/entities/{entityId}`` (required)
-    :resqson string displayName: Entity display name
-    :resqson string description: Entity description
-    :resqson object properties: Entity properties
+    :reqjson string name: Entity resource name on the format ``entityTypes/{entityTypeId}/entities/{entityId}`` (required)
+    :reqjson string displayName: Entity display name
+    :reqjson string description: Entity description
+    :reqjson object properties: Entity properties
 
     :resjson string name: Entity resource name
     :resjson string displayName: Entity display name
@@ -174,10 +174,10 @@ Update entity
 
 ..  http:patch:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
 
-    :resqson string displayName: Entity display name
-    :resqson string description: Entity description
-    :resqson object properties: Entity properties
-    :resqson array updateMask: Field mask (required)
+    :reqjson string displayName: Entity display name
+    :reqjson string description: Entity description
+    :reqjson object properties: Entity properties
+    :reqjson array updateMask: Field mask (required)
 
     :resjson string name: Entity resource name
     :resjson string displayName: Entity display name

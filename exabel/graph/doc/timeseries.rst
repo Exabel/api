@@ -101,7 +101,7 @@ Create time series
     :query timestamp view.timeRange.toTime: The end point of the time range. By default excluded from the range.
     :query boolean view.timeRange.includeTo: Set to true to include the end point in the range.
 
-    :resqson array points: Data points
+    :reqjson array points: Data points
 
     :resjson string name: Time series resource name
     :resjson array points: Data points
@@ -147,7 +147,7 @@ the existing points with the same key, unless the new value is empty, in which c
     :query timestamp view.timeRange.toTime: The end point of the time range. By default excluded from the range.
     :query boolean view.timeRange.includeTo: Set to true to include the end point in the range.
 
-    :resqson array points: Data points
+    :reqjson array points: Data points
 
     :resjson string name: Time series resource name
     :resjson array points: Data points
@@ -185,7 +185,7 @@ Delete time series points
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}/points:batchDelete
 
-    :resqson array timeRanges: List of time ranges to delete data points from.
+    :reqjson array timeRanges: List of time ranges to delete data points from.
 
 ..  http:example:: curl wget python-requests
 

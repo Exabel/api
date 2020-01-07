@@ -44,11 +44,11 @@ Create signal
 
 ..  http:post:: /v1/signals
 
-    :resqson string name: Signal resource name on the form ``signals/{signalId}`` (required)
-    :resqson string entityType: Resource name of the entity type this signal may exist for (required)
-    :resqson string displayName: Signal display name (required)
-    :resqson string description: Signal description
-    :resqson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
+    :reqjson string name: Signal resource name on the form ``signals/{signalId}`` (required)
+    :reqjson string entityType: Resource name of the entity type this signal may exist for (required)
+    :reqjson string displayName: Signal display name (required)
+    :reqjson string description: Signal description
+    :reqjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
 
@@ -90,13 +90,13 @@ Update signal
 
 ..  http:patch:: /v1/signals/{signalId}
 
-    :resqson string entityType: Resource name of the entity type this signal may exist for
-    :resqson string displayName: Signal display name
-    :resqson string description: Signal description
-    :resqson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
+    :reqjson string entityType: Resource name of the entity type this signal may exist for
+    :reqjson string displayName: Signal display name
+    :reqjson string description: Signal description
+    :reqjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
-    :resqson array updateMask: Field mask (required)
+    :reqjson array updateMask: Field mask (required)
 
 
     :resjson string name: Signal resource name
