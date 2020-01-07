@@ -8,7 +8,7 @@
     <version>0.0.1</version>
     <relativePath>../..</relativePath>
   </parent>
-  <artifactId>graph</artifactId>
+  <artifactId>data</artifactId>
   <version>1.0.1</version>
 
   <dependencies>
@@ -45,7 +45,7 @@
         <artifactId>protobuf-maven-plugin</artifactId>
         <configuration>
           <includes>
-            <include>exabel/graph/**/*.proto</include>
+            <include>exabel/data/**/*.proto</include>
             <include>exabel/math/**/*.proto</include>
             <include>exabel/time/**/*.proto</include>
           </includes>

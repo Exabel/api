@@ -1,8 +1,8 @@
 
 Introduction
-==========================================
+============
 
-The Exabel Graph API is used to maintain and upload custom data to Exabel's Intelligent Modelling platform.
+The Exabel Data API is used to maintain and upload custom data to Exabel's Intelligent Modelling platform.
 
 The main data elements are *entities* that represent some real world entities and *time series* connected to those
 entities as *signals*. Entities may be interconnected in a *graph* with *relationships*.
@@ -30,7 +30,7 @@ by a customer, remains private to that customer. This includes entities, relatio
 Resource name conventions
 *************************
 
-Resource names in the Exabel Graph API follows Google Cloud API recommendation. The ``name`` property of a resource
+Resource names in the Exabel Data API follows Google Cloud API recommendation. The ``name`` property of a resource
 is a unique reference to the resource, and follows certain rules. For user friendly names, use the ``displayName``
 property. For more information, see https://cloud.google.com/apis/design/resource_names
 

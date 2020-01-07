@@ -1,6 +1,6 @@
 
-Exabel Graph API
-==========================================
+Exabel Data API
+===============
 
 .. toctree::
    :maxdepth: 2

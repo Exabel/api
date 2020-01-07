@@ -24,7 +24,7 @@ Get signal
 ..  http:example:: curl wget python-requests
 
     GET /v1/signals/customer1.visitors HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -63,7 +63,7 @@ Create signal
 ..  http:example:: curl wget python-requests
 
     POST /v1/signals HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -110,7 +110,7 @@ Update signal
 ..  http:example:: curl wget python-requests
 
     PATCH /v1/signals/customer1.visitors HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -142,7 +142,7 @@ Delete signal
 ..  http:example:: curl wget python-requests
 
     DELETE /v1/signals/customer1.visitors HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK

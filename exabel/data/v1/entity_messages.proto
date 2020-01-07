@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-package exabel.graph.v1;
+package exabel.data.v1;
 
 option java_multiple_files = true;
 option java_outer_classname = "EntityMessagesProto";
-option java_package = "com.exabel.graph.v1";
+option java_package = "com.exabel.data.v1";
 
 import "google/protobuf/struct.proto";
 
-// An entity type resource in the graph API.
+// An entity type resource in the Data API.
 message EntityType {
   // Required. The resource name of the entity type, for example "entityTypes/namespace.entityTypeName".
   // The namespace must be one of the predetermined namespaces the customer has access to.
@@ -20,7 +20,7 @@ message EntityType {
   string description = 3;
 }
 
-// An entity resource in the graph API. All entities have one entity type as its parent.
+// An entity resource in the Data API. All entities have one entity type as its parent.
 message Entity {
   // Required. The resource name of the entity, for example
   // "entityTypes/namespace1.entityTypeName/entities/namespace2.entityName".

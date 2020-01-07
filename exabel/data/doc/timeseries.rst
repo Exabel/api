@@ -24,7 +24,7 @@ List time series by entity
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/timeSeries HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -46,7 +46,7 @@ List time series by signal
 ..  http:example:: curl wget python-requests
 
     GET /v1/signals/customer1.visitors/timeSeries HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -75,7 +75,7 @@ Get a specific time series
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK
@@ -109,7 +109,7 @@ Create time series
 ..  http:example:: curl wget python-requests
 
     POST /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -156,7 +156,7 @@ the existing points with the same key, unless the new value is empty, in which c
 ..  http:example:: curl wget python-requests
 
     PATCH /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-04T00:00:00Z&view.timeRange.fromTime=2019-01-06T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -190,7 +190,7 @@ Delete time series points
 ..  http:example:: curl wget python-requests
 
     POST /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors/points:batchDelete HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
     Content-Type: application/json; charset=utf-8
 
     {
@@ -218,7 +218,7 @@ Delete time series
 ..  http:example:: curl wget python-requests
 
     DELETE /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK

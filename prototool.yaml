@@ -2,7 +2,7 @@ protoc:
   version: 3.8.0
 excludes:
   - google
-  - exabel/graph/target
+  - exabel/data/target
 lint:
   group: google
   rules:
@@ -43,3 +43,7 @@ lint:
       - WKT_DIRECTLY_IMPORTED
       - WKT_DURATION_SUFFIX
       - WKT_TIMESTAMP_SUFFIX
+  ignores:
+    - id: NAMES_NO_DATA
+      files:
+      - exabel/data/v1

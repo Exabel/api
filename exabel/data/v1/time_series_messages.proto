@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package exabel.graph.v1;
+package exabel.data.v1;
 
 option java_multiple_files = true;
 option java_outer_classname = "TimeSeriesMessagesProto";
-option java_package = "com.exabel.graph.v1";
+option java_package = "com.exabel.data.v1";
 
 import "exabel/time/time_range.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
-// A time series resource in the graph API. All time series have one entity and one signal as its
+// A time series resource in the Data API. All time series have one entity and one signal as its
 // parents. As such, it can be referred to as both "{entity_name}/{signal_name}" and
 // "{signal_name}/{entity_name}". The first version is the canonical form. The signal must be
 // associated with the entity's type. Some time series are provided by Exabel and their data cannot

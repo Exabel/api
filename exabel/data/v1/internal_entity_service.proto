@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package exabel.graph.v1;
+package exabel.data.v1;
 
 option java_multiple_files = true;
 option java_outer_classname = "InternalEntityServiceProto";
-option java_package = "com.exabel.graph.v1";
+option java_package = "com.exabel.data.v1";
 
-import "exabel/graph/v1/entity_messages.proto";
+import "exabel/data/v1/entity_messages.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/field_mask.proto";
 
-// Manages entity types in the graph API, for internal usage.
+// Manages entity types in the Data API, for internal usage.
 service InternalEntityService {
   // Creates one entity type and returns it. (Exabel internal.)
   rpc CreateEntityType(CreateEntityTypeRequest) returns (EntityType) {

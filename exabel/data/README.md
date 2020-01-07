@@ -1,17 +1,16 @@
-This folder contains the external graph API. This API exposes the graph data to external users.
-With this API it is possible to create and modify entities and relations, define signals and add
-time series.
+This folder contains the external Exabel Data API. This API exposes the graph and time series data to external users.
+With this API it is possible to create and modify entities and relations, define signals and add time series.
 
 # Resources
 
-The API contains the following resources:
+The Data API contains the following resources:
 
 * Entity types
 * Entities
 * Relationship types
 * Relationships
 * Signals
-* Time series.
+* Time series
 
 ## Versioning
 
@@ -22,7 +21,7 @@ When modifying any APIs, the following steps needs to be followed:
 `X.Y.Z-SNAPSHOT`. (If you want a specific version, you can use
 `mvn versions:set -DnewVersion=X.Y.Z-SNAPSHOT` instead.)
 
-2. Update the dependencies (to `com.exabel.api:graph`) of the consuming project(s).
+2. Update the dependencies (to `com.exabel.api:data`) of the consuming project(s).
 
 3. Perform the changes in this project, pushing to your local Maven repository: `mvn clean install`.
 

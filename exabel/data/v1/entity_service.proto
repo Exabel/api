@@ -1,17 +1,17 @@
 syntax = "proto3";
 
-package exabel.graph.v1;
+package exabel.data.v1;
 
 option java_multiple_files = true;
 option java_outer_classname = "EntityServiceProto";
-option java_package = "com.exabel.graph.v1";
+option java_package = "com.exabel.data.v1";
 
-import "exabel/graph/v1/entity_messages.proto";
+import "exabel/data/v1/entity_messages.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
-// Manages entity types and entities in the graph API.
+// Manages entity types and entities in the Data API.
 // TODO(nordli): Implement support for searching for entities.
 // TODO(wergeland): Implement support for paginating of list entities.
 service EntityService {
