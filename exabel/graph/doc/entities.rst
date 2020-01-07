@@ -80,7 +80,7 @@ The collection id for entities is ``entities``.
 List entities
 -------------
 
-Lists all entities of a given entity types.
+Lists all entities of a given entity type.
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}
 
