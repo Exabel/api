@@ -13,7 +13,7 @@
   <name>Exabel API Parent Project</name>
 
   <modules>
-    <module>exabel/graph</module>
+    <module>exabel/data</module>
   </modules>
 
   <properties>

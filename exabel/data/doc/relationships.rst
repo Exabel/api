@@ -178,7 +178,7 @@ List relationships
 ..  http:example:: curl wget python-requests
 
     GET /v1/relationshipTypes/exabel.HAS_BRAND/relationships?fromEntity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK

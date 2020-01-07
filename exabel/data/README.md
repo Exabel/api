@@ -21,7 +21,7 @@ When modifying any APIs, the following steps needs to be followed:
 `X.Y.Z-SNAPSHOT`. (If you want a specific version, you can use
 `mvn versions:set -DnewVersion=X.Y.Z-SNAPSHOT` instead.)
 
-2. Update the dependencies (to `com.exabel.api:graph`) of the consuming project(s).
+2. Update the dependencies (to `com.exabel.api:data`) of the consuming project(s).
 
 3. Perform the changes in this project, pushing to your local Maven repository: `mvn clean install`.
 

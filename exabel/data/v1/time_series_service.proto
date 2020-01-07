@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package exabel.graph.v1;
+package exabel.data.v1;
 
 option java_multiple_files = true;
 option java_outer_classname = "TimeSeriesServiceProto";
-option java_package = "com.exabel.graph.v1";
+option java_package = "com.exabel.data.v1";
 
-import "exabel/graph/v1/time_series_messages.proto";
+import "exabel/data/v1/time_series_messages.proto";
 import "exabel/time/time_range.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";

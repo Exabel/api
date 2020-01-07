@@ -89,7 +89,7 @@ Lists all entities of a given entity type.
 ..  http:example:: curl wget python-requests
 
     GET /v1/entityTypes/exabel.brand HTTP/1.1
-    Host: graph.api.exabel.com
+    Host: data.api.exabel.com
 
 
     HTTP/1.1 200 OK

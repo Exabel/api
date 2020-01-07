@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package exabel.graph.v1;
+package exabel.data.v1;
 
 option java_multiple_files = true;
 option java_outer_classname = "EntityMessagesProto";
-option java_package = "com.exabel.graph.v1";
+option java_package = "com.exabel.data.v1";
 
 import "google/protobuf/struct.proto";
 
