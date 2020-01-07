@@ -20,7 +20,7 @@ Retrieves the relationship type catalogue.
 
 ..  http:get:: /v1/relationshipTypes
 
-    :>jsonarr string name: Relationship type resource name
+    :resjsonarr string name: Relationship type resource name
 
 ..  http:example:: curl wget python-requests
 
@@ -46,9 +46,9 @@ Get relationship type details
 
 ..  http:get:: /v1/relationshipTypes/{relationshipTypeId}
 
-    :>json string name: Relationship type resource name
-    :>json string description: Relationship type description
-    :>json object properties: Relationship type properties
+    :resjson string name: Relationship type resource name
+    :resjson string description: Relationship type description
+    :resjson object properties: Relationship type properties
 
 ..  http:example:: curl wget python-requests
 
@@ -71,14 +71,14 @@ Create relationship type
 
 ..  http:post:: /v1/relationshipTypes
 
-    :<json string name: Relationship type resource name on the format ``relationshipTypes/{relationshipTypeId}``
+    :resqson string name: Relationship type resource name on the format ``relationshipTypes/{relationshipTypeId}``
         (required)
-    :<json string description: Relationship type description
-    :<json object properties: Relationship type properties
+    :resqson string description: Relationship type description
+    :resqson object properties: Relationship type properties
 
-    :>json string name: Relationship type resource name
-    :>json string description: Relationship type description
-    :>json object properties: Relationship type properties
+    :resjson string name: Relationship type resource name
+    :resjson string description: Relationship type description
+    :resjson object properties: Relationship type properties
 
 ..  http:example:: curl wget python-requests
 
@@ -106,13 +106,13 @@ Update relationship type
 
 ..  http:patch:: /v1/relationshipTypes/{relationshipTypeId}
 
-    :<json string description: Relationship type description
-    :<json object properties: Relationship type properties
-    :<json array updateMask: Field mask (required)
+    :resqson string description: Relationship type description
+    :resqson object properties: Relationship type properties
+    :resqson array updateMask: Field mask (required)
 
-    :>json string name: Relationship type resource name
-    :>json string description: Relationship type description
-    :>json object properties: Relationship type properties
+    :resjson string name: Relationship type resource name
+    :resjson string description: Relationship type description
+    :resjson object properties: Relationship type properties
 
 ..  http:example:: curl wget python-requests
 
@@ -168,9 +168,9 @@ List relationships
 
     Use ``-`` for ``relationshipTypeId`` to get relationships of all types.
 
-    :>jsonarr string parent: Relationship type resource name
-    :>jsonarr string fromEntity: The entity resource name of the start point of the relationship
-    :>jsonarr string toEntity: The entity resource name of the end point of the relationship
+    :resjsonarr string parent: Relationship type resource name
+    :resjsonarr string fromEntity: The entity resource name of the start point of the relationship
+    :resjsonarr string toEntity: The entity resource name of the end point of the relationship
 
     To get *all* relationships between two entities, perform the request a second time with ``fromEntity`` and
     ``toEntity`` swapped.
@@ -213,11 +213,11 @@ Get relationship
     :query toEntity: The entity resource name of the end point of the relationship on the form
         ``entityTypes/{entityTypeId}}/entities/{entityId}`` (required)
 
-    :>json string parent: Relationship type resource name
-    :>json string fromEntity: The entity resource name of the start point of the relationship
-    :>json string toEntity: The entity resource name of the end point of the relationship
-    :>json string description: Relationship description
-    :>json object properties: Relationship properties
+    :resjson string parent: Relationship type resource name
+    :resjson string fromEntity: The entity resource name of the start point of the relationship
+    :resjson string toEntity: The entity resource name of the end point of the relationship
+    :resjson string description: Relationship description
+    :resjson object properties: Relationship properties
 
 ..  http:example:: curl wget python-requests
 
@@ -241,16 +241,16 @@ Create relationship
 -------------------
 ..  http:post:: /v1/relationshipTypes/{relationshipTypeId}/relationships
 
-    :<json string fromEntity: The entity resource name of the start point of the relationship (required)
-    :<json string toEntity: The entity resource name of the end point of the relationship (required)
-    :<json string description: Relationship description
-    :<json object properties: Relationship properties
+    :resqson string fromEntity: The entity resource name of the start point of the relationship (required)
+    :resqson string toEntity: The entity resource name of the end point of the relationship (required)
+    :resqson string description: Relationship description
+    :resqson object properties: Relationship properties
 
-    :>json string parent: Relationship type resource name
-    :>json string fromEntity: The entity resource name of the start point of the relationship
-    :>json string toEntity: The entity resource name of the end point of the relationship
-    :>json string description: Relationship description
-    :>json object properties: Relationship properties
+    :resjson string parent: Relationship type resource name
+    :resjson string fromEntity: The entity resource name of the start point of the relationship
+    :resjson string toEntity: The entity resource name of the end point of the relationship
+    :resjson string description: Relationship description
+    :resjson object properties: Relationship properties
 
 ..  http:example:: curl wget python-requests
 
@@ -280,16 +280,16 @@ Update relationship
 -------------------
 ..  http:put:: /v1/relationshipTypes/{relationshipTypeId}/relationships
 
-    :<json string fromEntity: The entity resource name of the start point of the relationship (required)
-    :<json string toEntity: The entity resource name of the end point of the relationship (required)
-    :<json string description: Relationship description
-    :<json object properties: Relationship properties
+    :resqson string fromEntity: The entity resource name of the start point of the relationship (required)
+    :resqson string toEntity: The entity resource name of the end point of the relationship (required)
+    :resqson string description: Relationship description
+    :resqson object properties: Relationship properties
 
-    :>json string parent: Relationship type resource name
-    :>json string fromEntity: The entity resource name of the start point of the relationship
-    :>json string toEntity: The entity resource name of the end point of the relationship
-    :>json string description: Relationship description
-    :>json object properties: Relationship properties
+    :resjson string parent: Relationship type resource name
+    :resjson string fromEntity: The entity resource name of the start point of the relationship
+    :resjson string toEntity: The entity resource name of the end point of the relationship
+    :resjson string description: Relationship description
+    :resjson object properties: Relationship properties
 
 ..  http:example:: curl wget python-requests
 
