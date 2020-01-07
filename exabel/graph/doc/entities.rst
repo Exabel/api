@@ -77,6 +77,36 @@ Entities are the core concept of this API.
 The collection id for entities is ``entities``.
 
 
+List entities
+-------------
+
+Lists all entities of a given entity types.
+
+..  http:get:: /v1/entityTypes/{entityTypeId}
+
+    :>jsonarr string name: Entity resource name
+
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes/exabel.brand HTTP/1.1
+    Host: graph.api.exabel.com
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    [
+      {
+        "name": "entityTypes/exabel.brand/entity/customer1.audi"
+      },
+      {
+        "name": "entityTypes/exabel.brand/entity/customer1.skoda"
+      },
+      {
+        "name": "entityTypes/exabel.brand/entity/customer1.vw"
+      }
+    ]
+
 Get entity
 ----------
 

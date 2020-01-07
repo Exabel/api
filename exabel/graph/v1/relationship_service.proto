@@ -40,6 +40,12 @@ service RelationshipService {
     };
   }
   // Delete not supported.
+  // Lists relationship for a given entity.
+  rpc ListRelationships(ListRelationshipsRequest) returns (Relationship) {
+    option (google.api.http) = {
+      get: "/v1/{parent=relationshipTypes/*}/relationships"
+    };
+  }
   // Gets one relationship.
   rpc GetRelationship(GetRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
@@ -79,28 +85,29 @@ message ListRelationshipTypesResponse {
 
 // The request to create one relationship type.
 message CreateRelationshipTypeRequest {
-  // The relationship type to create.
+  // Required. The relationship type to create.
   RelationshipType relationship_type = 1;
 }
 
 // The request to update one relationship type.
 message UpdateRelationshipTypeRequest {
-  // The relationship type to update.
+  // Required. The relationship type to update.
   RelationshipType relationship_type = 1;
-  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
+  // Required. The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;
 }
 
 // The response to get one relationship type.
 message GetRelationshipTypeRequest {
-  // The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
+  // Required. The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
   string name = 1;
 }
 
-// The request to get one relationship.
-message GetRelationshipRequest {
-  // The type of the relationship, for example "relationshipTypes/ns.type1".
+// The request to list relationship for a given entity. At least one of from_entity and to_entity must be provided.
+message ListRelationshipsRequest {
+  // Required. The type of the relationship, for example "relationshipTypes/ns.type1".
+  // Use parent 'relationshipTypes/-' to include all types.
   string parent = 1;
   // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entity/ns.entity1".
@@ -110,17 +117,35 @@ message GetRelationshipRequest {
   string to_entity = 3;
 }
 
+// The response to list relationships. Returns all the requested relationships.
+message ListRelationshipsResponse {
+  // The resulting relationships. Does not include description and properties.
+  repeated Relationship relationships = 1;
+}
+
+// The request to get one relationship.
+message GetRelationshipRequest {
+  // Required. The type of the relationship, for example "relationshipTypes/ns.type1".
+  string parent = 1;
+  // Required. The resource name of the start point of the relationship, for example
+  // "entityTypes/ns.type1/entity/ns.entity1".
+  string from_entity = 2;
+  // Required. The resource name of the end point of the relationship, for example
+  // "entityTypes/ns.type2/entity/ns.entity2".
+  string to_entity = 3;
+}
+
 // The request to create one relationship.
 message CreateRelationshipRequest {
-  // The parent relationship type of the created entity, for example "relationshipTypes/ns.type1".
+  // Required. The parent relationship type of the created entity, for example "relationshipTypes/ns.type1".
   string type = 1;
-  // The relationship to create.
+  // Required. The relationship to create.
   Relationship relationship = 2;
 }
 
 // The request to update one relationship.
 message UpdateRelationshipRequest {
-  // The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
+  // Required. The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
   // and it should be created instead.
   Relationship relationship = 1;
 }

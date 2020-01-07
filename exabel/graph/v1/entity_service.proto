@@ -12,7 +12,8 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
 // Manages entity types and entities in the graph API.
-// TODO(nordli): Implement support for listing/searching for entities.
+// TODO(nordli): Implement support for searching for entities.
+// TODO(wergeland): Implement support for paginating of list entities.
 service EntityService {
   // Lists all known entity types.
   rpc ListEntityTypes(ListEntityTypesRequest) returns (ListEntityTypesResponse) {
@@ -24,6 +25,12 @@ service EntityService {
   rpc GetEntityType(GetEntityTypeRequest) returns (EntityType) {
     option (google.api.http) = {
       get: "/v1/{name=entityTypes/*}"
+    };
+  }
+  // Lists all entities of a given entity types.
+  rpc ListEntities(ListEntitiesRequest) returns (ListEntitiesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=entityTypes/*}/entities"
     };
   }
   // Gets one entity.
@@ -68,6 +75,18 @@ message ListEntityTypesResponse {
 message GetEntityTypeRequest {
   // The resource name of the requested entity type, for example "entityTypes/ns.type1".
   string name = 1;
+}
+
+// The request to list entities.
+message ListEntitiesRequest {
+  // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
+  string parent = 1;
+}
+
+// The response to list entities. Returns all entities of a given entity type, with only name set.
+message ListEntitiesResponse {
+  // The resulting entities.
+  repeated Entity entities = 1;
 }
 
 // The request to get one entity.

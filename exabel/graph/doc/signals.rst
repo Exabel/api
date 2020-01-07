@@ -44,19 +44,19 @@ Create signal
 
 ..  http:post:: /v1/signals
 
-    :>json string name: Signal resource name on the form ``signals/{signalId}`` (required)
-    :>json string entityType: Resource name of the entity type this signal may exist for (required)
-    :>json string displayName: Signal display name (required)
-    :>json string description: Signal description
-    :>json string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
+    :<json string name: Signal resource name on the form ``signals/{signalId}`` (required)
+    :<json string entityType: Resource name of the entity type this signal may exist for (required)
+    :<json string displayName: Signal display name (required)
+    :<json string description: Signal description
+    :<json string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
 
-    :<json string name: Signal resource name
-    :<json string entityType: Resource name of the entity type this signal may exist for
-    :<json string displayName: Signal display name
-    :<json string description: Signal description
-    :<json string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
+    :>json string name: Signal resource name
+    :>json string entityType: Resource name of the entity type this signal may exist for
+    :>json string displayName: Signal display name
+    :>json string description: Signal description
+    :>json string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
 
@@ -90,20 +90,20 @@ Update signal
 
 ..  http:patch:: /v1/signals/{signalId}
 
-    :>json string entityType: Resource name of the entity type this signal may exist for
-    :>json string displayName: Signal display name
-    :>json string description: Signal description
-    :>json string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
-        larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
-        how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
-    :>json array updateMask: Field mask (required)
-
-
-    :<json string name: Signal resource name
     :<json string entityType: Resource name of the entity type this signal may exist for
     :<json string displayName: Signal display name
     :<json string description: Signal description
     :<json string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
+        larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
+        how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
+    :<json array updateMask: Field mask (required)
+
+
+    :>json string name: Signal resource name
+    :>json string entityType: Resource name of the entity type this signal may exist for
+    :>json string displayName: Signal display name
+    :>json string description: Signal description
+    :>json string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
 

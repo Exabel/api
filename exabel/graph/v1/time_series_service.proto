@@ -136,8 +136,6 @@ message UpdateTimeSeriesRequest {
   // The time series to update. The data in this request and the existing data are merged together:
   // All points in the request will overwrite the existing points with the same key, unless
   // the new value is empty, in which case the point will be deleted.
-  // All properties in the request will overwrite the existing properties with the same key, unless
-  // the new value is NULL_VALUE, in which case the property will be deleted.
   TimeSeries time_series = 1;
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
