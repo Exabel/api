@@ -166,7 +166,7 @@ List relationships
 
     At least one of ``fromEntity`` and ``toEntity`` must be provided.
 
-    Use ``-`` for ``relationShipTypeId`` to get relationships for all types.
+    Use ``-`` for ``relationshipTypeId`` to get relationships for all types.
 
     :>jsonarr string parent: Relationship type resource name
     :>jsonarr string fromEntity: The entity resource name of the start point of the relationship
