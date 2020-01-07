@@ -27,6 +27,7 @@ lint:
       - MESSAGE_FIELD_NAMES_LOWERCASE
       - MESSAGE_FIELD_NAMES_NO_DESCRIPTOR
       - NAMES_NO_COMMON
+      - NAMES_NO_DATA
       - NAMES_NO_UUID
       - ONEOF_NAMES_LOWER_SNAKE_CASE
       - PACKAGES_SAME_IN_DIR
@@ -42,3 +43,7 @@ lint:
       - WKT_DIRECTLY_IMPORTED
       - WKT_DURATION_SUFFIX
       - WKT_TIMESTAMP_SUFFIX
+  ignores:
+    - id: NAMES_NO_DATA
+      files:
+      - exabel/data/v1
