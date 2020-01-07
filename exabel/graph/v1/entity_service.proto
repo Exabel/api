@@ -27,7 +27,7 @@ service EntityService {
       get: "/v1/{name=entityTypes/*}"
     };
   }
-  // Lists all entities of a given entity types.
+  // Lists all entities of a given entity type.
   rpc ListEntities(ListEntitiesRequest) returns (ListEntitiesResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=entityTypes/*}/entities"

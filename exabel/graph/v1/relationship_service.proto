@@ -119,7 +119,7 @@ message ListRelationshipsRequest {
 
 // The response to list relationships. Returns all the requested relationships.
 message ListRelationshipsResponse {
-  // The resulting relationships. Does not include description and properties.
+  // The resulting relationships. Do not include neither description nor properties.
   repeated Relationship relationships = 1;
 }
 
