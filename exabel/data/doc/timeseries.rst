@@ -25,6 +25,8 @@ List time series by entity
 
     GET /v1/entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/timeSeries HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -47,6 +49,8 @@ List time series by signal
 
     GET /v1/signals/customer1.visitors/timeSeries HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -76,6 +80,8 @@ Get a specific time series
 
     GET /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -110,6 +116,8 @@ Create time series
 
     POST /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -157,6 +165,8 @@ the existing points with the same key, unless the new value is empty, in which c
 
     PATCH /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-04T00:00:00Z&view.timeRange.fromTime=2019-01-06T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -191,6 +201,8 @@ Delete time series points
 
     POST /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors/points:batchDelete HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -219,6 +231,8 @@ Delete time series
 
     DELETE /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK

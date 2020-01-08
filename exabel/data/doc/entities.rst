@@ -24,6 +24,8 @@ Retrieves the entity type catalogue.
 
     GET /v1/entityTypes HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -55,6 +57,8 @@ Get entity type details
 
     GET /v1/entityTypes/exabel.brand HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -90,6 +94,8 @@ Lists all entities of a given entity type.
 
     GET /v1/entityTypes/exabel.brand HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -122,6 +128,8 @@ Get entity
 
     GET /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -152,6 +160,8 @@ Create entity
 
     POST /v1/entityTypes/exabel.brand/entities HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -189,6 +199,8 @@ Update entity
 
     PATCH /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -224,6 +236,8 @@ Delete entity
 
     DELETE /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK

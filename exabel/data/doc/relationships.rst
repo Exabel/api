@@ -26,6 +26,8 @@ Retrieves the relationship type catalogue.
 
     GET /v1/relationshipTypes HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -54,6 +56,8 @@ Get relationship type details
 
     GET /v1/relationshipTypes/exabel.HAS_BRAND HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -84,6 +88,8 @@ Create relationship type
 
     POST /v1/relationshipTypes HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -118,6 +124,8 @@ Update relationship type
 
     PATCH /v1/relationshipTypes/exabel.HAS_BRAND HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -179,6 +187,8 @@ List relationships
 
     GET /v1/relationshipTypes/exabel.HAS_BRAND/relationships?fromEntity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -223,6 +233,8 @@ Get relationship
 
     GET /v1/relationshipTypes/exabel.HAS_BRAND/relationships?fromEntity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&toEntity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -256,6 +268,8 @@ Create relationship
 
     POST /v1/relationshipTypes/exabel.HAS_BRAND/relationships HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -295,6 +309,8 @@ Update relationship
 
     PUT /v1/relationshipTypes/exabel.HAS_BRAND/relationships HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -332,6 +348,8 @@ Delete relationship
 
     DELETE /v1/relationshipTypes/exabel.HAS_BRAND/relationships?fromEntity=entityTypes/exabel.company/entities/exabel.001yfz_e-volkswagen_ag&toEntity=entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
