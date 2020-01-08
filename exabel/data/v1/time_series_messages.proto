@@ -18,10 +18,10 @@ import "google/protobuf/wrappers.proto";
 // the Exabel platform.
 message TimeSeries {
   // Required. The resource name of the time series, for example
-  // "entityTypes/ns1.entityTypeName/entity/ns2.entityName/signals/ns3.signalName".
+  // "entityTypes/ns1.type/entity/ns2.entity/signals/ns3.signal".
   // An alternative name for the same time series is
-  // "signals/ns3.signalName/entityTypes/ns1.entityTypeName/entity/ns2.entityName", but the former
-  // is the canonical version which always will be returned by the server.
+  // "signals/ns3.signal/entityTypes/ns1.type/entity/ns2.entity", but the former is the canonical
+  // version which always will be returned by the server.
   string name = 1;
   // The time series data of this time series. Partial results may be returned from the server based
   // on the "view" parameter of the request and whether the time series is provided by Exabel or

@@ -23,33 +23,50 @@ the catalogue, contact support@exabel.com.
 Data separation
 ***************
 
-All customers can connect their data to the entities maintained by Exabel. However, data uploaded
-by a customer, remains private to that customer. This includes entities, relationships, signals, and time series.
+All customers can connect their data to the entities maintained by Exabel in the ``exabel`` namespace.
+However, data uploaded by a customer to their own namespace (for instance ``customer1``) remains
+private to that customer. This includes entities, relationships, signals and time series.
 
 
-Resource name conventions
-*************************
+Resource name structure and conventions
+***************************************
 
-Resource names in the Exabel Data API follows Google Cloud API recommendation. The ``name`` property of a resource
-is a unique reference to the resource, and follows certain rules. For user friendly names, use the ``displayName``
-property. For more information, see https://cloud.google.com/apis/design/resource_names
+Resource names in the Exabel Data API follow the `Google Cloud API recommendations`_. The ``name``
+property of a resource is its resource name, which is a unique reference to the resource that
+follows certain rules. (For display friendly names, use the ``displayName`` property.)
 
-Collection ids for all collections are defined by this API.
+.. _Google Cloud API recommendations: https://cloud.google.com/apis/design/resource_names
 
-Resource ids must start with a letter, followup by letters, numbers, dot, hyphen (minus sign), or underscore.
-Resource ids must be 1 to 64 characters long. Letters are limited to ASCII letters. Both uppercase and lowercase
-letters are allowed.
+A *resource name* consists of a collection ID and a resource ID joined by a forward slash (``/``).
 
-Note that names are stored case sensitive, in other words, "APPLE" is not equal to "apple". By convention, entities
-have lower case resource ids, and relationships have upper case ids.
+The *collection ID* is the *type* of the resource, as defined by this API.
 
-Resource names are prefixed with a namespace followed by a dot, either ``exabel.`` or the customer's namespace, for
-instance ``customer1.``.
+The *resource ID* consists of a namespace and an identifier joined by a period (``.``).
 
+The *namespace* is either ``exabel`` or the namespace given to the customer, for instance
+``customer1``.
+
+An *identifier* must start with a letter and continue with any combination of letters (``a-zA-Z``),
+numbers (``0-9``), periods (``.``), hyphens (``-``) and underscores (``_``). Identifiers must be
+between 1 and 64 characters long (inclusive).
+
+Some resource names contain and start with another resource name as its *parent*.
+
+Please note that resource names are case sensitive, so ``entities/customer1.APPLE`` is different from
+``entities/customer1.apple``. By convention, entities have lower case names and relationships have
+upper case names.
+
+Examples of resource names
+--------------------------
+- entity type: ``entityTypes/exabel.company``
+- relationship: ``relationshipTypes/customer1.OWNED_BY``
+- entity (containing a parent): ``entityTypes/exabel.company/entities/customer1.apple``
 
 Partial updates
 ***************
 
-Some resources supports the ``PATCH`` method for partial update with i ``updateMask`` attribute, which is
-a ``FieldMask``. For more information on how to use field masks, see
-https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+Some resources supports the ``PATCH`` method for partial update with i ``updateMask`` attribute,
+which is a ``FieldMask``. For more information on how to use field masks, see the
+`Google protobuf documentation`_.
+
+.. _Google protobuf documentation: https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask

@@ -11,9 +11,9 @@ import "google/protobuf/struct.proto";
 // A relationship type resource in the Data API.
 message RelationshipType {
   // Required. The resource name of the relationship type, for example
-  // "relationshipTypes/namespace.relationshipTypeName".
+  // "relationshipTypes/namespace.relationshipTypeIdentifier".
   // The namespace must be one of the predetermined namespaces the customer has access to.
-  // The relationship type name must match the regex [A-Z][A-Z0-9_]{0,63}.
+  // The relationship type identifier must match the regex [A-Z][A-Z0-9_]{0,63}.
   string name = 1;
   // One or more paragraphs of text description.
   string description = 2;
