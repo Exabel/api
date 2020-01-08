@@ -25,6 +25,8 @@ Get signal
 
     GET /v1/signals/customer1.visitors HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
@@ -64,6 +66,8 @@ Create signal
 
     POST /v1/signals HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -111,6 +115,8 @@ Update signal
 
     PATCH /v1/signals/customer1.visitors HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
@@ -143,6 +149,8 @@ Delete signal
 
     DELETE /v1/signals/customer1.visitors HTTP/1.1
     Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
 
 
     HTTP/1.1 200 OK
