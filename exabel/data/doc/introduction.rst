@@ -46,11 +46,11 @@ The *resource ID* consists of a namespace and an identifier joined by a period (
 The *namespace* is either ``exabel`` or the namespace given to the customer, for instance
 ``customer1``.
 
-An *identifier* must start with a letter and continue with any combination of letters (``a-zA-Z``),
+An *identifier* must start with a letter (``a-zA-Z``) and continue with any combination of letters,
 numbers (``0-9``), periods (``.``), hyphens (``-``) and underscores (``_``). Identifiers must be
 between 1 and 64 characters long (inclusive).
 
-Some resource names contain and start with another resource name as its *parent*.
+Some resource names start with another resource name as its *parent*.
 
 Please note that resource names are case sensitive, so ``entities/customer1.APPLE`` is different from
 ``entities/customer1.apple``. By convention, entities have lower case names and relationships have
