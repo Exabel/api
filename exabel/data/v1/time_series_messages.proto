@@ -1,3 +1,5 @@
+// Copyright (c) 2019-2020 Exabel AS. All rights reserved.
+
 syntax = "proto3";
 
 package exabel.data.v1;
