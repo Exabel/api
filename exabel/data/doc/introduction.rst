@@ -23,7 +23,7 @@ the catalogue, contact support@exabel.com.
 Data separation
 ***************
 
-All customers can connect their data to the entities maintained by Exabel in the global unnamed namespace.
+All customers can connect their data to the entities maintained by Exabel in the global namespace.
 However, data uploaded by a customer to their own namespace (for instance ``customer1``) remains
 private to that customer. This includes entities, relationships, signals and time series.
 
