@@ -10,9 +10,10 @@ import "google/protobuf/struct.proto";
 
 // An entity type resource in the Data API.
 message EntityType {
-  // Required. The resource name of the entity type, for example "entityTypes/namespace.entityTypeIdentifier".
-  // The namespace must be one of the predetermined namespaces the customer has access to.
-  // The entity type identifier must match the regex [a-zA-Z][\w\.-_]{0,63}.
+  // Required. The resource name of the entity type, for example "entityTypes/entityTypeName" or
+  // "entityTypes/namespace.entityTypeIdentifier". The namespace must be empty (being global) or
+  // one of the predetermined namespaces the customer has access to.
+  // The entity type identifier must match the regex [a-zA-Z][\w-_]{0,63}.
   string name = 1;
   // Required. The display name of the entity type.
   string display_name = 2;
@@ -22,10 +23,12 @@ message EntityType {
 
 // An entity resource in the Data API. All entities have one entity type as its parent.
 message Entity {
-  // Required. The resource name of the entity, for example
+  // Required. The resource name of the entity,
+  // for example "entityTypes/entityTypeIdentifier/entities/entityIdentifier" or
   // "entityTypes/namespace1.entityTypeIdentifier/entities/namespace2.entityIdentifier".
-  // The namespaces must be one of the predetermined namespaces the customer has access to.
-  // The entity identifier must match the regex [a-zA-Z][\w\.-_]{0,63}.
+  // The namespaces must be empty (being global) or one of the predetermined namespaces the customer
+  // has access to.
+  // The entity identifier must match the regex [a-zA-Z][\w-_]{0,63}.
   string name = 1;
   // Required. The display name of the entity.
   string display_name = 2;
