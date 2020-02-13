@@ -33,10 +33,10 @@ Retrieves the entity type catalogue.
 
     [
       {
-        "name": "entityTypes/exabel.brand"
+        "name": "entityTypes/brand"
       },
       {
-        "name": "entityTypes/exabel.region"
+        "name": "entityTypes/region"
       },
       {
         "name": "entityTypes/customer1.factory"
@@ -55,7 +55,7 @@ Get entity type details
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/exabel.brand HTTP/1.1
+    GET /v1/entityTypes/brand HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -65,7 +65,7 @@ Get entity type details
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.brand",
+      "name": "entityTypes/brand",
       "displayName": "Brand",
       "description": "Brands owned by companies"
     }
@@ -92,7 +92,7 @@ Lists all entities of a given entity type.
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/exabel.brand HTTP/1.1
+    GET /v1/entityTypes/brand HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -103,13 +103,13 @@ Lists all entities of a given entity type.
 
     [
       {
-        "name": "entityTypes/exabel.brand/entity/customer1.audi"
+        "name": "entityTypes/brand/entity/audi"
       },
       {
-        "name": "entityTypes/exabel.brand/entity/customer1.skoda"
+        "name": "entityTypes/brand/entity/customer1.skoda"
       },
       {
-        "name": "entityTypes/exabel.brand/entity/customer1.vw"
+        "name": "entityTypes/brand/entity/customer1.vw"
       }
     ]
 
@@ -126,7 +126,7 @@ Get entity
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
+    GET /v1/entityTypes/brand/entities/customer1.skoda HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -136,7 +136,7 @@ Get entity
     Content-Type: application/json; charset=utf-8
 
       {
-        "name": "entityTypes/exabel.brand/entities/customer1.skoda",
+        "name": "entityTypes/brand/entities/customer1.skoda",
         "displayName": "Škoda"
       }
 
@@ -158,14 +158,14 @@ Create entity
 
 ..  http:example:: curl wget python-requests
 
-    POST /v1/entityTypes/exabel.brand/entities HTTP/1.1
+    POST /v1/entityTypes/brand/entities HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "name": "entityTypes/brand/entities/customer1.skoda",
       "displayName": "Škoda"
     }
 
@@ -174,7 +174,7 @@ Create entity
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "name": "entityTypes/brand/entities/customer1.skoda",
       "displayName": "Škoda"
     }
 
@@ -197,7 +197,7 @@ Update entity
 
 ..  http:example:: curl wget python-requests
 
-    PATCH /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
+    PATCH /v1/entityTypes/brand/entities/customer1.skoda HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -216,7 +216,7 @@ Update entity
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.brand/entities/customer1.skoda",
+      "name": "entityTypes/brand/entities/customer1.skoda",
       "displayName": "Škoda",
       "description": "Simply clever"
       "properties": {
@@ -234,7 +234,7 @@ Delete entity
 
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/entityTypes/exabel.brand/entities/customer1.skoda HTTP/1.1
+    DELETE /v1/entityTypes/brand/entities/customer1.skoda HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE

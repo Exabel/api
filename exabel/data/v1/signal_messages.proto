@@ -13,8 +13,9 @@ import "exabel/math/aggregation.proto";
 // A signal resource in the Data API. All signals are associated with exactly one entity type, and
 // only entities with that type can have time series data for that signal.
 message Signal {
-  // Required. The resource name of the signal, for example "signals/namespace.signalIdentifier".
-  // The namespace must be one of the predetermined namespaces the customer has access to.
+  // Required. The resource name of the signal, for example "signals/signalIdentifier" or
+  // "signals/namespace.signalIdentifier". The namespace must be empty (being global) or one of the
+  // predetermined namespaces the customer has access to.
   // The signal identifier must match the regex [a-zA-Z]\w{0,63}.
   string name = 1;
   // Required. The entity type this signal is related to, for example "entityTypes/ns.type1".
