@@ -23,7 +23,9 @@ message TimeSeries {
   // "entityTypes/ns1.type/entity/ns2.entity/signals/ns3.signal".
   // An alternative name for the same time series is
   // "signals/ns3.signal/entityTypes/ns1.type/entity/ns2.entity", but the former is the canonical
-  // version which always will be returned by the server.
+  // version which always will be returned by the server. The namespaces must be empty (being
+  // global) or one of the predetermined namespaces the customer has access to. If ns2 is not empty,
+  // it must be equals to ns3, and if ns1 is not empty, all three namespaces must be equal.
   string name = 1;
   // The time series data of this time series. Partial results may be returned from the server based
   // on the "view" parameter of the request and whether the time series is provided by Exabel or

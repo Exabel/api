@@ -41,7 +41,8 @@ service RelationshipService {
       body: "relationship_type"
     };
   }
-  // Delete not supported.
+  // Deletions of relationship types are not supported.
+
   // Lists relationship for a given entity.
   rpc ListRelationships(ListRelationshipsRequest) returns (ListRelationshipsResponse) {
     option (google.api.http) = {
@@ -64,7 +65,7 @@ service RelationshipService {
   // Updates one relationship and returns it. Only full update is supported.
   rpc UpdateRelationship(UpdateRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
-      put: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
+      patch: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
       body: "relationship"
     };
   }
@@ -150,6 +151,9 @@ message UpdateRelationshipRequest {
   // Required. The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
   // and it should be created instead.
   Relationship relationship = 1;
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
+  // modified.
+  google.protobuf.FieldMask update_mask = 2;
 }
 
 // The request to delete one relationship.

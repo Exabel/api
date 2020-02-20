@@ -100,7 +100,7 @@ Update signal
     :reqjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
-    :reqjson array updateMask: Field mask (required)
+    :reqjson array updateMask: Field mask
 
 
     :resjson string name: Signal resource name
