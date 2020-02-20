@@ -29,7 +29,7 @@ service InternalEntityService {
       body: "entity_type"
     };
   }
-  // Deletes not supported.
+  // Deletion of entity types not supported.
 
 }
 

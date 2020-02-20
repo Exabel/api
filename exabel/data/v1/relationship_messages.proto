@@ -27,7 +27,8 @@ message RelationshipType {
 // A relationship resource in the Data API. All relationships have one relationship type as its
 // parent. Relationships do not have resource names, but are identified by their (type, from, to)
 // triple. There can only be one relationship of one type between two entities (as viewed by a
-// single user).
+// single user). The namespaces of the end points must either be empty (being global) or one of the
+// predetermined namespaces the customer has access to.
 message Relationship {
   // Required. The parent of the relationship, for example "relationshipTypes/ns.type1". This is its
   // relationship type.
