@@ -139,10 +139,8 @@ message GetRelationshipRequest {
 
 // The request to create one relationship.
 message CreateRelationshipRequest {
-  // Required. The parent relationship type of the created entity, for example "relationshipTypes/ns.type1".
-  string type = 1;
   // Required. The relationship to create.
-  Relationship relationship = 2;
+  Relationship relationship = 1;
 }
 
 // The request to update one relationship.
