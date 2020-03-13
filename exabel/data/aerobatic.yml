@@ -1,10 +1,14 @@
-id: 31ce011c-2362-44b3-80be-8fdf4334f6e1
+id: 93dcb014-f278-4b62-91d2-4febdacce7e6
 deploy:
-  ignore: [_sources,objects.inv,.buildinfo]
+  ignore:
+    - _sources
+    - objects.inv
+    - .buildinfo
   directory: target/html
 plugins:
   - name: auth0
-    stages: [production]
+    stages:
+      - production
     path: /
     options:
       clientId: $AUTH0_CLIENT_ID
