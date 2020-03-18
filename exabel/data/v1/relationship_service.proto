@@ -112,10 +112,10 @@ message ListRelationshipsRequest {
   // Use parent 'relationshipTypes/-' to include all types.
   string parent = 1;
   // The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entity/ns.entity1".
+  // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
   // The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entity/ns.entity2".
+  // "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3;
 }
 
@@ -130,10 +130,10 @@ message GetRelationshipRequest {
   // Required. The type of the relationship, for example "relationshipTypes/ns.type1".
   string parent = 1;
   // Required. The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entity/ns.entity1".
+  // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
   // Required. The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entity/ns.entity2".
+  // "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3;
 }
 
@@ -155,9 +155,9 @@ message DeleteRelationshipRequest {
   // Required. The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
   string parent = 1;
   // Required. The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entity/ns.entity1".
+  // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
   // Required. The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entity/ns.entity2".
+  // "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3;
 }

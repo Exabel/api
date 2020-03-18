@@ -9,21 +9,21 @@ By walking across relationship types in the graph when creating time series mode
 from a set of child entities to a parent entity that does not normally have that signal.
 
 The resource name for a a time series is on the form
-``entityTypes/ns1.entityTypeName/entity/ns2.entityName/signals/ns3.signalName``
+``entityTypes/ns1.entityTypeName/entities/ns2.entityName/signals/ns3.signalName``
 An alternative name for the same time series is
-``signals/ns3.signalName/entityTypes/ns1.entityTypeName/entity/ns2.entityName``, but the former is the canonical version
+``signals/ns3.signalName/entityTypes/ns1.entityTypeName/entities/ns2.entityName``, but the former is the canonical version
 which always will be returned by the server.
 
 List time series by entity
 --------------------------
 
-..  http:get:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/timeSeries
+..  http:get:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/timeSeries
 
     :resjsonarr string name: Time series resource name
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/timeSeries HTTP/1.1
+    GET /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/timeSeries HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -33,8 +33,8 @@ List time series by entity
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
-      "name": "entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/signals/customer1.total_spend_amount"
+      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.total_spend_amount"
     }
 
 
@@ -57,16 +57,16 @@ List time series by signal
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.store/entity/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
-      "name": "entityTypes/exabel.store/entity/customer1.apple_store_grand_central/signals/customer1.visitors",
-      "name": "entityTypes/exabel.store/entity/customer1.apple_store_upper_west_side/signals/customer1.visitors"
+      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+      "name": "entityTypes/exabel.store/entities/customer1.apple_store_grand_central/signals/customer1.visitors",
+      "name": "entityTypes/exabel.store/entities/customer1.apple_store_upper_west_side/signals/customer1.visitors"
     }
 
 
 Get a specific time series
 --------------------------
 
-..  http:get:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}
+..  http:get:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
     :query timestamp view.timeRange.fromTime: The start point of the time range. By default included in the range.
     :query boolean view.timeRange.excludeFrom: Set to true to exclude the start point from the range.
@@ -100,7 +100,7 @@ Get a specific time series
 Create time series
 ------------------
 
-..  http:post:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}
+..  http:post:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
     :query timestamp view.timeRange.fromTime: The start point of the time range. By default included in the range.
     :query boolean view.timeRange.excludeFrom: Set to true to exclude the start point from the range.
@@ -148,7 +148,7 @@ Update time series
 The data in this request and the existing data are merged together. All points in the request will overwrite
 the existing points with the same key, unless the new value is empty, in which case the point will be deleted.
 
-..  http:patch:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}
+..  http:patch:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
     :query timestamp view.timeRange.fromTime: The start point of the time range. By default included in the range.
     :query boolean view.timeRange.excludeFrom: Set to true to exclude the start point from the range.
@@ -193,7 +193,7 @@ the existing points with the same key, unless the new value is empty, in which c
 Delete time series points
 -------------------------
 
-..  http:post:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}/points:batchDelete
+..  http:post:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}/points:batchDelete
 
     :reqjson array timeRanges: List of time ranges to delete data points from.
 
@@ -225,7 +225,7 @@ Delete time series
 
 ..  note:: This will delete **all** points in the time series.
 
-..  http:delete:: /v1/entityTypes/{entityTypeId}/entity/{entityId}/signals/{signalId}
+..  http:delete:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
 ..  http:example:: curl wget python-requests
 

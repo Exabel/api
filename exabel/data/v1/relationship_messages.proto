@@ -33,10 +33,10 @@ message Relationship {
   // relationship type.
   string parent = 1;
   // Required. The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entity/ns.entity1".
+  // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
   // Required. The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entity/ns.entity2".
+  // "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3;
   // One or more paragraphs of text description.
   string description = 4;
