@@ -93,7 +93,7 @@ message ListEntitiesResponse {
 
 // The request to get one entity.
 message GetEntityRequest {
-  // The resource name of the requested entity, for example "entityTypes/ns.type1/entity/ns.entity1".
+  // The resource name of the requested entity, for example "entityTypes/ns.type1/entities/ns.entity1".
   string name = 1;
 }
 
@@ -116,6 +116,6 @@ message UpdateEntityRequest {
 
 // The request to delete one entity.
 message DeleteEntityRequest {
-  // The resource name of the entity to delete, for example "entityTypes/ns.type1/entity/ns.entity1".
+  // The resource name of the entity to delete, for example "entityTypes/ns.type1/entities/ns.entity1".
   string name = 1;
 }

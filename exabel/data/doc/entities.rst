@@ -103,13 +103,13 @@ Lists all entities of a given entity type.
 
     [
       {
-        "name": "entityTypes/brand/entity/audi"
+        "name": "entityTypes/brand/entities/audi"
       },
       {
-        "name": "entityTypes/brand/entity/customer1.skoda"
+        "name": "entityTypes/brand/entities/customer1.skoda"
       },
       {
-        "name": "entityTypes/brand/entity/customer1.vw"
+        "name": "entityTypes/brand/entities/customer1.vw"
       }
     ]
 
