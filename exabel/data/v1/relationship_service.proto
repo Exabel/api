@@ -41,7 +41,9 @@ service RelationshipService {
       body: "relationship_type"
     };
   }
-  // Delete not supported.
+  // Deletion of relationship types not supported.
+
+
   // Lists relationship for a given entity.
   rpc ListRelationships(ListRelationshipsRequest) returns (ListRelationshipsResponse) {
     option (google.api.http) = {
