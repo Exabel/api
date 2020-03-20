@@ -114,7 +114,7 @@ Update relationship type
 
     :reqjson string description: Relationship type description
     :reqjson object properties: Relationship type properties
-    :reqjson array updateMask: Field mask (required)
+    :reqjson array updateMask: Field mask
 
     :resjson string name: Relationship type resource name
     :resjson string description: Relationship type description
@@ -292,12 +292,13 @@ Create relationship
 
 Update relationship
 -------------------
-..  http:put:: /v1/relationshipTypes/{relationshipTypeId}/relationships
+..  http:patch:: /v1/relationshipTypes/{relationshipTypeId}/relationships
 
     :reqjson string fromEntity: The entity resource name of the start point of the relationship (required)
     :reqjson string toEntity: The entity resource name of the end point of the relationship (required)
     :reqjson string description: Relationship description
     :reqjson object properties: Relationship properties
+    :reqjson array updateMask: Field mask
 
     :resjson string parent: Relationship type resource name
     :resjson string fromEntity: The entity resource name of the start point of the relationship

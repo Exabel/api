@@ -187,7 +187,7 @@ Update entity
     :reqjson string displayName: Entity display name
     :reqjson string description: Entity description
     :reqjson object properties: Entity properties
-    :reqjson array updateMask: Field mask (required)
+    :reqjson array updateMask: Field mask
 
     :resjson string name: Entity resource name
     :resjson string displayName: Entity display name
@@ -241,4 +241,3 @@ Delete entity
 
 
     HTTP/1.1 200 OK
-
