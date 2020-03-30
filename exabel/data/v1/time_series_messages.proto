@@ -35,11 +35,11 @@ message TimeSeries {
 
 // A time series point of a time series.
 message TimeSeriesPoint {
-  // Required. The time stamp of this point.
+  // Required. The time stamp of this point. Time stamps are truncated to whole seconds.
   google.protobuf.Timestamp time = 1;
   // The value at this point. Points returned from the server always have values, but are possibly
   // NaNs (Not a Number). Points sent to the server might have no value, in which case they are
-  // deleted or ignored.
+  // ignored.
   google.protobuf.DoubleValue value = 2;
 }
 
