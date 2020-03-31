@@ -157,7 +157,7 @@ message BatchDeleteTimeSeriesPointsRequest {
   // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or
   // "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1".
   string name = 1;
-  // The list of time ranges to delete from the time series. To delete single points, supply a
-  // closed time range of one point, or use the update method.
+  // The list of time ranges to delete from the time series. Each time range may
+  // be expanded to whole hours (UTC time).
   repeated time.TimeRange time_ranges = 2;
 }
