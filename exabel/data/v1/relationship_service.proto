@@ -78,12 +78,23 @@ service RelationshipService {
 }
 
 // The request to list relationship types.
-message ListRelationshipTypesRequest {}
+message ListRelationshipTypesRequest {
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum size
+  // of this field.
+  int32 page_size = 1;
+  // The page token to resume the results from, as returned from a previous request to this method
+  // with the same query parameters.
+  string page_token = 2;
+}
 
 // The response to list relationship types. Returns all known relationship types.
 message ListRelationshipTypesResponse {
   // The resulting relationship types.
   repeated RelationshipType relationship_types = 1;
+  // The page token where the list continues. Can be sent to a subsequent query.
+  string next_page_token = 2;
+  // The total number of results, irrespective of paging.
+  int32 total_size = 3;
 }
 
 // The request to create one relationship type.
@@ -118,12 +129,22 @@ message ListRelationshipsRequest {
   // The resource name of the end point of the relationship, for example
   // "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3;
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum size
+  // of this field.
+  int32 page_size = 4;
+  // The page token to resume the results from, as returned from a previous request to this method
+  // with the same query parameters.
+  string page_token = 5;
 }
 
 // The response to list relationships. Returns all the requested relationships.
 message ListRelationshipsResponse {
   // The resulting relationships. Do not include neither description nor properties.
   repeated Relationship relationships = 1;
+  // The page token where the list continues. Can be sent to a subsequent query.
+  string next_page_token = 2;
+  // The total number of results, irrespective of paging.
+  int32 total_size = 3;
 }
 
 // The request to get one relationship.
