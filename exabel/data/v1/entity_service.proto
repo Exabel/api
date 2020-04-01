@@ -15,7 +15,6 @@ import "google/protobuf/field_mask.proto";
 
 // Manages entity types and entities in the Data API.
 // TODO(nordli): Implement support for searching for entities.
-// TODO(wergeland): Implement support for paginating of list entities.
 service EntityService {
   // Lists all known entity types.
   rpc ListEntityTypes(ListEntityTypesRequest) returns (ListEntityTypesResponse) {
@@ -65,12 +64,23 @@ service EntityService {
 }
 
 // The request to list entity types.
-message ListEntityTypesRequest {}
+message ListEntityTypesRequest {
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum size
+  // of this field.
+  int32 page_size = 1;
+  // The page token to resume the results from, as returned from a previous request to this method
+  // with the same query parameters.
+  string page_token = 2;
+}
 
 // The response to list entity types. Returns all known entity types.
 message ListEntityTypesResponse {
   // The resulting entity types.
   repeated EntityType entity_types = 1;
+  // The page token where the list continues. Can be sent to a subsequent query.
+  string next_page_token = 2;
+  // The total number of results, irrespective of paging.
+  int32 total_size = 3;
 }
 
 // The request to get one entity type.
@@ -83,12 +93,22 @@ message GetEntityTypeRequest {
 message ListEntitiesRequest {
   // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
   string parent = 1;
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum size
+  // of this field.
+  int32 page_size = 2;
+  // The page token to resume the results from, as returned from a previous request to this method
+  // with the same query parameters.
+  string page_token = 3;
 }
 
 // The response to list entities. Returns all entities of a given entity type, with only name set.
 message ListEntitiesResponse {
   // The resulting entities.
   repeated Entity entities = 1;
+  // The page token where the list continues. Can be sent to a subsequent query.
+  string next_page_token = 2;
+  // The total number of results, irrespective of paging.
+  int32 total_size = 3;
 }
 
 // The request to get one entity.
