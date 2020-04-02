@@ -31,6 +31,8 @@ message TimeSeries {
   // on the "view" parameter of the request and whether the time series is provided by Exabel or
   // not. When returned from the server the points are sorted increasingly by time.
   repeated TimeSeriesPoint points = 2;
+  // Output only. Whether this resource is read only.
+  bool read_only = 3;
 }
 
 // A time series point of a time series.
