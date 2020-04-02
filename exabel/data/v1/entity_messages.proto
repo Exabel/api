@@ -21,6 +21,8 @@ message EntityType {
   string display_name = 2;
   // One or more paragraphs of text description.
   string description = 3;
+  // Output only. Whether this resource is read only.
+  bool read_only = 4;
 }
 
 // An entity resource in the Data API. All entities have one entity type as its parent.
@@ -36,6 +38,8 @@ message Entity {
   string display_name = 2;
   // One or more paragraphs of text description.
   string description = 3;
+  // Output only. Whether this resource is read only.
+  bool read_only = 4;
   // The arbitrary properties of this entity.
   google.protobuf.Struct properties = 100;
 }

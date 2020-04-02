@@ -30,4 +30,6 @@ message Signal {
   // When two or more values in an interval needs to be aggregated into a single value, specifies
   // how they are combined.
   math.Aggregation downsampling_method = 5;
+  // Output only. Whether this resource is read only.
+  bool read_only = 6;
 }
