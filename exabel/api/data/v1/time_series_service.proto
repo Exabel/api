@@ -8,8 +8,8 @@ option java_multiple_files = true;
 option java_outer_classname = "TimeSeriesServiceProto";
 option java_package = "com.exabel.api.data.v1";
 
-import "exabel/api/time/time_range.proto";
 import "exabel/api/data/v1/time_series_messages.proto";
+import "exabel/api/time/time_range.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
