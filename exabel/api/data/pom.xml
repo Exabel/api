@@ -6,10 +6,10 @@
     <groupId>com.exabel.api</groupId>
     <artifactId>api-parent</artifactId>
     <version>0.0.1</version>
-    <relativePath>../..</relativePath>
+    <relativePath>../../..</relativePath>
   </parent>
   <artifactId>data</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
 
   <dependencies>
     <dependency>
@@ -45,9 +45,9 @@
         <artifactId>protobuf-maven-plugin</artifactId>
         <configuration>
           <includes>
-            <include>exabel/data/**/*.proto</include>
-            <include>exabel/math/**/*.proto</include>
-            <include>exabel/time/**/*.proto</include>
+            <include>exabel/api/data/**/*.proto</include>
+            <include>exabel/api/math/**/*.proto</include>
+            <include>exabel/api/time/**/*.proto</include>
           </includes>
         </configuration>
         <executions>

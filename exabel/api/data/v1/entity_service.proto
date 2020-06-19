@@ -2,13 +2,13 @@
 
 syntax = "proto3";
 
-package exabel.data.v1;
+package exabel.api.data.v1;
 
 option java_multiple_files = true;
 option java_outer_classname = "EntityServiceProto";
-option java_package = "com.exabel.data.v1";
+option java_package = "com.exabel.api.data.v1";
 
-import "exabel/data/v1/entity_messages.proto";
+import "exabel/api/data/v1/entity_messages.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
