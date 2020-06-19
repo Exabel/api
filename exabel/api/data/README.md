@@ -72,10 +72,19 @@ make html
 
 ## Deploy
 
+### Documentation
+
 To production: https://exabel-api-doc.aerobaticapp.com/
 ```
 nvm use
 aero deploy
+```
+
+### Endpoints
+
+TODO(nordli): Decide on the endpoints project
+```
+gcloud --project mimtest-151313 endpoints services deploy target/generated-resources/protobuf/descriptor-sets/descriptor.pb data-api.yaml
 ```
 
 ## Auth0 integration

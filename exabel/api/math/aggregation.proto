@@ -2,11 +2,11 @@
 
 syntax = "proto3";
 
-package exabel.math;
+package exabel.api.math;
 
 option java_multiple_files = true;
 option java_outer_classname = "AggregationProto";
-option java_package = "com.exabel.math";
+option java_package = "com.exabel.api.math";
 
 // Aggregation methods.
 enum Aggregation {

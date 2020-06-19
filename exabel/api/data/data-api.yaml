@@ -1,0 +1,11 @@
+# https://cloud.google.com/service-management/reference/rest/v1/services.configs
+# See README.md for deployment.
+type: google.api.Service
+config_version: 3
+name: data.api.exabel.com
+title: Exabel Data API
+apis:
+- name: exabel.api.data.v1.EntityService
+- name: exabel.api.data.v1.RelationshipService
+- name: exabel.api.data.v1.SignalService
+- name: exabel.api.data.v1.TimeSeriesService

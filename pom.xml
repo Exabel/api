@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.exabel.prereq</groupId>
     <artifactId>exabel-parent</artifactId>
-    <version>0.1.11</version>
+    <version>0.1.20</version>
   </parent>
   <groupId>com.exabel.api</groupId>
   <artifactId>api-parent</artifactId>
@@ -13,18 +13,18 @@
   <name>Exabel API Parent Project</name>
 
   <modules>
-    <module>exabel/data</module>
+    <module>exabel/api/data</module>
   </modules>
 
   <properties>
     <!-- Example: com.exabel.prereq:exabel-check -->
-    <exabel.tooling.version>0.1.11</exabel.tooling.version>
+    <exabel.tooling.version>0.1.20</exabel.tooling.version>
     <!-- Example: com.google.api.grpc:proto-google-common-protos -->
-    <google.api.grpc.common.version>1.17.0</google.api.grpc.common.version>
+    <google.api.grpc.common.version>1.18.0</google.api.grpc.common.version>
     <!-- Example: com.google.guava:guava -->
-    <google.guava.version>28.0-jre</google.guava.version>
+    <google.guava.version>29.0-jre</google.guava.version>
     <!-- Example: io.grpc:grpc-core -->
-    <grpc.version>1.25.0</grpc.version>
+    <grpc.version>1.30.0</grpc.version>
   </properties>
 
   <dependencyManagement>

@@ -2,18 +2,18 @@
 
 syntax = "proto3";
 
-package exabel.time;
+package exabel.api.time;
 
 option java_multiple_files = true;
 option java_outer_classname = "TimeRangeProto";
-option java_package = "com.exabel.time";
+option java_package = "com.exabel.api.time";
 
 import "google/protobuf/timestamp.proto";
 
 // A time range represented by two google.protobuf.Timestamps. The default time range includes the
 // start point and excludes the end point.
 message TimeRange {
-  // The start point of the time range. By default included in the range.
+  // The start point of the time range. If not setBy default included in the range.
   google.protobuf.Timestamp from_time = 1;
   // Set to exclude the start point from the range.
   bool exclude_from = 2;

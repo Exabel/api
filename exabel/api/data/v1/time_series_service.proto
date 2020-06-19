@@ -2,14 +2,14 @@
 
 syntax = "proto3";
 
-package exabel.data.v1;
+package exabel.api.data.v1;
 
 option java_multiple_files = true;
 option java_outer_classname = "TimeSeriesServiceProto";
-option java_package = "com.exabel.data.v1";
+option java_package = "com.exabel.api.data.v1";
 
-import "exabel/data/v1/time_series_messages.proto";
-import "exabel/time/time_range.proto";
+import "exabel/api/time/time_range.proto";
+import "exabel/api/data/v1/time_series_messages.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
@@ -89,7 +89,7 @@ service TimeSeriesService {
       body: "*"
     };
   }
-  // The same request as DeleteTimeSeries, but with an alternative path.
+  // The same request as BatchDeleteTimeSeries, but with an alternative path.
   rpc BatchDeleteTimeSeriesPoints2(BatchDeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       post: "/v1/{name=signals/*/entityTypes/*/entities/*}/points:batchDelete"
@@ -169,5 +169,5 @@ message BatchDeleteTimeSeriesPointsRequest {
   string name = 1;
   // The list of time ranges to delete from the time series. Each time range may
   // be expanded to whole hours (UTC time).
-  repeated time.TimeRange time_ranges = 2;
+  repeated api.time.TimeRange time_ranges = 2;
 }

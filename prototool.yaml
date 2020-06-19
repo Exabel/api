@@ -2,7 +2,7 @@ protoc:
   version: 3.8.0
 excludes:
   - google
-  - exabel/data/target
+  - exabel/api/data/target
 lint:
   group: google
   rules:
@@ -46,4 +46,4 @@ lint:
   ignores:
     - id: NAMES_NO_DATA
       files:
-      - exabel/data/v1
+      - exabel/api/data/v1
