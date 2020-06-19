@@ -82,9 +82,9 @@
                 <mainClass>com.exabel.proto.ProtoExtensions</mainClass>
               </protocPlugin>
             </protocPlugins>
-            <protoSourceRoot>${project.basedir}/../..</protoSourceRoot>
+            <protoSourceRoot>${project.basedir}/../../..</protoSourceRoot>
             <excludes>
-              <exclude>exabel/*/target/**</exclude>
+              <exclude>exabel/*/*/target/**</exclude>
             </excludes>
           </configuration>
           <executions>
