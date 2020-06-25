@@ -41,8 +41,13 @@ service RelationshipService {
       body: "relationship_type"
     };
   }
-  // Deletions of relationship types are not supported.
-
+  // Deletes one relationship type. A relationship type cannot be deleted if
+  // there exist relationships having that type.
+  rpc DeleteRelationshipType(DeleteRelationshipTypeRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=relationshipTypes/*}"
+    };
+  }
   // Lists relationship for a given entity.
   rpc ListRelationships(ListRelationshipsRequest) returns (ListRelationshipsResponse) {
     option (google.api.http) = {
@@ -50,6 +55,7 @@ service RelationshipService {
     };
   }
   // Gets one relationship.
+  // TODO(nordli): This method has the same URL as ListRelationships.
   rpc GetRelationship(GetRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
       get: "/v1/{parent=relationshipTypes/*}/relationships"
@@ -110,6 +116,12 @@ message UpdateRelationshipTypeRequest {
   // Required. The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;
+}
+
+// The request to delete one relationship type.
+message DeleteRelationshipTypeRequest {
+  // The resource name of the relationship type to delete, for example "relationshipTypes/ns.type1".
+  string name = 1;
 }
 
 // The response to get one relationship type.
