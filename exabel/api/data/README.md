@@ -82,10 +82,14 @@ aero deploy
 
 ### Endpoints
 
-TODO(nordli): Decide on the endpoints project
 ```
-gcloud --project mimtest-151313 endpoints services deploy target/generated-resources/protobuf/descriptor-sets/descriptor.pb data-api.yaml
+gcloud endpoints services deploy target/generated-resources/protobuf/descriptor-sets/descriptor.pb data-api.yaml
 ```
+
+The projects that run implementations of this API must have "Service Consumer" and "Service
+Controller" permissions for this API.
+
+API overview in Cloud Console: https://console.cloud.google.com/endpoints/api/data.api.exabel.com/overview?project=exabel-api&organizationId=935607507718
 
 ## Auth0 integration
 
