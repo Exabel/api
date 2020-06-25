@@ -48,7 +48,6 @@ service RelationshipService {
       delete: "/v1/{name=relationshipTypes/*}"
     };
   }
-
   // Lists relationship for a given entity.
   rpc ListRelationships(ListRelationshipsRequest) returns (ListRelationshipsResponse) {
     option (google.api.http) = {
@@ -56,9 +55,9 @@ service RelationshipService {
     };
   }
   // Gets one relationship.
+  // TODO(nordli): This method has the same URL as ListRelationships.
   rpc GetRelationship(GetRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
-      // TODO(nordli): This method has the same URL as ListRelationships.
       get: "/v1/{parent=relationshipTypes/*}/relationships"
     };
   }
