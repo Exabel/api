@@ -41,8 +41,8 @@ service RelationshipService {
       body: "relationship_type"
     };
   }
-  // Deletes one relatinoship type. A relationship type cannot be deleted if
-  // there exist relationships of this type.
+  // Deletes one relationship type. A relationship type cannot be deleted if
+  // there exist relationships having that type.
   rpc DeleteRelationshipType(DeleteRelationshipTypeRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{name=relationshipTypes/*}"
