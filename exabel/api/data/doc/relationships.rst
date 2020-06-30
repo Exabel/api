@@ -20,7 +20,7 @@ Retrieves the relationship type catalogue.
 
 ..  http:get:: /v1/relationshipTypes
 
-    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum size
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
         of this field.
     :query string pageToken: The page token to resume the results from, as returned from a previous request to this
         method with the same query parameters.
@@ -192,7 +192,7 @@ List relationships
         ``entityTypes/{entityTypeId}}/entities/{entityId}``.
     :query toEntity: The entity resource name of the end point of the relationship on the form
         ``entityTypes/{entityTypeId}}/entities/{entityId}``.
-    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum size
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
         of this field.
     :query string pageToken: The page token to resume the results from, as returned from a previous request to this
         method with the same query parameters.

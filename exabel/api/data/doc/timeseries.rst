@@ -19,7 +19,13 @@ List time series by entity
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/timeSeries
 
-    :resjsonarr string name: Time series resource name
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
+        of this field.
+    :query string pageToken: The page token to resume the results from, as returned from a previous request to this
+        method with the same query parameters.
+    :resjson object timeSeries: The resulting time series.
+    :resjson string nextPageToken: The page token where the list continues. Can be sent to a subsequent query.
+    :resjson int totalSize: The total number of results, irrespective of paging.
 
 ..  http:example:: curl wget python-requests
 
@@ -33,8 +39,13 @@ List time series by entity
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
-      "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.total_spend_amount"
+      "timeSeries":
+        [
+          "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+          "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.total_spend_amount"
+        ],
+      "nextPageToken": "graph:entityTypes:store:entities:customer1:apple_store_fifth_avenue:signals:customer1:total_spend_amount",
+      "totalSize": 2
     }
 
 
@@ -43,7 +54,13 @@ List time series by signal
 
 ..  http:get:: /v1/signals/{signalId}/timeSeries
 
-    :resjsonarr string name: Time series resource name
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
+        of this field.
+    :query string pageToken: The page token to resume the results from, as returned from a previous request to this
+        method with the same query parameters.
+    :resjson object timeSeries: The resulting time series.
+    :resjson string nextPageToken: The page token where the list continues. Can be sent to a subsequent query.
+    :resjson int totalSize: The total number of results, irrespective of paging.
 
 ..  http:example:: curl wget python-requests
 
@@ -57,9 +74,14 @@ List time series by signal
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
-      "name": "entityTypes/store/entities/customer1.apple_store_grand_central/signals/customer1.visitors",
-      "name": "entityTypes/store/entities/customer1.apple_store_upper_west_side/signals/customer1.visitors"
+      "timeSeries":
+        [
+          "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+          "name": "entityTypes/store/entities/customer1.apple_store_grand_central/signals/customer1.visitors",
+          "name": "entityTypes/store/entities/customer1.apple_store_upper_west_side/signals/customer1.visitors"
+        ],
+      "nextPageToken": "graph:entityTypes:store:entities:customer1:apple_store_upper_west_side:signals:customer1:visitors",
+      "totalSize": 3
     }
 
 

@@ -18,7 +18,7 @@ Retrieves the entity type catalogue.
 
 ..  http:get:: /v1/entityTypes
 
-    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum size
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
         of this field.
     :query string pageToken: The page token to resume the results from, as returned from a previous request to this
         method with the same query parameters.
@@ -108,7 +108,7 @@ Lists all entities of a given entity type.
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}/entities
 
-    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum size
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
         of this field.
     :query string pageToken: The page token to resume the results from, as returned from a previous request to this
         method with the same query parameters.
