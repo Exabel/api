@@ -86,7 +86,7 @@ List entities
 
 Lists all entities of a given entity type.
 
-..  http:get:: /v1/entityTypes/{entityTypeId}
+..  http:get:: /v1/entityTypes/{entityTypeId}/entities
 
     :resjsonarr string name: Entity resource name
 
