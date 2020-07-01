@@ -41,8 +41,8 @@ List time series by entity
     {
       "timeSeries":
         [
-          "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
-          "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.total_spend_amount"
+          { "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors" },
+          { "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.total_spend_amount" }
         ],
       "nextPageToken": "graph:entityTypes:store:entities:customer1:apple_store_fifth_avenue:signals:customer1:total_spend_amount",
       "totalSize": 2
@@ -76,9 +76,9 @@ List time series by signal
     {
       "timeSeries":
         [
-          "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
-          "name": "entityTypes/store/entities/customer1.apple_store_grand_central/signals/customer1.visitors",
-          "name": "entityTypes/store/entities/customer1.apple_store_upper_west_side/signals/customer1.visitors"
+          { "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors" },
+          { "name": "entityTypes/store/entities/customer1.apple_store_grand_central/signals/customer1.visitors" },
+          { "name": "entityTypes/store/entities/customer1.apple_store_upper_west_side/signals/customer1.visitors" }
         ],
       "nextPageToken": "graph:entityTypes:store:entities:customer1:apple_store_upper_west_side:signals:customer1:visitors",
       "totalSize": 3
