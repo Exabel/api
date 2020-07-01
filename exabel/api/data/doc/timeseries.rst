@@ -11,19 +11,25 @@ from a set of child entities to a parent entity that does not normally have that
 The resource name for a a time series is on the form
 ``entityTypes/ns1.entityTypeName/entities/ns2.entityName/signals/ns3.signalName``
 An alternative name for the same time series is
-``signals/ns3.signalName/entityTypes/ns1.entityTypeName/entities/ns2.entityName``, but the former is the canonical version
-which always will be returned by the server.
+``signals/ns3.signalName/entityTypes/ns1.entityTypeName/entities/ns2.entityName``, but the former is the canonical
+version which always will be returned by the server.
 
 List time series by entity
 --------------------------
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/timeSeries
 
-    :resjsonarr string name: Time series resource name
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
+        of this field.
+    :query string pageToken: The page token to resume the results from, as returned from a previous request to this
+        method with the same query parameters.
+    :resjson object timeSeries: The resulting time series.
+    :resjson string nextPageToken: The page token where the list continues. Can be sent to a subsequent query.
+    :resjson int totalSize: The total number of results, irrespective of paging.
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/timeSeries HTTP/1.1
+    GET /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/timeSeries HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -33,8 +39,13 @@ List time series by entity
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
-      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.total_spend_amount"
+      "timeSeries":
+        [
+          "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+          "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.total_spend_amount"
+        ],
+      "nextPageToken": "graph:entityTypes:store:entities:customer1:apple_store_fifth_avenue:signals:customer1:total_spend_amount",
+      "totalSize": 2
     }
 
 
@@ -43,7 +54,13 @@ List time series by signal
 
 ..  http:get:: /v1/signals/{signalId}/timeSeries
 
-    :resjsonarr string name: Time series resource name
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
+        of this field.
+    :query string pageToken: The page token to resume the results from, as returned from a previous request to this
+        method with the same query parameters.
+    :resjson object timeSeries: The resulting time series.
+    :resjson string nextPageToken: The page token where the list continues. Can be sent to a subsequent query.
+    :resjson int totalSize: The total number of results, irrespective of paging.
 
 ..  http:example:: curl wget python-requests
 
@@ -57,9 +74,14 @@ List time series by signal
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
-      "name": "entityTypes/exabel.store/entities/customer1.apple_store_grand_central/signals/customer1.visitors",
-      "name": "entityTypes/exabel.store/entities/customer1.apple_store_upper_west_side/signals/customer1.visitors"
+      "timeSeries":
+        [
+          "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+          "name": "entityTypes/store/entities/customer1.apple_store_grand_central/signals/customer1.visitors",
+          "name": "entityTypes/store/entities/customer1.apple_store_upper_west_side/signals/customer1.visitors"
+        ],
+      "nextPageToken": "graph:entityTypes:store:entities:customer1:apple_store_upper_west_side:signals:customer1:visitors",
+      "totalSize": 3
     }
 
 
@@ -78,7 +100,7 @@ Get a specific time series
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
+    GET /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -88,7 +110,7 @@ Get a specific time series
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+      "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
       "points": [
         {"time": "2019-01-01T00:00:00Z", "value": 1223},
         {"time": "2019-01-02T00:00:00Z", "value": 3435},
@@ -114,7 +136,7 @@ Create time series
 
 ..  http:example:: curl wget python-requests
 
-    POST /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
+    POST /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -133,7 +155,7 @@ Create time series
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+      "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
       "points": [
         {"time": "2019-01-01T00:00:00Z", "value": 1223},
         {"time": "2019-01-02T00:00:00Z", "value": 3435},
@@ -163,7 +185,7 @@ the existing points with the same key, unless the new value is empty, in which c
 
 ..  http:example:: curl wget python-requests
 
-    PATCH /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-04T00:00:00Z&view.timeRange.fromTime=2019-01-06T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
+    PATCH /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-04T00:00:00Z&view.timeRange.fromTime=2019-01-06T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -182,7 +204,7 @@ the existing points with the same key, unless the new value is empty, in which c
     Content-Type: application/json; charset=utf-8
 
     {
-      "name": "entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
+      "name": "entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors",
       "points": [
         {"time": "2019-01-04T00:00:00Z", "value": 4231},
         {"time": "2019-01-06T00:00:00Z", "value": 3521}
@@ -199,7 +221,7 @@ Delete time series points
 
 ..  http:example:: curl wget python-requests
 
-    POST /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors/points:batchDelete HTTP/1.1
+    POST /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors/points:batchDelete HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -229,7 +251,7 @@ Delete time series
 
 ..  http:example:: curl wget python-requests
 
-    DELETE /v1/entityTypes/exabel.store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
+    DELETE /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE

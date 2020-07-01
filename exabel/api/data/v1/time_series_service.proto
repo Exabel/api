@@ -104,7 +104,7 @@ message ListTimeSeriesRequest {
   // The parent entity or signal of time series to list, for example "entityTypes/ns.type1/entities/ns.entity1"
   // or "signal/ns.signal1".
   string parent = 1;
-  // The maximum number of results to return. Defaults to 1000, which is also the maximum size
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
   // of this field.
   int32 page_size = 2;
   // The page token to resume the results from, as returned from a previous request to this method

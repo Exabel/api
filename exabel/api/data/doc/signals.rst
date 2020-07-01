@@ -13,10 +13,10 @@ Get signal
 
 ..  http:get:: /v1/signals/{signalId}
 
-    :resjson string name: Signal resource name
-    :resjson string entityType: Resource name of the entity type this signal may exist for
-    :resjson string displayName: Signal display name
-    :resjson string description: Signal description
+    :resjson string name: Signal resource name.
+    :resjson string entityType: Resource name of the entity type this signal may exist for.
+    :resjson string displayName: Signal display name.
+    :resjson string description: Signal description.
     :resjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
@@ -46,18 +46,18 @@ Create signal
 
 ..  http:post:: /v1/signals
 
-    :reqjson string name: Signal resource name on the form ``signals/{signalId}`` (required)
-    :reqjson string entityType: Resource name of the entity type this signal may exist for (required)
-    :reqjson string displayName: Signal display name (required)
-    :reqjson string description: Signal description
+    :reqjson string name: Signal resource name on the form ``signals/{signalId}`` (required).
+    :reqjson string entityType: Resource name of the entity type this signal may exist for (required).
+    :reqjson string displayName: Signal display name (required).
+    :reqjson string description: Signal description.
     :reqjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
 
-    :resjson string name: Signal resource name
-    :resjson string entityType: Resource name of the entity type this signal may exist for
-    :resjson string displayName: Signal display name
-    :resjson string description: Signal description
+    :resjson string name: Signal resource name.
+    :resjson string entityType: Resource name of the entity type this signal may exist for.
+    :resjson string displayName: Signal display name.
+    :resjson string description: Signal description.
     :resjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
@@ -94,19 +94,19 @@ Update signal
 
 ..  http:patch:: /v1/signals/{signalId}
 
-    :reqjson string entityType: Resource name of the entity type this signal may exist for
-    :reqjson string displayName: Signal display name
-    :reqjson string description: Signal description
+    :reqjson string entityType: Resource name of the entity type this signal may exist for.
+    :reqjson string displayName: Signal display name.
+    :reqjson string description: Signal description.
     :reqjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
-    :reqjson array updateMask: Field mask
+    :reqjson array updateMask: Field mask.
 
 
-    :resjson string name: Signal resource name
-    :resjson string entityType: Resource name of the entity type this signal may exist for
-    :resjson string displayName: Signal display name
-    :resjson string description: Signal description
+    :resjson string name: Signal resource name.
+    :resjson string entityType: Resource name of the entity type this signal may exist for.
+    :resjson string displayName: Signal display name.
+    :resjson string description: Signal description.
     :resjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
@@ -123,7 +123,7 @@ Update signal
       "entityType": "entityTypes/customer1.stores",
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day",
-      "updateMask": ["entityType", "displayName", "description"]
+      "updateMask": "entityType,displayName,description"
     }
 
 

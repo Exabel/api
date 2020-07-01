@@ -18,7 +18,13 @@ Retrieves the entity type catalogue.
 
 ..  http:get:: /v1/entityTypes
 
-    :resjsonarr string name: Entity type resource name
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
+        of this field.
+    :query string pageToken: The page token to resume the results from, as returned from a previous request to this
+        method with the same query parameters.
+    :resjson array entityTypes: The resulting entity types.
+    :resjson string nextPageToken: The page token where the list continues. Can be sent to a subsequent query.
+    :resjson int totalSize: The total number of results, irrespective of paging.
 
 ..  http:example:: curl wget python-requests
 
@@ -31,17 +37,29 @@ Retrieves the entity type catalogue.
     HTTP/1.1 200 OK
     Content-Type: application/json; charset=utf-8
 
-    [
-      {
-        "name": "entityTypes/brand"
-      },
-      {
-        "name": "entityTypes/region"
-      },
-      {
-        "name": "entityTypes/customer1.factory"
-      }
-    ]
+    {
+      "entityTypes": [
+        {
+          "name": "entityTypes/brand",
+          "displayName": "Brands",
+          "description": "Company brands",
+          "readOnly": true
+        },
+        {
+          "name": "entityTypes/region",
+          "displayName": "Regions",
+          "description": "Geographical regions",
+          "readOnly": true
+        },
+        {
+          "name": "entityTypes/customer1.factory",
+          "displayName": "Factory",
+          "description": "Factories"
+        }
+      ],
+      "nextPageToken": "graph:entityTypes:customer1:factory",
+      "totalSize": 3
+    }
 
 
 Get entity type details
@@ -49,9 +67,10 @@ Get entity type details
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}
 
-    :resjson string name: Entity type resource name
-    :resjson string displayName: Entity type display name
-    :resjson string description: Entity type description
+    :resjson string name: Entity type resource name.
+    :resjson string displayName: Entity type display name.
+    :resjson string description: Entity type description.
+    :resjson boolean readOnly: Whether this resource is read only.
 
 ..  http:example:: curl wget python-requests
 
@@ -67,7 +86,8 @@ Get entity type details
     {
       "name": "entityTypes/brand",
       "displayName": "Brand",
-      "description": "Brands owned by companies"
+      "description": "Brands owned by companies",
+      "readOnly": true
     }
 
 
@@ -88,7 +108,13 @@ Lists all entities of a given entity type.
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}/entities
 
-    :resjsonarr string name: Entity resource name
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
+        of this field.
+    :query string pageToken: The page token to resume the results from, as returned from a previous request to this
+        method with the same query parameters.
+    :resjson array entities: The resulting entities.
+    :resjson string nextPageToken: The page token where the list continues. Can be sent to a subsequent query.
+    :resjson int totalSize: The total number of results, irrespective of paging.
 
 ..  http:example:: curl wget python-requests
 
@@ -101,27 +127,39 @@ Lists all entities of a given entity type.
     HTTP/1.1 200 OK
     Content-Type: application/json; charset=utf-8
 
-    [
-      {
-        "name": "entityTypes/brand/entities/audi"
-      },
-      {
-        "name": "entityTypes/brand/entities/customer1.skoda"
-      },
-      {
-        "name": "entityTypes/brand/entities/customer1.vw"
-      }
-    ]
+    {
+      "entities": [
+        {
+          "name": "entityTypes/brand/entities/audi",
+          "displayName": "Audi",
+          "readOnly": true,
+          "properties": {}
+        },
+        {
+          "name": "entityTypes/brand/entities/customer1.skoda",
+          "displayName": "Škoda",
+          "properties": {}
+        },
+        {
+          "name": "entityTypes/brand/entities/customer1.vw",
+          "displayName": "VW",
+          "properties": {}
+        }
+      ],
+      "nextPageToken": "graph:entityTypes:brand:entities:customer1.vw",
+      "totalSize": 3
+    }
 
 Get entity
 ----------
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
 
-    :resjson string name: Entity resource name
-    :resjson string displayName: Entity display name
-    :resjson string description: Entity description
-    :resjson object properties: Entity properties
+    :resjson string name: Entity resource name.
+    :resjson string displayName: Entity display name.
+    :resjson string description: Entity description.
+    :resjson boolean readOnly: Whether this resource is read only.
+    :resjson object properties: Entity properties.
 
 
 ..  http:example:: curl wget python-requests
@@ -137,7 +175,8 @@ Get entity
 
       {
         "name": "entityTypes/brand/entities/customer1.skoda",
-        "displayName": "Škoda"
+        "displayName": "Škoda",
+        "properties": {}
       }
 
 
@@ -146,15 +185,16 @@ Create entity
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities
 
-    :reqjson string name: Entity resource name on the format ``entityTypes/{entityTypeId}/entities/{entityId}`` (required)
-    :reqjson string displayName: Entity display name
-    :reqjson string description: Entity description
-    :reqjson object properties: Entity properties
+    :reqjson string name: Entity resource name on the format ``entityTypes/{entityTypeId}/entities/{entityId}``
+        (required).
+    :reqjson string displayName: Entity display name.
+    :reqjson string description: Entity description.
+    :reqjson object properties: Entity properties.
 
-    :resjson string name: Entity resource name
-    :resjson string displayName: Entity display name
-    :resjson string description: Entity description
-    :resjson object properties: Entity properties
+    :resjson string name: Entity resource name.
+    :resjson string displayName: Entity display name.
+    :resjson string description: Entity description.
+    :resjson object properties: Entity properties.
 
 ..  http:example:: curl wget python-requests
 
@@ -175,7 +215,8 @@ Create entity
 
     {
       "name": "entityTypes/brand/entities/customer1.skoda",
-      "displayName": "Škoda"
+      "displayName": "Škoda",
+      "properties": {}
     }
 
 
@@ -184,15 +225,15 @@ Update entity
 
 ..  http:patch:: /v1/entityTypes/{entityTypeId}/entities/{entityId}
 
-    :reqjson string displayName: Entity display name
-    :reqjson string description: Entity description
-    :reqjson object properties: Entity properties
-    :reqjson array updateMask: Field mask
+    :reqjson string displayName: Entity display name.
+    :reqjson string description: Entity description.
+    :reqjson object properties: Entity properties.
+    :reqjson string updateMask: Field mask.
 
-    :resjson string name: Entity resource name
-    :resjson string displayName: Entity display name
-    :resjson string description: Entity description
-    :resjson object properties: Entity properties
+    :resjson string name: Entity resource name.
+    :resjson string displayName: Entity display name.
+    :resjson string description: Entity description.
+    :resjson object properties: Entity properties.
 
 
 ..  http:example:: curl wget python-requests
@@ -208,7 +249,7 @@ Update entity
       "properties": {
         "brandType": "car"
       },
-      "updateMask": ["description", "properties"]
+      "updateMask": "description,properties"
     }
 
 
