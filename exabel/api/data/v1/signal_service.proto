@@ -15,6 +15,12 @@ import "google/protobuf/field_mask.proto";
 
 // Manages signals in the Data API.
 service SignalService {
+  // Lists all known signals.
+  rpc ListSignals(ListSignalsRequest) returns (ListSignalsResponse) {
+    option (google.api.http) = {
+      get: "/v1/signals"
+    };
+  }
   // Gets one signal.
   rpc GetSignal(GetSignalRequest) returns (Signal) {
     option (google.api.http) = {
@@ -41,6 +47,26 @@ service SignalService {
       delete: "/v1/{name=signals/*}"
     };
   }
+}
+
+// The request to list signals.
+message ListSignalsRequest {
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
+  // of this field.
+  int32 page_size = 1;
+  // The page token to resume the results from, as returned from a previous request to this method
+  // with the same query parameters.
+  string page_token = 2;
+}
+
+// The response to list signals. Returns all known signals.
+message ListSignalsResponse {
+  // The resulting signals.
+  repeated Signal signals = 1;
+  // The page token where the list continues. Can be sent to a subsequent query.
+  string next_page_token = 2;
+  // The total number of results, irrespective of paging.
+  int32 total_size = 3;
 }
 
 // The request to get one signal.

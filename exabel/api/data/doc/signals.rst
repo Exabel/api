@@ -8,6 +8,54 @@ earnings for companies, traffic numbers for web domains.
 The collection id for signals is ``signals``.
 
 
+List signals
+-----------------
+
+Retrieves the signal catalogue.
+
+..  http:get:: /v1/signals
+
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
+        of this field.
+    :query string pageToken: The page token to resume the results from, as returned from a previous request to this
+        method with the same query parameters.
+    :resjson array signals: The resulting signals.
+    :resjson string nextPageToken: The page token where the list continues. Can be sent to a subsequent query.
+    :resjson int totalSize: The total number of results, irrespective of paging.
+
+..  http:example:: curl wget python-requests
+
+    GET /v1/signals HTTP/1.1
+    Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    {
+      "signals": [
+        {
+          "name": "signals/customer1.customer_amount",
+          "entityType": "entityTypes/customer1.stores",
+          "displayName": "Amount per customer",
+          "description": "The amount spent per customer in a store per day",
+          "downsamplingMethod": "MEAN"
+        },
+        {
+          "name": "signals/customer1.visitors",
+          "entityType": "entityTypes/customer1.stores",
+          "displayName": "Daily visitors",
+          "description": "The number of visitors in a store per day",
+          "downsamplingMethod": "SUM"
+        }
+      ],
+      "nextPageToken": "graph:signals:customer1:visitors",
+      "totalSize": 2
+    }
+
+
 Get signal
 ----------
 
