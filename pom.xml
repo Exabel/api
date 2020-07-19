@@ -108,8 +108,7 @@
                     <mainClass>com.exabel.proto.ProtoExtensions</mainClass>
                   </protocPlugin>
                 </protocPlugins>
-                <outputDirectory>${project.build.directory}/generated-sources/protobuf
-                </outputDirectory>
+                <outputDirectory>${project.build.directory}/generated-sources/protobuf</outputDirectory>
               </configuration>
             </execution>
             <execution>
