@@ -45,14 +45,22 @@
         <artifactId>protobuf-maven-plugin</artifactId>
         <configuration>
           <includes>
-            <include>exabel/api/data/**/*.proto</include>
-            <include>exabel/api/math/**/*.proto</include>
-            <include>exabel/api/time/**/*.proto</include>
+            <include>exabel/api/data/**/*_service.proto</include>
           </includes>
         </configuration>
         <executions>
           <execution>
-            <id>protoc</id>
+            <id>protoc-pb</id>
+          </execution>
+          <execution>
+            <id>protoc-java</id>
+            <configuration>
+              <includes>
+                <include>exabel/api/data/**/*.proto</include>
+                <include>exabel/api/math/**/*.proto</include>
+                <include>exabel/api/time/**/*.proto</include>
+              </includes>
+            </configuration>
           </execution>
           <execution>
             <id>protoc-grpc</id>
