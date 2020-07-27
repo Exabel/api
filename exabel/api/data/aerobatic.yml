@@ -6,13 +6,9 @@ deploy:
     - .buildinfo
   directory: target/html
 plugins:
-  - name: auth0
+  - name: password-protect
     stages:
       - production
     path: /
     options:
-      clientId: $AUTH0_CLIENT_ID
-      clientSecret: $AUTH0_CLIENT_SECRET
-      tenant: auth.exabel.com
-      customDomain: true
-      cookieExpiresMinutes: 43200
+      password: $SITE_PASSWORD
