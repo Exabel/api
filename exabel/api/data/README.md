@@ -82,9 +82,7 @@ aero deploy
 
 ### Endpoints
 
-```
-gcloud endpoints services deploy target/generated-resources/protobuf/descriptor-sets/descriptor.pb data-api.yaml
-```
+Endpoints will be deployed automatically by Jenkins whenever a change is detected.
 
 The projects that run implementations of this API must have "Service Consumer" and "Service
 Controller" permissions for this API.

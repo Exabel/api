@@ -70,18 +70,7 @@
           <artifactId>protobuf-maven-plugin</artifactId>
           <version>0.6.1</version>
           <configuration>
-            <pluginId>grpc-java</pluginId>
-            <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
             <protocArtifact>com.google.protobuf:protoc:${google.protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
-            <protocPlugins>
-              <protocPlugin>
-                <id>exabel-proto-extensions</id>
-                <groupId>com.exabel.prereq</groupId>
-                <artifactId>exabel-proto-extensions</artifactId>
-                <version>${exabel.tooling.version}</version>
-                <mainClass>com.exabel.proto.ProtoExtensions</mainClass>
-              </protocPlugin>
-            </protocPlugins>
             <protoSourceRoot>${project.basedir}/../../..</protoSourceRoot>
             <excludes>
               <exclude>exabel/*/*/target/**</exclude>
@@ -89,12 +78,15 @@
           </configuration>
           <executions>
             <execution>
-              <id>protoc</id>
+              <id>protoc-pb</id>
               <goals>
-                <goal>compile</goal>
+                <!--
+                 protobuf-maven-plugin deficiency: it cannot only generate descriptor set,
+                 but must compile to *something*.
+                  -->
+                <goal>compile-cpp</goal>
               </goals>
               <configuration>
-                <outputDirectory>${project.build.directory}/generated-sources/protobuf</outputDirectory>
                 <writeDescriptorSet>true</writeDescriptorSet>
                 <includeDependenciesInDescriptorSet>true</includeDependenciesInDescriptorSet>
                 <includeSourceInfoInDescriptorSet>true</includeSourceInfoInDescriptorSet>
@@ -102,7 +94,25 @@
               </configuration>
             </execution>
             <execution>
-              <id>protoc-grpc</id>
+              <id>protoc-java</id>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+              <configuration>
+                <protocPlugins>
+                  <protocPlugin>
+                    <id>exabel-proto-extensions</id>
+                    <groupId>com.exabel.prereq</groupId>
+                    <artifactId>exabel-proto-extensions</artifactId>
+                    <version>${exabel.tooling.version}</version>
+                    <mainClass>com.exabel.proto.ProtoExtensions</mainClass>
+                  </protocPlugin>
+                </protocPlugins>
+                <outputDirectory>${project.build.directory}/generated-sources/protobuf</outputDirectory>
+              </configuration>
+            </execution>
+            <execution>
+              <id>protoc-java-grpc</id>
               <goals>
                 <goal>compile-custom</goal>
               </goals>

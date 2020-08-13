@@ -1,22 +1,22 @@
 #!/usr/bin/env/groovy
 
 // Make sure this build gets a unique label
-def label = "buildpod.${env.JOB_NAME}.${env.BUILD_NUMBER}".replaceAll(/[^\w-]/, '_')
+String label = "buildpod.${env.JOB_NAME}.${env.BUILD_NUMBER}".replaceAll(/[^\w-]/, '_')
 
 // Sets special branch locations
-def officialMaster = 'git@github.com:Exabel/api.git:master'
+String officialMaster = 'git@github.com:Exabel/api.git:master'
 
 // Build levels
-def BUILD_NONE = 0    // Build nothing -- assuming no code changes
-def BUILD_PUBLISH = 1 // Build only what's needed to publish maven artifacts
-def BUILD_ALL = 2     // Build, test and publish everything
+BUILD_NONE = 0    // Build nothing -- assuming no code changes
+BUILD_PUBLISH = 1 // Build only what's needed to publish maven artifacts
+BUILD_ALL = 2     // Build, test and publish everything
 
 // List of files that do not contain any code
-def fileRegexNoCode = [/common/, /.*[.]md/, /.*[.]png/, /.*[.]dot/, /.*[.]svg/]
+Collection<String> fileRegexNoCode = [/common/, /.*[.]md/, /.*[.]png/, /.*[.]dot/, /.*[.]svg/]
 
 // Returns a list of changed files since the previous successful build.
 Collection<String> getChangedFilesList() {
-  def files = new HashSet()
+  Collection<String> files = new HashSet()
   def build = currentBuild
   while (build != null && build.result != 'SUCCESS') {
     files.addAll(
@@ -99,7 +99,7 @@ spec:
         tagName = (gitBranch + '.' + gitCommit).replaceAll(/[^\w-\.]/, '_')
         ON_MASTER = (gitRemote + ':' + gitBranch == officialMaster)
 
-        def changed = getChangedFilesList()
+        changed = getChangedFilesList()
         echo 'Changed files: ' + changed
 
         if (changed.every { f -> fileRegexNoCode.any { f ==~ it } }) {
@@ -124,7 +124,7 @@ spec:
         container('mvn') {
           try {
             stage('Maven build, test, package and verify') {
-              def mvnProfile = buildLevel == BUILD_ALL ? 'jenkins' : 'jenkins-simple'
+              String mvnProfile = buildLevel == BUILD_ALL ? 'jenkins' : 'jenkins-simple'
               sh 'mvn -B install -P' + mvnProfile
 
               step([$class: 'WarningsPublisher', consoleParsers: [[parserName: 'Maven'], [parserName: 'Java Compiler (javac)']]])
@@ -136,11 +136,11 @@ spec:
               }
             }
             stage('Test endpoint definitions') {
-              def serviceFiles = findFiles(glob: 'exabel/*/*-api.yaml').collect { it.path }
-              for (serviceFile in serviceFiles) {
-                def protoDescriptor = serviceFile[0..serviceFile.lastIndexOf('/')] +
+              Collection<String> serviceFiles = findFiles(glob: 'exabel/*/*-api.yaml').collect { it.path }
+              for (String serviceFile in serviceFiles) {
+                String protoDescriptor = serviceFile[0..serviceFile.lastIndexOf('/')] +
                   "target/generated-resources/protobuf/descriptor-sets/descriptor.pb"
-                sh "gcloud --project mimtest-151313 endpoints services deploy ${protoDescriptor} ${serviceFile} --validate-only > /dev/null"
+                sh "common/endpoints/validate_config.sh ${serviceFile} ${protoDescriptor}"
               }
             }
           } finally {
@@ -156,7 +156,27 @@ spec:
         if (ON_MASTER && buildLevel >= BUILD_PUBLISH) {
           stage('Deploy maven artifacts') {
             container('mvn') {
-              sh 'mvn -B deploy -Dmaven.install.skip'
+              String output = sh(returnStdout: true, script: 'mvn -B deploy -Dmaven.install.skip').trim()
+              echo output
+              // Send Slack notifications by searching for "Uploading*.pom". Sample:
+              // Uploading to exabel-cloud-repository-release: gs://jenkins-exabel#exabel-maven-repo/release/com/exabel/api/data/1.0.8/data-1.0.8.pom
+              for (String line in output.split('\n').findAll { it ==~ '.*Uploading.*\\.pom'}) {
+                Collection<String> parts = line.substring(line.indexOf("/release/") + 9).split('/').dropRight(1)
+                String mvn = parts.dropRight(2).join('.') + ":" + parts.takeRight(2).join(':')
+                notifySlack('#40b59b', "${mvn} is published.")
+              }
+            }
+          }
+          stage('Deploy endpoints definitions') {
+            Collection<String> serviceFiles = findFiles(glob: 'exabel/*/*/*-api.yaml').collect { it.path }
+            for (String serviceFile in serviceFiles) {
+              String protoDescriptor = serviceFile[0..serviceFile.lastIndexOf('/')] +
+                "target/generated-resources/protobuf/descriptor-sets/descriptor.pb"
+              if (sh(returnStatus: true, script: "common/endpoints/changed.sh ${serviceFile} ${protoDescriptor}") != 0) {
+                sh "common/endpoints/deploy.sh ${serviceFile} ${protoDescriptor}"
+                String version = sh(returnStdout: true, script: "common/endpoints/latest_id.sh ${serviceFile}")
+                notifySlack('#40b59b', "${version} is deployed.")
+              }
             }
           }
         }
