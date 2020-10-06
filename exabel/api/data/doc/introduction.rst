@@ -13,6 +13,7 @@ Exabel maintains several sets of entities that can be used directly or connected
 
 * Companies
 * Securities
+* Regionals
 * Listings
 * Exchanges
 * Countries
