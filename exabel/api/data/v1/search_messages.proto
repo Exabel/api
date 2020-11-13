@@ -1,0 +1,17 @@
+// Copyright (c) 2019-2020 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.data.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "SearchMessagesProto";
+option java_package = "com.exabel.api.data.v1";
+
+// A single search term in a search request.
+message SearchTerm {
+  // The name of the field that should be matched.
+  string field = 1;
+  // The query against which the field is matched.
+  string query = 2;
+}
