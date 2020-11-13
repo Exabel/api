@@ -14,7 +14,6 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
 // Manages entity types and entities in the Data API.
-// TODO(nordli): Implement support for searching for entities.
 service EntityService {
   // Lists all known entity types.
   rpc ListEntityTypes(ListEntityTypesRequest) returns (ListEntityTypesResponse) {
@@ -59,6 +58,12 @@ service EntityService {
   rpc DeleteEntity(DeleteEntityRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{name=entityTypes/*/entities/*}"
+    };
+  }
+  // Search for an entities.
+  rpc SearchForEntities(SearchForEntitiesRequest) returns (ListEntitiesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=entityTypes/*}/entities:search"
     };
   }
 }
@@ -138,4 +143,17 @@ message UpdateEntityRequest {
 message DeleteEntityRequest {
   // The resource name of the entity to delete, for example "entityTypes/ns.type1/entities/ns.entity1".
   string name = 1;
+}
+
+// The request to search for an entity.
+// The request should contain either
+//   * an isin, or
+//   * a ticker and a MIC.
+message SearchForEntitiesRequest {
+  // The ISIN (International Securities Identification Number) of a security.
+  string isin = 1;
+  // The ticker of a company on an exchange.
+  string ticker = 2;
+  // The mic (Market Identifier Code) of the exchange on which a company is traded.
+  string mic = 3;
 }
