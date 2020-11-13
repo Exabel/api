@@ -153,6 +153,8 @@ message DeleteEntityRequest {
 //   * an ISIN (International Securities Identification Number), or
 //   * a ticker and a MIC (Market Identifier Code).
 message SearchEntitiesRequest {
+  // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
+  string parent = 4;
   // The search terms that should be satisfied.
   repeated SearchTerm terms = 1;
   // The maximum number of results to return. Defaults to 1000, which is also the maximum value
