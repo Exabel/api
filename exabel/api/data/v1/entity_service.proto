@@ -61,7 +61,7 @@ service EntityService {
     };
   }
   // Search for an entities.
-  rpc SearchForEntities(SearchForEntitiesRequest) returns (ListEntitiesResponse) {
+  rpc SearchForEntities(SearchForEntitiesRequest) returns (SearchForEntitiesResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=entityTypes/*}/entities:search"
     };
@@ -156,4 +156,14 @@ message SearchForEntitiesRequest {
   string ticker = 2;
   // The mic (Market Identifier Code) of the exchange on which a company is traded.
   string mic = 3;
+}
+
+// The response to searching for entities. Returns all entities matching the search parameters.
+message SearchForEntitiesResponse {
+  // The resulting entities.
+  repeated Entity entities = 1;
+  // The page token where the search continues. Can be sent to a subsequent query.
+  string next_page_token = 2;
+  // The total number of results, irrespective of paging.
+  int32 total_size = 3;
 }
