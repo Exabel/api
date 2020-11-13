@@ -9,12 +9,12 @@ option java_outer_classname = "EntityServiceProto";
 option java_package = "com.exabel.api.data.v1";
 
 import "exabel/api/data/v1/entity_messages.proto";
+import "exabel/api/data/v1/search_messages.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
 // Manages entity types and entities in the Data API.
-// TODO(nordli): Implement support for searching for entities.
 service EntityService {
   // Lists all known entity types.
   rpc ListEntityTypes(ListEntityTypesRequest) returns (ListEntityTypesResponse) {
@@ -59,6 +59,12 @@ service EntityService {
   rpc DeleteEntity(DeleteEntityRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{name=entityTypes/*/entities/*}"
+    };
+  }
+  // Search for entities.
+  rpc SearchEntities(SearchEntitiesRequest) returns (SearchEntitiesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=entityTypes/*}/entities:search"
     };
   }
 }
@@ -138,4 +144,29 @@ message UpdateEntityRequest {
 message DeleteEntityRequest {
   // The resource name of the entity to delete, for example "entityTypes/ns.type1/entities/ns.entity1".
   string name = 1;
+}
+
+// The request to search for an entity.
+//
+// Currently we only support search for companies. A search request for companies should contain
+// either
+//   * an ISIN (International Securities Identification Number), or
+//   * a ticker and a MIC (Market Identifier Code).
+message SearchEntitiesRequest {
+  // The search terms that should be satisfied.
+  repeated SearchTerm terms = 1;
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
+  // of this field.
+  int32 page_size = 2;
+  // The page token to resume the results from, as returned from a previous request to this method
+  // with the same query parameters.
+  string page_token = 3;
+}
+
+// The response to searching for entities. Returns all entities matching the search parameters.
+message SearchEntitiesResponse {
+  // The resulting entities.
+  repeated Entity entities = 1;
+  // The page token where the search continues. Can be sent to a subsequent query.
+  string next_page_token = 2;
 }
