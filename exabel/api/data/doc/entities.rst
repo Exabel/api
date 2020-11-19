@@ -282,3 +282,54 @@ Delete entity
 
 
     HTTP/1.1 200 OK
+
+
+Search for entities
+-------------------
+
+Search for an entity of a given type.
+
+Currently the only queries that are supported are:
+
+  * search for company or security by ISIN (International Securities Identification Number)
+  * search for company, security or listing by MIC (Market Identifier Code) and ticker
+
+The available search fields are called ``isin``, ``mic`` and ``ticker`` (all lower case).
+
+The entity type id can have the following values:
+
+    - ``entityTypes/company``
+    - ``entityTypes/listing``
+    - ``entityTypes/security``
+
+..  http:get:: /v1/entityTypes/{entityTypeId}/entities:search
+
+    :reqjson array terms: The search terms, each containing two fields: `field` and `query`.
+    :query int pageSize: The maximum number of results to return. Defaults to 1000, which is also the maximum value
+        of this field.
+    :query string pageToken: The page token to resume the results from, as returned from a previous request to this
+        method with the same query parameters.
+    :resjson array entities: The resulting entities.
+    :resjson string nextPageToken: The page token where the list continues. Can be sent to a subsequent query.
+
+..  http:example:: curl wget python-requests
+
+    GET /v1/entityTypes/{entityTypeId}/entities:search HTTP/1.1
+    Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
+
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    {
+      "entities": [
+        {
+          "name": "entityTypes/brand/entities/audi",
+          "displayName": "Audi",
+          "readOnly": true,
+          "properties": {}
+        }
+      ]
+    }
