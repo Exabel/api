@@ -1,0 +1,20 @@
+# https://cloud.google.com/service-management/reference/rest/v1/services.configs
+# See README.md for deployment.
+type: google.api.Service
+config_version: 3
+name: data.api-test.exabel.com
+title: Exabel Data Test API
+apis:
+# - name: exabel.common.StatusService
+- name: exabel.api.data.v1.EntityService
+- name: exabel.api.data.v1.RelationshipService
+- name: exabel.api.data.v1.SignalService
+- name: exabel.api.data.v1.TimeSeriesService
+#usage:
+#  rules:
+#  - selector: "exabel.common.StatusService.Ping"
+#    allow_unregistered_calls: true
+#http:
+#  rules:
+#  - selector: "exabel.common.StatusService.Ping"
+#    get: "/exabel.common.StatusService/Ping"
