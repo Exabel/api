@@ -64,7 +64,7 @@ service EntityService {
   // Search for entities.
   rpc SearchEntities(SearchEntitiesRequest) returns (SearchEntitiesResponse) {
     option (google.api.http) = {
-      get: "/v1/{parent=entityTypes/*}/entities:search"
+      post: "/v1/{parent=entityTypes/*}/entities:search"
     };
   }
 }
