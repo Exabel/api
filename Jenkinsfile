@@ -52,7 +52,7 @@ spec:
 """,
   containers: [
     containerTemplate(
-      name: 'mvn', image: 'eu.gcr.io/jenkins-exabel/maven-build:v11',
+      name: 'mvn', image: 'eu.gcr.io/jenkins-exabel/maven-build:v12',
       ttyEnabled: true, command: 'cat',
 
       resourceRequestCpu: '2.5', resourceLimitCpu: '3.5',
