@@ -6,10 +6,44 @@ Relationships
 Relationship types
 ******************
 
-A *relationship type* is a type of relationship between entities, for instance ``HAS_BRAND``, ``LOCATED_IN``,
-or ``OWNED_BY``. They are created and managed either by a customer or by Exabel. Usually, a relationship type makes
-sense only between specific entity types (a ``store`` is ``LOCATED_IN`` a ``city``), but they can apply to any pair
-of entities where they would fit.
+Every relationship has a `relationship type`, such as `HAS_BRAND`, `LOCATED_IN` or `OWNED_BY`. The
+full resource name for a relationship type is `relationshipTypes/ns.NAME`.
+
+The relationship types provided by Exabel are the following:
+
+.. list-table:: Relationship types
+    :widths: 25 40 20
+    :header-rows: 1
+
+    * - Relationship type
+      - Resource name
+      - Typical connected entities
+    * - listing
+      - ``relationshipTypes/HAS_LISTING``
+      - company → listing
+    * - primary listing
+      - ``relationshipTypes/HAS_PRIMARY_LISTING``
+      - company → listing
+    * - primary regional
+      - ``relationshipTypes/HAS_PRIMARY_REGIONAL``
+      - company → regional
+    * - retional
+      - ``relationshipTypes/HAS_REGIONAL``
+      - company → regional
+    * - security
+      - ``relationshipTypes/HAS_SECURITY``
+      - company → security
+    * - location
+      - ``relationshipTypes/LOCATED_IN``
+      - company → country
+    * - web domain
+      - ``relationshipTypes/WEB_DOMAIN_OWNED_BY``
+      - company → web domain
+
+
+The relationship types provided by Exabel are read-only, meaning that customers cannot add new
+relationships with those relationship types. Customers are free to create new relationship types in
+their own namespace, using the API.
 
 The collection id for relationship types is ``relationshipTypes``.
 
@@ -173,12 +207,19 @@ Delete is not supported by the API. If you need to delete a relationship type, c
 Relationships
 *************
 
-A *relationship* belongs to exactly one relationship type and defines a directed relationship between two concrete
-entities. For two specific entities, there can be at most one relationship of the same type between them.
+A `relationship` is a directed connection between two entities with a relationship type, that is, it
+is a connection `from` one entity `to` another entity. There can only be a single relationship of
+the same type and in the same direction between any two entities.
 
-Relationships created and managed by Exabel are exclusively between Exabel’s entities.
+Typically a relationship only makes sense for specific entity types: For example, the relationship
+HAS_LISTING requires the `from` entity to be a company and the `to` entity to be a listing. However,
+this restriction is not enforced.
 
-Relationships created and managed by a customer are between their and Exabel’s entities in any combination.
+Exabel maintains a large number relationships between entities in the global namespace. These
+relationship all have one of the relationship types in the global namespace.
+
+Customers can create new relationships between any entities they have access to, that is, both
+entities in the global namespace and in their own namespace.
 
 The collection id for relationships is ``relationships``.
 

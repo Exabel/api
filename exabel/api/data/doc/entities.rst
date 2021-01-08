@@ -5,8 +5,43 @@ Entities
 Entity types
 ************
 
-An *entity type* is a group of entities having similar real world meaning, for instance company, web domain, brand,
-or region.
+An *entity type* is a group of entities having similar real world meaning, for instance company, web
+domain, brand, or region. Every entity has a single entity type.
+
+The available entity types provided by Exabel are the following:
+
+.. list-table:: Entity types
+    :widths: 25 40 20
+    :header-rows: 1
+
+    * - Entity type
+      - Resource name
+      - Read only
+    * - brand
+      - ``entityTypes/brand``
+      - no
+    * - company
+      - ``entityTypes/company``
+      - yes
+    * - country
+      - ``entityTypes/country``
+      - yes
+    * - listing
+      - ``entityTypes/listing``
+      - yes
+    * - regional
+      - ``entityTypes/regional``
+      - yes
+    * - security
+      - ``entityTypes/security``
+      - yes
+    * - web_domain
+      - ``entityTypes/web_domain``
+      - yes
+
+It is not possible to create a new entity type through the API. If you need a new entity type,
+please contact us at support@exabel.com.
+
 
 The collection id for entity types is ``entityTypes``.
 
@@ -94,9 +129,17 @@ Get entity type details
 Entities
 ********
 
-An *entity* belongs to exactly one entity type and is usually a real-world instance of its type. They are created
-and managed either by a customer or by Exabel, for instance Alphabet, Inc., www.amazon.com, Coca-Cola, EMEA.
-Entities are the core concept of this API.
+An `entity` is an instance of any one of the entity types, such as a company or a brand. The full
+resource name for an entity is ``entityTypes/ns.type/entities/ns.name``. For example,
+a company entity would have a resource name like ``entityTypes/company/entities/identifier``.
+
+A large number of entities are created and managed by Exabel. Those entities cover all publicly
+listed companies on a large number of exchanges, along with the corresponding securities and
+listings.
+
+Of the built-in entity types all except for the *brand* entity type are `read-only`, meaning that
+new entities can only be added by Exabel. Customers can add entities with the *brand* entity type,
+and any entity type that has been created in their namespace.
 
 The collection id for entities is ``entities``.
 

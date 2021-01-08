@@ -12,3 +12,4 @@ Exabel Data API
    relationships
    signals
    timeseries
+   example
