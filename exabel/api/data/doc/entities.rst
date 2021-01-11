@@ -307,7 +307,7 @@ Update entity
     {
       "name": "entityTypes/brand/entities/customer1.skoda",
       "displayName": "Škoda",
-      "description": "Simply clever"
+      "description": "Simply clever",
       "properties": {
         "brandType": "car"
       },
@@ -330,3 +330,40 @@ Delete entity
 
 
     HTTP/1.1 200 OK
+
+
+Search for entities
+-------------
+
+Search for entities. We currently support search based on ISIN or both MIC and ticker.
+
+..  http:post:: /v1/entityTypes/{entityTypeId}/entities:search
+
+..  http:example:: curl wget python-requests
+
+    POST /v1/entityTypes/company/entities:search HTTP/1.1
+    Host: data.api.exabel.com
+    Accept: application/json
+    X-Api-Key: API_KEY_GOES_HERE
+
+    {
+      "parent": "entityTypes/company",
+      "terms": [{
+          "field": "mic",
+          "query": "XNAS"
+        },
+        {
+          "field": "ticker",
+          "query": "AAPL"
+        }]
+    }
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    {
+      "name": "graph:entity::company::F_000C7F-E",
+      "displayName": "Apple, Inc.",
+      "description": "",
+      "properties": {},
+    }
