@@ -16,28 +16,31 @@ The available entity types provided by Exabel are the following:
 
     * - Entity type
       - Resource name
-      - Read only
+      - Customers can create entities
     * - brand
       - ``entityTypes/brand``
-      - no
+      - yes
     * - company
       - ``entityTypes/company``
-      - yes
+      - no
     * - country
       - ``entityTypes/country``
-      - yes
+      - no
     * - listing
       - ``entityTypes/listing``
-      - yes
+      - no
     * - regional
       - ``entityTypes/regional``
-      - yes
+      - no
     * - security
       - ``entityTypes/security``
-      - yes
+      - no
     * - web_domain
       - ``entityTypes/web_domain``
-      - yes
+      - no
+
+A regional is a group of listings (of the same security) with the same trading currency in the same
+region. The other entity types should be self-explanatory.
 
 It is not possible to create a new entity type through the API. If you need a new entity type,
 please contact us at support@exabel.com.
@@ -131,7 +134,9 @@ Entities
 
 An `entity` is an instance of any one of the entity types, such as a company or a brand. The full
 resource name for an entity is ``entityTypes/ns.type/entities/ns.name``. For example,
-a company entity would have a resource name like ``entityTypes/company/entities/identifier``.
+the company entity referring to Apple, Inc. has the resource name
+``entityTypes/company/entities/F_000C7F-E``. (Note that the identifier does not specify any
+namespace since the entity belongs to the global namespace.)
 
 A large number of entities are created and managed by Exabel. Those entities cover all publicly
 listed companies on a large number of exchanges, along with the corresponding securities and

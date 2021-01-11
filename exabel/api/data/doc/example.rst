@@ -42,6 +42,8 @@ MIC and ticker.
     mic="XNAS",
     ticker="AAPL"
    )[0]
+   print(company.name)
+   # Prints 'entityTypes/company/entities/F_000C7F-E'
 
 **Step 3.** Upload the time series. To do this you must create a ``pandas.Series`` with the data,
 and then create the time series with the time series api.
