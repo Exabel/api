@@ -2,8 +2,16 @@
 Signals
 =======
 
-A signal is a type of time series that is connected to exactly one entity type, for instance trade price for listings,
-earnings for companies, traffic numbers for web domains.
+A `signal` is a type of time series, such as `price` or `revenue`. A signal is connected to exactly
+one entity type. For example, a `trade price` signal would be connected to listings, `revenue` would
+be connected to companies and `traffic numbers` might be connected to web domains.
+
+There are no signals in the global namespace. Customers can create signals in their own namespace,
+connected to any entity type.
+
+The purpose of signals is to identify kinds of time series.
+When you have created a signal for a certain entity type, you can upload one time series for that
+signal for any entity with that entity type.
 
 The collection id for signals is ``signals``.
 

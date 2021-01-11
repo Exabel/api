@@ -1,18 +1,20 @@
-
 Time series
 ===========
 
-Each time series belongs to exactly one pair of a signal and an entity. The entity must be of the same type as defined
-in the signal.
+A `time series` is a series of data points with corresponding timestamps. Each time series in the
+Exabel data model is associated with one signal and one entity. For example, a company may have a
+time series for its revenue. That time series is then associated with that company and with the
+`revenue` signal.
 
-By walking across relationship types in the graph when creating time series models, it is possible to aggregate a signal
-from a set of child entities to a parent entity that does not normally have that signal.
+By walking across relationship types in the graph when creating time series models, it is possible
+to aggregate a signal from a set of child entities to a parent entity that does not normally have
+that signal.
 
 The resource name for a a time series is on the form
 ``entityTypes/ns1.entityTypeName/entities/ns2.entityName/signals/ns3.signalName``
 An alternative name for the same time series is
-``signals/ns3.signalName/entityTypes/ns1.entityTypeName/entities/ns2.entityName``, but the former is the canonical
-version which always will be returned by the server.
+``signals/ns3.signalName/entityTypes/ns1.entityTypeName/entities/ns2.entityName``, but the former
+is the canonical version which always will be returned by the server.
 
 List time series by entity
 --------------------------
