@@ -333,7 +333,7 @@ Delete entity
 
 
 Search for entities
--------------
+-------------------
 
 Search for entities. We currently support search based on ISIN or both MIC and ticker.
 
