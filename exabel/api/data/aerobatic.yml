@@ -7,8 +7,6 @@ deploy:
   directory: target/html
 plugins:
   - name: password-protect
-    stages:
-      - production
     path: /
     options:
       password: $SITE_PASSWORD
