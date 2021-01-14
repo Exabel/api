@@ -345,6 +345,7 @@ Search for entities. We currently support search based on ISIN or both MIC and t
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
+    Content-Type: application/json; charset=utf-8
 
     {
       "parent": "entityTypes/company",
@@ -358,10 +359,12 @@ Search for entities. We currently support search based on ISIN or both MIC and t
         }]
     }
 
+
     HTTP/1.1 200 OK
     Content-Type: application/json; charset=utf-8
 
-    {"entities": [{
+    {
+      "entities": [{
         "name": "entityTypes/company/entities/F_000C7F-E",
         "displayName": "Apple, Inc.",
         "readOnly": true,
