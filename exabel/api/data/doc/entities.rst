@@ -361,9 +361,10 @@ Search for entities. We currently support search based on ISIN or both MIC and t
     HTTP/1.1 200 OK
     Content-Type: application/json; charset=utf-8
 
-    {
-      "name": "graph:entity::company::F_000C7F-E",
-      "displayName": "Apple, Inc.",
-      "description": "",
-      "properties": {},
+    {"entities": [{
+        "name": "entityTypes/company/entities/F_000C7F-E",
+        "displayName": "Apple, Inc.",
+        "readOnly": true,
+        "properties": {}
+      }]
     }
