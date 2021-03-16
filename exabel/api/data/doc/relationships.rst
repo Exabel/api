@@ -20,16 +20,16 @@ The relationship types provided by Exabel are the following:
       - Typical connected entities
     * - listing
       - ``relationshipTypes/HAS_LISTING``
-      - company → listing
+      - regional → listing
     * - primary listing
       - ``relationshipTypes/HAS_PRIMARY_LISTING``
-      - company → listing
+      - regional → listing
     * - primary regional
       - ``relationshipTypes/HAS_PRIMARY_REGIONAL``
-      - company → regional
-    * - retional
+      - security → regional
+    * - regional
       - ``relationshipTypes/HAS_REGIONAL``
-      - company → regional
+      - security → regional
     * - security
       - ``relationshipTypes/HAS_SECURITY``
       - company → security
