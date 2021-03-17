@@ -19,7 +19,7 @@ message Signal {
   // The signal identifier must match the regex [a-zA-Z]\w{0,63}.
   string name = 1;
   // No longer in use.
-  string entity_type = 2 [deprecated=true];
+  string entity_type = 2 [deprecated = true];
   // Required. The display name of the signal.
   string display_name = 3;
   // One or more paragraphs of text description.
