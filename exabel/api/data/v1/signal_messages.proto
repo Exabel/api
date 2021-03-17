@@ -18,10 +18,8 @@ message Signal {
   // predetermined namespaces the customer has access to.
   // The signal identifier must match the regex [a-zA-Z]\w{0,63}.
   string name = 1;
-  // Required. The entity type this signal is related to, for example "entityTypes/ns.type1".
-  // This cannot be changed after the signal has been created.
-  // If the entity type namespace is not empty, it must be equal to the signal's namespace.
-  string entity_type = 2;
+  // No longer in use.
+  string entity_type = 2 [deprecated=true];
   // Required. The display name of the signal.
   string display_name = 3;
   // One or more paragraphs of text description.
