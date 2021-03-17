@@ -2,16 +2,13 @@
 Signals
 =======
 
-A `signal` is a type of time series, such as `price` or `revenue`. A signal is connected to exactly
-one entity type. For example, a `trade price` signal would be connected to listings, `revenue` would
-be connected to companies and `traffic numbers` might be connected to web domains.
+A `signal` is a type of time series, such as `price` or `revenue`. A signal is used to create
+a time series for that signal connected to an entity.
 
-There are no signals in the global namespace. Customers can create signals in their own namespace,
-connected to any entity type.
+There are no signals in the global namespace. Customers can create signals in their own namespace.
 
-The purpose of signals is to identify kinds of time series.
-When you have created a signal for a certain entity type, you can upload one time series for that
-signal for any entity with that entity type.
+The purpose of signals is to identify kinds of time series. When you have created a signal, you can
+upload one time series for that signal for any entity.
 
 The collection id for signals is ``signals``.
 
@@ -46,14 +43,12 @@ Retrieves the signal catalogue.
       "signals": [
         {
           "name": "signals/customer1.customer_amount",
-          "entityType": "entityTypes/customer1.stores",
           "displayName": "Amount per customer",
           "description": "The amount spent per customer in a store per day",
           "downsamplingMethod": "MEAN"
         },
         {
           "name": "signals/customer1.visitors",
-          "entityType": "entityTypes/customer1.stores",
           "displayName": "Daily visitors",
           "description": "The number of visitors in a store per day",
           "downsamplingMethod": "SUM"
@@ -70,7 +65,6 @@ Get signal
 ..  http:get:: /v1/signals/{signalId}
 
     :resjson string name: Signal resource name.
-    :resjson string entityType: Resource name of the entity type this signal may exist for.
     :resjson string displayName: Signal display name.
     :resjson string description: Signal description.
     :resjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
@@ -90,7 +84,6 @@ Get signal
 
     {
       "name": "signals/customer1.visitors",
-      "entityType": "entityTypes/customer1.stores",
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day",
       "downsamplingMethod": "SUM"
@@ -103,7 +96,6 @@ Create signal
 ..  http:post:: /v1/signals
 
     :reqjson string name: Signal resource name on the form ``signals/{signalId}`` (required).
-    :reqjson string entityType: Resource name of the entity type this signal may exist for (required).
     :reqjson string displayName: Signal display name (required).
     :reqjson string description: Signal description.
     :reqjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
@@ -111,7 +103,6 @@ Create signal
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
 
     :resjson string name: Signal resource name.
-    :resjson string entityType: Resource name of the entity type this signal may exist for.
     :resjson string displayName: Signal display name.
     :resjson string description: Signal description.
     :resjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
@@ -128,7 +119,6 @@ Create signal
 
     {
       "name": "signals/customer1.visitors",
-      "entityType": "entityTypes/customer1.stores",
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day"
     }
@@ -139,7 +129,6 @@ Create signal
 
     {
       "name": "signals/customer1.visitors",
-      "entityType": "entityTypes/customer1.stores",
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day"
     }
@@ -150,7 +139,6 @@ Update signal
 
 ..  http:patch:: /v1/signals/{signalId}
 
-    :reqjson string entityType: Resource name of the entity type this signal may exist for.
     :reqjson string displayName: Signal display name.
     :reqjson string description: Signal description.
     :reqjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
@@ -160,7 +148,6 @@ Update signal
 
 
     :resjson string name: Signal resource name.
-    :resjson string entityType: Resource name of the entity type this signal may exist for.
     :resjson string displayName: Signal display name.
     :resjson string description: Signal description.
     :resjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
@@ -176,10 +163,9 @@ Update signal
     Content-Type: application/json; charset=utf-8
 
     {
-      "entityType": "entityTypes/customer1.stores",
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day",
-      "updateMask": "entityType,displayName,description"
+      "updateMask": "displayName,description"
     }
 
 
@@ -188,7 +174,6 @@ Update signal
 
     {
       "name": "signals/customer1.visitors",
-      "entityType": "entityTypes/customer1.stores",
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day"
     }
