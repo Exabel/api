@@ -30,4 +30,7 @@ message Signal {
   api.math.Aggregation downsampling_method = 5;
   // Output only. Whether this resource is read only.
   bool read_only = 6;
+  // Output only. The types of entities that this signal has time series for, for example
+  // "entityTypes/ns.type1", "entityTypes/ns.type2".
+  repeated string entity_types = 7;
 }
