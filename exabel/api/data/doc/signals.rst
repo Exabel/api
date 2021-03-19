@@ -45,14 +45,12 @@ Retrieves the signal catalogue.
           "name": "signals/customer1.customer_amount",
           "displayName": "Amount per customer",
           "description": "The amount spent per customer in a store per day",
-          "downsamplingMethod": "MEAN",
-          "entityTypes": ["entityTypes/customer1.stores"],
+          "downsamplingMethod": "MEAN"
         },
         {
           "name": "signals/customer1.visitors",
           "displayName": "Daily visitors",
           "description": "The number of visitors in a store per day",
-          "entityTypes": ["entityTypes/customer1.stores"],
           "downsamplingMethod": "SUM"
         }
       ],
@@ -90,7 +88,8 @@ Get signal
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day",
       "downsamplingMethod": "SUM",
-      "entityTypes": ["entityTypes/customer1.stores"],
+      "readOnly": false,
+      "entityTypes": ["entityTypes/customer1.stores"]
     }
 
 
@@ -180,7 +179,6 @@ Update signal
       "name": "signals/customer1.visitors",
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day"
-      "entityTypes": ["entityTypes/customer1.stores"],
     }
 
 
