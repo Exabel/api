@@ -45,12 +45,14 @@ Retrieves the signal catalogue.
           "name": "signals/customer1.customer_amount",
           "displayName": "Amount per customer",
           "description": "The amount spent per customer in a store per day",
-          "downsamplingMethod": "MEAN"
+          "downsamplingMethod": "MEAN",
+          "entityTypes": ["entityTypes/customer1.stores"],
         },
         {
           "name": "signals/customer1.visitors",
           "displayName": "Daily visitors",
           "description": "The number of visitors in a store per day",
+          "entityTypes": ["entityTypes/customer1.stores"],
           "downsamplingMethod": "SUM"
         }
       ],
@@ -70,6 +72,7 @@ Get signal
     :resjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
+    :resjson array entityTypes: Resource names of the types of entities this signal has time series for.
 
 ..  http:example:: curl wget python-requests
 
@@ -86,7 +89,8 @@ Get signal
       "name": "signals/customer1.visitors",
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day",
-      "downsamplingMethod": "SUM"
+      "downsamplingMethod": "SUM",
+      "entityTypes": ["entityTypes/customer1.stores"],
     }
 
 
@@ -176,6 +180,7 @@ Update signal
       "name": "signals/customer1.visitors",
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day"
+      "entityTypes": ["entityTypes/customer1.stores"],
     }
 
 
