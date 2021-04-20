@@ -335,7 +335,7 @@ Delete entity
 Search for entities
 -------------------
 
-Search for entities. We currently support search based on ISIN or both MIC and ticker.
+Search for entities. We currently support search based on ISIN, or both MIC and ticker, or bloomberg_ticker, or factset_identifier.
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities:search
 
