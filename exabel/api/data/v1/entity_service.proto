@@ -149,10 +149,12 @@ message DeleteEntityRequest {
 
 // The request to search for an entity.
 //
-// Currently we only support search for companies. A search request for companies should contain
-// either
+// Currently we only support search for companies. Search terms are lowercased when used.
+// A search request for companies should contain either
 //   * an ISIN (International Securities Identification Number), or
-//   * a ticker and a MIC (Market Identifier Code).
+//   * a ticker and a MIC (Market Identifier Code), or
+//   * a bloomberg_ticker, or
+//   * a factset_identifier
 message SearchEntitiesRequest {
   // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
   string parent = 4;
