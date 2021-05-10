@@ -218,8 +218,7 @@ this restriction is not enforced.
 Exabel maintains a large number relationships between entities in the global namespace. These
 relationship all have one of the relationship types in the global namespace.
 
-Customers can create new relationships between any entities they have access to, that is, both
-entities in the global namespace and in their own namespace.
+Customers can create new relationships between any entities they have access to.
 
 The collection id for relationships is ``relationships``.
 
