@@ -19,24 +19,18 @@ service TimeSeriesService {
   rpc ListTimeSeries(ListTimeSeriesRequest) returns (ListTimeSeriesResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=entityTypes/*/entities/*}/timeSeries"
-    };
-  }
-  // The same request as ListTimeSeries, but with an alternative path.
-  rpc ListTimeSeries2(ListTimeSeriesRequest) returns (ListTimeSeriesResponse) {
-    option (google.api.http) = {
-      get: "/v1/{parent=signals/*}/timeSeries"
+      additional_bindings {
+        get: "/v1/{parent=signals/*}/timeSeries"
+      }
     };
   }
   // Gets one time series.
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
       get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
-    };
-  }
-  // The same request as GetTimeSeries, but with an alternative path.
-  rpc GetTimeSeries2(GetTimeSeriesRequest) returns (TimeSeries) {
-    option (google.api.http) = {
-      get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
+      additional_bindings {
+        get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
+      }
     };
   }
   // Creates one time series and returns it.
@@ -44,13 +38,10 @@ service TimeSeriesService {
     option (google.api.http) = {
       post: "/v1/{time_series.name=entityTypes/*/entities/*/signals/*}"
       body: "time_series"
-    };
-  }
-  // The same request as CreateTimeSeries, but with an alternative path.
-  rpc CreateTimeSeries2(CreateTimeSeriesRequest) returns (TimeSeries) {
-    option (google.api.http) = {
-      post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
-      body: "time_series"
+      additional_bindings {
+        post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
+        body: "time_series"
+      }
     };
   }
   // Updates one time series and returns it. The data in this request and the
@@ -59,25 +50,19 @@ service TimeSeriesService {
     option (google.api.http) = {
       patch: "/v1/{time_series.name=entityTypes/*/entities/*/signals/*}"
       body: "time_series"
-    };
-  }
-  // The same request as UpdateTimeSeries, but with an alternative path.
-  rpc UpdateTimeSeries2(UpdateTimeSeriesRequest) returns (TimeSeries) {
-    option (google.api.http) = {
-      patch: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
-      body: "time_series"
+      additional_bindings {
+        post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
+        body: "time_series"
+      }
     };
   }
   // Deletes one time series. The time series and all its points will be deleted.
   rpc DeleteTimeSeries(DeleteTimeSeriesRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{name=entityTypes/*/entities/*/signals/*}"
-    };
-  }
-  // The same request as DeleteTimeSeries, but with an alternative path.
-  rpc DeleteTimeSeries2(DeleteTimeSeriesRequest) returns (google.protobuf.Empty) {
-    option (google.api.http) = {
-      delete: "/v1/{name=signals/*/entityTypes/*/entities/*}"
+      additional_bindings {
+        delete: "/v1/{name=signals/*/entityTypes/*/entities/*}"
+      }
     };
   }
   // Deletes part(s) of one time series. The requested points will be deleted, but the time series
@@ -87,13 +72,10 @@ service TimeSeriesService {
     option (google.api.http) = {
       post: "/v1/{name=entityTypes/*/entities/*/signals/*}/points:batchDelete"
       body: "*"
-    };
-  }
-  // The same request as BatchDeleteTimeSeries, but with an alternative path.
-  rpc BatchDeleteTimeSeriesPoints2(BatchDeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
-    option (google.api.http) = {
-      post: "/v1/{name=signals/*/entityTypes/*/entities/*}/points:batchDelete"
-      body: "*"
+      additional_bindings {
+        post: "/v1/{name=signals/*/entityTypes/*/entities/*}/points:batchDelete"
+        body: "*"
+      }
     };
   }
 }
