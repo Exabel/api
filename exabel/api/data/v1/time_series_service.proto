@@ -19,7 +19,7 @@ service TimeSeriesService {
   rpc ListTimeSeries(ListTimeSeriesRequest) returns (ListTimeSeriesResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=entityTypes/*/entities/*}/timeSeries"
-      additional_bindings {
+      additional_bindings: {
         get: "/v1/{parent=signals/*}/timeSeries"
       }
     };
@@ -28,7 +28,7 @@ service TimeSeriesService {
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
       get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
-      additional_bindings {
+      additional_bindings: {
         get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
     };
@@ -38,7 +38,7 @@ service TimeSeriesService {
     option (google.api.http) = {
       post: "/v1/{time_series.name=entityTypes/*/entities/*/signals/*}"
       body: "time_series"
-      additional_bindings {
+      additional_bindings: {
         post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
         body: "time_series"
       }
@@ -50,7 +50,7 @@ service TimeSeriesService {
     option (google.api.http) = {
       patch: "/v1/{time_series.name=entityTypes/*/entities/*/signals/*}"
       body: "time_series"
-      additional_bindings {
+      additional_bindings: {
         post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
         body: "time_series"
       }
@@ -60,7 +60,7 @@ service TimeSeriesService {
   rpc DeleteTimeSeries(DeleteTimeSeriesRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{name=entityTypes/*/entities/*/signals/*}"
-      additional_bindings {
+      additional_bindings: {
         delete: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
     };
@@ -72,7 +72,7 @@ service TimeSeriesService {
     option (google.api.http) = {
       post: "/v1/{name=entityTypes/*/entities/*/signals/*}/points:batchDelete"
       body: "*"
-      additional_bindings {
+      additional_bindings: {
         post: "/v1/{name=signals/*/entityTypes/*/entities/*}/points:batchDelete"
         body: "*"
       }
