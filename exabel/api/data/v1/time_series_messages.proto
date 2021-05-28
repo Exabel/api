@@ -43,6 +43,8 @@ message TimeSeriesPoint {
   // NaNs (Not a Number). Points sent to the server might have no value, in which case they are
   // ignored.
   google.protobuf.DoubleValue value = 2;
+  // The version of this point.
+  google.protobuf.Timestamp version = 3;
 }
 
 // A view of the time series, specifying which parts of its data to return. The default view is
@@ -52,4 +54,18 @@ message TimeSeriesView {
   // be treated as not set. If not set, no points will be returned. If set, but empty, all points
   // will be returned.
   api.time.TimeRange time_range = 1;
+  // The version to view. If empty, the most recent version is returned.
+  google.protobuf.Timestamp version = 3;
+}
+
+// A version specification to use when inserting (or updating) time series.
+message VersionSpecification {
+  oneof specification {
+    // Specifies that the default version timestamp is the current time, possibly
+    // with some offset.
+    time.Duration current_time_offset = 1;
+    // Specifies that the default version timestamp for each point is its actual timestamp,
+    // possibly with some offset.
+    time.Duration event_time_offset = 2;
+  }
 }

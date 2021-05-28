@@ -141,6 +141,9 @@ message CreateTimeSeriesRequest {
   TimeSeries time_series = 1;
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
+  // The specification of the default version to use for points that don't explicitly have a version
+  // set. The default version specification is to use the insertion time (`current_time_offset = 0`).
+  VersionSpecification version_specification = 3;
 }
 
 // The request to update one time series. The returned time series will contain its canonical name.
@@ -151,6 +154,9 @@ message UpdateTimeSeriesRequest {
   TimeSeries time_series = 1;
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
+  // The specification of the default version to use for points that don't explicitly have a version
+  // set. The default version specification is to use the insertion time (`current_time_offset = 0`).
+  VersionSpecification version_specification = 3;
 }
 
 // The request to delete one time series.
