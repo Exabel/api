@@ -8,6 +8,7 @@ option java_multiple_files = true;
 option java_outer_classname = "TimeSeriesMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
+import "exabel/api/time/duration.proto";
 import "exabel/api/time/time_range.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
@@ -54,18 +55,16 @@ message TimeSeriesView {
   // be treated as not set. If not set, no points will be returned. If set, but empty, all points
   // will be returned.
   api.time.TimeRange time_range = 1;
-  // The version to view. If empty, the most recent version is returned.
-  google.protobuf.Timestamp version = 3;
 }
 
-// A version specification to use when inserting (or updating) time series.
+// A version specification to use when creating or updating time series.
 message VersionSpecification {
   oneof specification {
     // Specifies that the default version timestamp is the current time, possibly
     // with some offset.
-    time.Duration current_time_offset = 1;
+    api.time.Duration current_time_offset = 1;
     // Specifies that the default version timestamp for each point is its actual timestamp,
     // possibly with some offset.
-    time.Duration event_time_offset = 2;
+    api.time.Duration event_time_offset = 2;
   }
 }

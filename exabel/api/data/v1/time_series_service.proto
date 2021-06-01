@@ -27,7 +27,13 @@ service TimeSeriesService {
   // Gets one time series.
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
+      get: "/v1/{name=entityTypes/*/entities/*/signals/*}/{version}"
+      additional_bindings: {
+        get: "/v1/{name=signals/*/entityTypes/*/entities/*}/{version}"
+      }
+      additional_bindings: {
+        get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
+      }
       additional_bindings: {
         get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
@@ -114,6 +120,9 @@ message GetTimeSeriesRequest {
   string name = 1;
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
+  // The version to view, in a recognizable format: "YYYY-MM-ddThh:mm:ssZ" or "yyyy-MM-dd".
+  // If empty, the most recent version is returned.
+  string version = 3;
 }
 
 // The request to create one time series. The parents of the time series will be inferred from
