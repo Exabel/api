@@ -26,6 +26,9 @@ The available entity types provided by Exabel are the following:
     * - country
       - ``entityTypes/country``
       - no
+    * - currency
+      - ``entityTypes/currency``
+      - no
     * - listing
       - ``entityTypes/listing``
       - no
@@ -166,7 +169,7 @@ Lists all entities of a given entity type.
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/brand HTTP/1.1
+    GET /v1/entityTypes/brand/entities HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
