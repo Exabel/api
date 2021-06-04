@@ -12,6 +12,7 @@ import "exabel/api/data/v1/time_series_messages.proto";
 import "exabel/api/time/time_range.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 // Manages time series in the Data API.
 service TimeSeriesService {
@@ -27,9 +28,9 @@ service TimeSeriesService {
   // Gets one time series.
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      get: "/v1/{name=entityTypes/*/entities/*/signals/*}/{version}"
+      get: "/v1/{name=entityTypes/*/entities/*/signals/*}/{known_time}"
       additional_bindings: {
-        get: "/v1/{name=signals/*/entityTypes/*/entities/*}/{version}"
+        get: "/v1/{name=signals/*/entityTypes/*/entities/*}/{known_time}"
       }
       additional_bindings: {
         get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
@@ -120,10 +121,10 @@ message GetTimeSeriesRequest {
   string name = 1;
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
-  // Return the data as if it was requested at the given time (in the past). Values inserted after
-  // this known time are disregarded. If empty, the most recent values are returned.
-  // Recognizable formats are: "yyyy-MM-ddTHH:mm:ssZ" and "yyyy-MM-dd".
-  string known_time = 3;
+  // Optional. Specifies that the data should be returned as if it was requested at the given time
+  // (in the past). Values inserted after this known time are disregarded. If not set, the most
+  // recent values are returned.
+  google.protobuf.Timestamp known_time = 3;
 }
 
 // The request to create one time series. The parents of the time series will be inferred from
