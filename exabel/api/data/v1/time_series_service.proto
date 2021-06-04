@@ -135,9 +135,9 @@ message CreateTimeSeriesRequest {
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
   // The specification of the default known time to use for points that don't explicitly have a
-  // known time set. The default known time specification is to use the insertion time
-  // (`current_time_offset = 0`).
-  KnownTimeSpecification known_time_specification = 3;
+  // known time set. If not set, the time of insertion is used as the default known time
+  // (`current_time = true`).
+  DefaultKnownTime default_known_time = 3;
 }
 
 // The request to update one time series. The returned time series will contain its canonical name.
@@ -149,9 +149,9 @@ message UpdateTimeSeriesRequest {
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
   // The specification of the default known time to use for points that don't explicitly have a
-  // known time set. The default known time specification is to use the insertion time
-  // (`current_time_offset = 0`).
-  KnownTimeSpecification known_time_specification = 3;
+  // known time set. If not set, the time of insertion is used as the default known time
+  // (`current_time = true`).
+  DefaultKnownTime default_known_time = 3;
 }
 
 // The request to delete one time series.

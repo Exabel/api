@@ -8,7 +8,6 @@ option java_multiple_files = true;
 option java_outer_classname = "TimeSeriesMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
-import "exabel/api/time/duration.proto";
 import "exabel/api/time/time_range.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
@@ -57,14 +56,13 @@ message TimeSeriesView {
   api.time.TimeRange time_range = 1;
 }
 
-// A known time specification to use when creating or updating time series.
-message KnownTimeSpecification {
+// A known time specification to use when creating or updating time series. If any inserted values
+// has a value for its known_time, that value is used instead.
+message DefaultKnownTime {
   oneof specification {
-    // Specifies that the default known time of all inserted points is the current time, possibly
-    // with some offset.
-    api.time.Duration current_time_offset = 1;
-    // Specifies that the default known time for each point is its actual timestamp, possibly with
-    // some offset.
-    api.time.Duration event_time_offset = 2;
+    // Specifies that the default known time of all inserted points is the current time.
+    bool current_time = 1;
+    // Specifies that the default known time for each point is a specific time stamp.
+    google.protobuf.Timestamp known_time = 2;
   }
 }
