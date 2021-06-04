@@ -136,7 +136,7 @@ spec:
               }
             }
             stage('Test endpoint definitions') {
-              Collection<String> serviceFiles = findFiles(glob: 'exabel/*/*-api.yaml').collect { it.path }
+              Collection<String> serviceFiles = findFiles(glob: 'exabel/*/*/*-api.yaml').collect { it.path }
               for (String serviceFile in serviceFiles) {
                 String protoDescriptor = serviceFile[0..serviceFile.lastIndexOf('/')] +
                   "target/generated-resources/protobuf/descriptor-sets/descriptor.pb"
