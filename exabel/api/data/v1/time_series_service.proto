@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 Exabel AS. All rights reserved.
+// Copyright (c) 2019-2021 Exabel AS. All rights reserved.
 
 syntax = "proto3";
 
@@ -24,10 +24,18 @@ service TimeSeriesService {
       }
     };
   }
-  // Gets one time series.
+  // Gets one time series. The known_time (of present) must be formatted
+  // according to RFC3339, as specified by
+  // https://developers.google.com/protocol-buffers/docs/proto3#json.
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
+      get: "/v1/{name=entityTypes/*/entities/*/signals/*}/{known_time}"
+      additional_bindings: {
+        get: "/v1/{name=signals/*/entityTypes/*/entities/*}/{known_time}"
+      }
+      additional_bindings: {
+        get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
+      }
       additional_bindings: {
         get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
@@ -123,6 +131,10 @@ message CreateTimeSeriesRequest {
   TimeSeries time_series = 1;
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
+  // The specification of the default known time to use for points that don't explicitly have a
+  // known time set. If not set, the time of insertion is used as the default known time
+  // (`current_time = true`).
+  DefaultKnownTime default_known_time = 3;
 }
 
 // The request to update one time series. The returned time series will contain its canonical name.
@@ -133,6 +145,10 @@ message UpdateTimeSeriesRequest {
   TimeSeries time_series = 1;
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
+  // The specification of the default known time to use for points that don't explicitly have a
+  // known time set. If not set, the time of insertion is used as the default known time
+  // (`current_time = true`).
+  DefaultKnownTime default_known_time = 3;
 }
 
 // The request to delete one time series.
