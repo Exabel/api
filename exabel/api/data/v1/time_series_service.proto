@@ -25,7 +25,9 @@ service TimeSeriesService {
       }
     };
   }
-  // Gets one time series.
+  // Gets one time series. The known_time (of present) must be formatted
+  // according to RFC3339, as specified by
+  // https://developers.google.com/protocol-buffers/docs/proto3#json.
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
       get: "/v1/{name=entityTypes/*/entities/*/signals/*}/{known_time}"
