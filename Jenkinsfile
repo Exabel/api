@@ -52,21 +52,21 @@ spec:
 """,
   containers: [
     containerTemplate(
-      name: 'mvn', image: 'eu.gcr.io/jenkins-exabel/maven-build:v13',
+      name: 'mvn', image: 'eu.gcr.io/jenkins-exabel/maven-build:v16',
       ttyEnabled: true, command: 'cat',
 
       resourceRequestCpu: '2.5', resourceLimitCpu: '3.5',
       resourceRequestMemory: '6Gi', resourceLimitMemory: '8Gi',
     ),
     containerTemplate(
-      name: 'prototool', image: 'uber/prototool:1.8.1',
+      name: 'prototool', image: 'uber/prototool:1.10.0',
       ttyEnabled: true, command: 'cat',
 
       resourceRequestCpu: '0.5', resourceLimitCpu: '3.5',
       resourceRequestMemory: '200Mi', resourceLimitMemory: '2Gi',
     ),
     containerTemplate(
-      name: 'jnlp', image: 'eu.gcr.io/jenkins-exabel/jenkins-k8s-slave:v3',
+      name: 'jnlp', image: 'eu.gcr.io/jenkins-exabel/jenkins-k8s-slave:v6',
       args: '${computer.jnlpmac} ${computer.name}',
       resourceRequestCpu: '0.1', resourceLimitCpu: '3.0',
       resourceRequestMemory: '150Mi', resourceLimitMemory: '4Gi'
@@ -136,7 +136,7 @@ spec:
               }
             }
             stage('Test endpoint definitions') {
-              Collection<String> serviceFiles = findFiles(glob: 'exabel/*/*-api.yaml').collect { it.path }
+              Collection<String> serviceFiles = findFiles(glob: 'exabel/*/*/*-api.yaml').collect { it.path }
               for (String serviceFile in serviceFiles) {
                 String protoDescriptor = serviceFile[0..serviceFile.lastIndexOf('/')] +
                   "target/generated-resources/protobuf/descriptor-sets/descriptor.pb"

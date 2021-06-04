@@ -29,9 +29,9 @@ service TimeSeriesService {
   // https://developers.google.com/protocol-buffers/docs/proto3#json.
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      get: "/v1/{name=entityTypes/*/entities/*/signals/*}/{known_time}"
+      get: "/v1/{name=entityTypes/*/entities/*/signals/*}/{view.known_time}"
       additional_bindings: {
-        get: "/v1/{name=signals/*/entityTypes/*/entities/*}/{known_time}"
+        get: "/v1/{name=signals/*/entityTypes/*/entities/*}/{view.known_time}"
       }
       additional_bindings: {
         get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
