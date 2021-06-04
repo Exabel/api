@@ -12,7 +12,6 @@ import "exabel/api/data/v1/time_series_messages.proto";
 import "exabel/api/time/time_range.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
-import "google/protobuf/timestamp.proto";
 
 // Manages time series in the Data API.
 service TimeSeriesService {
