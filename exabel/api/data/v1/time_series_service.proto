@@ -123,10 +123,6 @@ message GetTimeSeriesRequest {
   string name = 1;
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
-  // Optional. Specifies that the data should be returned as if it was requested at the given time
-  // (in the past). Values inserted after this known time are disregarded. If not set, the most
-  // recent values are returned.
-  google.protobuf.Timestamp known_time = 3;
 }
 
 // The request to create one time series. The parents of the time series will be inferred from
