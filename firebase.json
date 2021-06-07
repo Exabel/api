@@ -3,9 +3,9 @@
     "target": "data-api",
     "public": "exabel/api/data/doc/target/html",
     "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
+      "_sources",
+      "objects.inv",
+      ".buildinfo"
     ]
   }
 }

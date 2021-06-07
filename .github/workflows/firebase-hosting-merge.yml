@@ -14,7 +14,7 @@ jobs:
       # Add uses sphinx-action@master and FirebaseExtended/action-hosting-deploy@v0 per site/API
       - uses: ammaraskar/sphinx-action@master
         with:
-          docs-folder: "exabel/api/data/doc"
+          docs-folder: "exabel/api/data"
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
