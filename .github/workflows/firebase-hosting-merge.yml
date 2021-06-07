@@ -21,6 +21,6 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_EXABEL_DOC }}'
           channelId: live
           projectId: exabel-doc
-          target: doc-api-data
+          target: data-api
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
