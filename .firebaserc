@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "exabel-doc"
+  },
+  "targets": {
+    "exabel-doc": {
+      "hosting": {
+        "data-api": [
+          "exabel-doc-api-data"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "target": "data-api",
+    "public": "exabel/api/data/doc/target/html",
+    "ignore": [
+      "_sources",
+      "objects.inv",
+      ".buildinfo"
+    ]
+  }
+}
