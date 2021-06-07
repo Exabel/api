@@ -65,6 +65,8 @@ make html
 
 Documentation is automatically deployed using GitHub actions.
 
+https://exabel-doc-api-data.web.app/
+
 ### Endpoints
 
 Endpoints will be deployed automatically by Jenkins whenever a change is detected.
