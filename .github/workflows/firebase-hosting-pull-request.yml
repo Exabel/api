@@ -11,7 +11,7 @@ jobs:
       - uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "exabel/api/data"
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: FirebaseExtended/action-hosting-deploy@v0.5-alpha
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_EXABEL_DOC }}'
