@@ -47,9 +47,9 @@ are joined by a period (``.``).
 
 The *namespace* is either empty or the namespace given to the customer, for instance ``customer1``.
 
-An *identifier* must start with a letter (``a-zA-Z``) and continue with any combination of letters,
-numbers (``0-9``), hyphens (``-``) and underscores (``_``). Identifiers must be between 1 and 64
-characters long (inclusive). Some resources have further restrictions on the allowed characters.
+An *identifier* must start with a word character (``a-zA-Z0-9_``) and continue with any combination
+of letters, numbers (``0-9``), hyphens (``-``) and underscores (``_``). Identifiers must be between
+1 and 64 characters long (inclusive). Some resources have further restrictions on the allowed characters.
 
 Some resource names start with another resource name as its *parent*.
 
