@@ -24,7 +24,7 @@ jobs:
       - name: Post to Slack
         uses: hkusu/slack-post-action@v1
         env:
-          SLACK_APP_TOKEN: ${{ secrets.SLACK_APP_TOKEN }}
+          SLACK_APP_TOKEN: ${{ secrets.SLACK_FIREBASE_HOSTING_TOKEN }}
         with:
           channel: '#test-environment'
           message: 'Deployed doc: ${{ steps.deploy.outputs.urls }}'
