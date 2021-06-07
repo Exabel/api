@@ -63,9 +63,7 @@ make html
 
 ### Documentation
 
-Documentation is automatically deployed using GitHub actions.
-
-https://exabel-doc-api-data.web.app/
+Documentation is automatically deployed using GitHub actions to https://exabel-doc-api-data.web.app/
 
 ### Endpoints
 
