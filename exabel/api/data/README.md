@@ -49,6 +49,17 @@ a new PR.
   ```
   pip3 install -r requirements.txt
   ```
+* Node.js, e.g. install with `nvm`: https://github.com/creationix/nvm#install-script
+  ```
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+  nvm install
+  ```
+* Aerobatic CLI and account for Exabel: https://dashboard.aerobatic.com/account/exabel/
+  * Get invite from grotmol@exabel.com or wergeland@exabel.com
+  ```
+  npm install aerobatic-cli -g
+  aero login
+  ```
 
 ## Building
 
@@ -62,7 +73,17 @@ make html
 
 ### Documentation
 
+#### Firebase Hosting (WIP)
+
 Documentation is automatically deployed using GitHub actions to https://exabel-doc-api-data.web.app/
+
+#### Aerobatic
+
+To production: https://exabel-api-doc.aerobaticapp.com/
+```
+nvm use
+aero deploy
+```
 
 ### Endpoints
 

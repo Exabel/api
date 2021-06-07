@@ -27,4 +27,4 @@ jobs:
           SLACK_APP_TOKEN: ${{ secrets.SLACK_FIREBASE_HOSTING_TOKEN }}
         with:
           channel: '#test-environment'
-          message: 'Deployed doc: ${{ steps.deploy.outputs.urls }}'
+          message: 'Deployed <${{ github.event.pull_request.html_url }}|PR #${{ github.event.pull_request.number }}>: ${{ steps.deploy.outputs.urls }}'
