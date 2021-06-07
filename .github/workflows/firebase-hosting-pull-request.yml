@@ -28,4 +28,3 @@ jobs:
         with:
           channel: '#test-environment'
           message: 'Deployed doc: ${{ steps.deploy.outputs.urls }}'
-          report-pr-number: ${{ github.event.pull_request.number }}
