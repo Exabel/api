@@ -129,7 +129,7 @@ Create relationship type
 ..  http:post:: /v1/relationshipTypes
 
     :reqjson string name: Relationship type resource name on the format ``relationshipTypes/{relationshipTypeId}``
-        (required).
+        (required). Identifier must start with a letter, and can only use uppercase letters.
     :reqjson string description: Relationship type description.
     :reqjson object properties: Relationship type properties.
 
