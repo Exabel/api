@@ -47,8 +47,7 @@ a new PR.
   ```
 * Sphinx with theme `sphinx_rtd_theme`: https://www.sphinx-doc.org/en/master/usage/installation.html
   ```
-  pip3 install -U sphinx
-  pip3 install sphinx_rtd_theme sphinxcontrib-httpexample
+  pip3 install -r requirements.txt
   ```
 
 ## Building

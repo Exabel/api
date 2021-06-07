@@ -1,7 +1,7 @@
 {
   "hosting": {
     "target": "data-api",
-    "public": "exabel/api/data/doc/target/html",
+    "public": "exabel/api/data/target/html",
     "ignore": [
       "_sources",
       "objects.inv",
