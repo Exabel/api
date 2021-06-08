@@ -31,4 +31,5 @@ jobs:
           SLACK_APP_TOKEN: ${{ secrets.SLACK_FIREBASE_HOSTING_TOKEN }}
         with:
           channel: '#prod-environment'
-          message: 'Deployed API docs master: ${{ steps.deploy.outputs.urls }}'
+          # Hard code link until https://github.com/FirebaseExtended/action-hosting-deploy/issues/76 is fixed
+          message: 'Deployed API doc branch `master`: https://exabel-doc-api-data.web.app/'
