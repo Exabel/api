@@ -74,7 +74,7 @@ which is a ``FieldMask``. For more information on how to use field masks, see th
 behaves as a *full* update, overwriting all existing fields and properties.
 
 Viewing and using data in the Exabel platform
-***************
+*********************************************
 Once data has been uploaded using the Data API, the data is available for use in the platform.
 Visit https://doc.exabel.com/data/graph for an in-depth description on how to use the data.
 
