@@ -8,6 +8,7 @@ Exabel Data API
 
    introduction
    access
+   datamodel
    entities
    relationships
    signals

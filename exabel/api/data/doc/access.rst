@@ -1,5 +1,5 @@
-Access
-==========================================
+Accessing the API
+=================
 
 To access the Data API, you need an API key provided by Exabel.
 
