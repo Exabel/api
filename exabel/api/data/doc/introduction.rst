@@ -8,12 +8,12 @@ The Exabel Data API can be used to upload custom data to the Exabel platform. Cu
 An entity represents a real world entity and Exabel maintains several sets of
 entities that can be used directly or be linked to custom entities. For example:
 
-* Companies
-* Securities
-* Regionals
-* Listings
-* Exchanges
-* Countries
+- Companies
+- Securities
+- Regionals
+- Listings
+- Exchanges
+- Countries
 
 Before uploading any data it is important to define a data model, including entities and relationships. If you only
 have company-level time series, you may not need any custom entities or relationships. However, if you have time
