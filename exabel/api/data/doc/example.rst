@@ -54,6 +54,15 @@ and then create the time series with the time series api.
    client.time_series_api.create_time_series(name=name, series=series)
 
 
+View uploaded time series
+-------------------------
+
+The time series can be viewed in Signal Explorer in the Exabel platform with the DSL expression
+``graph_signal('ns.customer_sentiment')``.
+
+Visit https://doc.exabel.com/data/graph for an in-depth description of how to use the ``graph_signal``.
+
+
 Download the time series
 ------------------------
 
@@ -208,5 +217,10 @@ Then we create a brand signal, allowing us to upload time series associated with
     )
 
 
-The time series can be viewed in Signal Explorer in the Exabel app with the DSL expression
+View uploaded time series
+-------------------------
+
+The time series can be viewed in Signal Explorer in the Exabel platform with the DSL expression
 ``graph_signal('ns.brand_sentiment', ['ns.HAS_BRAND'])``.
+
+Visit https://doc.exabel.com/data/graph for an in-depth description of how to use the ``graph_signal``.

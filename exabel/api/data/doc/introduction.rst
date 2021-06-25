@@ -11,12 +11,12 @@ entities as *signals*. Entities may be interconnected in a *graph* with *relatio
 
 Exabel maintains several sets of entities that can be used directly or connected to your own graph, for example:
 
-* Companies
-* Securities
-* Regionals
-* Listings
-* Exchanges
-* Countries
+- Companies
+- Securities
+- Regionals
+- Listings
+- Exchanges
+- Countries
 
 Custom entities must be of an *entity type* from Exabel's type catalogue. If you need new entity types to be added to
 the catalogue, contact support@exabel.com.
@@ -59,6 +59,7 @@ upper case names.
 
 Examples of resource names
 --------------------------
+
 - entity type: ``entityTypes/company``, ``entityTypes/customer1.factory``
 - relationship: ``relationshipTypes/LOCATED_IN``, ``relationshipTypes/customer1.OWNED_BY``
 - entity (containing a parent): ,
@@ -71,5 +72,10 @@ Some resources supports the ``PATCH`` method for partial update with i ``updateM
 which is a ``FieldMask``. For more information on how to use field masks, see the
 `Google protobuf documentation`_. Note that if an ``updateMask`` is not specified, the update
 behaves as a *full* update, overwriting all existing fields and properties.
+
+Viewing and using data in the Exabel platform
+*********************************************
+Once data has been uploaded using the Data API, the data is available for use in the platform.
+Visit https://doc.exabel.com/data/graph for an in-depth description on how to use the data.
 
 .. _Google protobuf documentation: https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
