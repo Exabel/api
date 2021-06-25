@@ -3,7 +3,7 @@ Introduction
 ============
 
 The Exabel Data API can be used to upload custom data to the Exabel platform. Custom data may include *entities*,
-*relationships* between entities and *time series*.
+*relationships* between entities, *signals* and *time series*.
 
 An entity represents a real world entity and Exabel maintains several sets of
 entities that can be used directly or be linked to custom entities. For example:

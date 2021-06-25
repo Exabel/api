@@ -2,7 +2,7 @@
 Data modelling
 ==============
 
-The main data elements in the Exabel API are *entities* that represent some real world entities and *time series*
+The main data elements in the Exabel Data API are *entities* that represent some real world entities and *time series*
 connected to those entities as *signals*. Entities may be interconnected in a *graph* with *relationships*.
 
 .. image:: figure_1.png
