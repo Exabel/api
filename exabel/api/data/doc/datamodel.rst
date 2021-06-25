@@ -61,13 +61,3 @@ Examples of resource names
 - relationship: ``relationshipTypes/LOCATED_IN``, ``relationshipTypes/customer1.OWNED_BY``
 - entity (containing a parent): ,
   ``entityTypes/customer1.factory/entities/customer1.van_nelle``
-
-Partial updates
-***************
-
-Some resources supports the ``PATCH`` method for partial update with i ``updateMask`` attribute,
-which is a ``FieldMask``. For more information on how to use field masks, see the
-`Google protobuf documentation`_. Note that if an ``updateMask`` is not specified, the update
-behaves as a *full* update, overwriting all existing fields and properties.
-
-.. _Google protobuf documentation: https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask

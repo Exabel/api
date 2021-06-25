@@ -279,7 +279,8 @@ Update entity
     :reqjson string displayName: Entity display name.
     :reqjson string description: Entity description.
     :reqjson object properties: Entity properties.
-    :reqjson string updateMask: Field mask.
+    :reqjson string updateMask: Fields to update. If not specified, the update behaves as a *full* update,
+                                overwriting all existing fields and properties.
 
     :resjson string name: Entity resource name.
     :resjson string displayName: Entity display name.
