@@ -168,7 +168,8 @@ Update relationship type
 
     :reqjson string description: Relationship type description
     :reqjson object properties: Relationship type properties
-    :reqjson string updateMask: Field mask
+    :reqjson string updateMask: Fields to update. If not specified, the update behaves as a *full* update,
+                                overwriting all existing fields and properties.
 
     :resjson string name: Relationship type resource name
     :resjson string description: Relationship type description
@@ -371,7 +372,8 @@ Update relationship
     :reqjson string toEntity: The entity resource name of the end point of the relationship (required).
     :reqjson string description: Relationship description.
     :reqjson object properties: Relationship properties.
-    :reqjson string updateMask: Field mask.
+    :reqjson string updateMask: Fields to update. If not specified, the update behaves as a *full* update,
+                                overwriting all existing fields and properties.
 
     :resjson string parent: Relationship type resource name.
     :resjson string fromEntity: The entity resource name of the start point of the relationship.
