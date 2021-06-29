@@ -135,6 +135,11 @@ message CreateTimeSeriesRequest {
   // known time set. If not set, the time of insertion is used as the default known time
   // (`current_time = true`).
   DefaultKnownTime default_known_time = 3;
+  // By default a tag is created for every entity type a signal has time series for.
+  // This flag can be used to prevent a tag from being created.
+  // If a tag already exists, it will be updated when time series are created (or deleted)
+  // regardless of the value of this flag.
+  bool no_tag = 4;
 }
 
 // The request to update one time series. The returned time series will contain its canonical name.
