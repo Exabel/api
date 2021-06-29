@@ -2,8 +2,8 @@ name: Deploy to Firebase Hosting on PR
 'on': pull_request
 jobs:
   build_and_preview:
-    if: ${{ github.repository_owner == 'Exabel' }}
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'Exabel'
     steps:
       - uses: actions/checkout@v2
       # Add sphinx-action@master action per API
