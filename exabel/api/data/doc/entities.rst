@@ -1,3 +1,4 @@
+.. _entities:
 
 Entities
 ========
