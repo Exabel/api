@@ -127,7 +127,7 @@ Create relationship type
 
     :reqjson string name: Relationship type resource name on the format ``relationshipTypes/{relationshipTypeId}``
         (required). The part of the relationship type id after the namespace must start with an uppercase letter,
-        and can only use uppercase letters, numbers, and underscore, and at most consist of 64 character,
+        and can only consist of uppercase letters, numbers, and underscore, and at most consist of 64 character,
         i.e. match the regex ``[A-Z][A-Z0-9_]{0,63}``.
     :reqjson string description: Relationship type description.
     :reqjson object properties: Relationship type properties.

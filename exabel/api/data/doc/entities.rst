@@ -238,7 +238,7 @@ Create entity
 
     :reqjson string name: Entity resource name on the format ``entityTypes/{entityTypeId}/entities/{entityId}``
         (required). The part of the entity id after the namespace must start with a letter, number, or underscore (_),
-        and can only consists of letters, numbers, underscore, and dash (-), and be at most 64 characters,
+        and can only consist of letters, numbers, underscore, and dash (-), and be at most 64 characters,
         i.e. match the regex ``\w[\w-]{0,63}``.
     :reqjson string displayName: Entity display name.
     :reqjson string description: Entity description.
