@@ -149,7 +149,7 @@ message DeleteEntityRequest {
 
 // The request to search for an entity.
 //
-// Currently we only support search for companies. Search terms are lowercased when used.
+// Currently we support search for companies, securities, and listings. Search terms are lowercased when used.
 // A search request for companies should contain either
 //   * an ISIN (International Securities Identification Number), or
 //   * a ticker and a MIC (Market Identifier Code), or
