@@ -99,8 +99,9 @@ Create signal
 
 ..  http:post:: /v1/signals
 
-    :reqjson string name: Signal resource name on the form ``signals/{signalId}`` (required). Identifier must start
-        with a letter.
+    :reqjson string name: Signal resource name on the form ``signals/{signalId}`` (required). The part of the signal id
+        after the namespace must start with a letter, and can only consist of letters, numbers, and underscore (_),
+        and be at most 64 characters, i.e. match the regex ``[a-zA-Z]\w{0,63}``.
     :reqjson string displayName: Signal display name (required).
     :reqjson string description: Signal description.
     :reqjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
