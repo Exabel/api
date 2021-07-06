@@ -33,12 +33,6 @@ service TimeSeriesService {
       additional_bindings: {
         get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
-      additional_bindings: {
-        get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
-      }
-      additional_bindings: {
-        get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
-      }
     };
   }
   // Creates one time series and returns it.
