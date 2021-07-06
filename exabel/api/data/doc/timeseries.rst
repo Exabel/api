@@ -104,7 +104,7 @@ Get a specific time series
 
 ..  http:example:: curl wget python-requests
 
-    GET /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
+    GET /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.toTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
