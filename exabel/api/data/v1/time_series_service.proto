@@ -15,7 +15,7 @@ import "google/protobuf/empty.proto";
 
 // Manages time series in the Data API.
 service TimeSeriesService {
-  // Lists all time series for one entity. Only the names are returned.
+  // Lists all time series for one entity or for one signal. Only the names are returned.
   rpc ListTimeSeries(ListTimeSeriesRequest) returns (ListTimeSeriesResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=entityTypes/*/entities/*}/timeSeries"
@@ -29,9 +29,9 @@ service TimeSeriesService {
   // https://developers.google.com/protocol-buffers/docs/proto3#json.
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      get: "/v1/{name=entityTypes/*/entities/*/signals/*}/{view.known_time}"
+      get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
       additional_bindings: {
-        get: "/v1/{name=signals/*/entityTypes/*/entities/*}/{view.known_time}"
+        get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
       additional_bindings: {
         get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
