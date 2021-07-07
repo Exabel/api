@@ -105,7 +105,7 @@ Create signal
     :reqjson string displayName: Signal display name (required).
     :reqjson string description: Signal description.
     :reqjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
-        larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
+        larger intervals (required). When two or more values in an interval needs to be aggregated into a single value, specifies
         how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
 
     :resjson string name: Signal resource name.
@@ -113,7 +113,7 @@ Create signal
     :resjson string description: Signal description.
     :resjson string downsamplingMethod: The default downsampling method to use when this signal is re-sampled into
         larger intervals. When two or more values in an interval needs to be aggregated into a single value, specifies
-        how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX`` (required).
+        how they are combined. One of ``MEAN``, ``FIRST``, ``LAST``, ``SUM``, ``MIN``, ``MAX``.
 
 ..  http:example:: curl wget python-requests
 
@@ -126,7 +126,8 @@ Create signal
     {
       "name": "signals/customer1.visitors",
       "displayName": "Daily visitors",
-      "description": "The number of visitors in a store per day"
+      "description": "The number of visitors in a store per day",
+      'downsamplingMethod': 'SUM'
     }
 
 
@@ -136,7 +137,8 @@ Create signal
     {
       "name": "signals/customer1.visitors",
       "displayName": "Daily visitors",
-      "description": "The number of visitors in a store per day"
+      "description": "The number of visitors in a store per day",
+      'downsamplingMethod': 'SUM'
     }
 
 

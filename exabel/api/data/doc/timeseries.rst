@@ -12,11 +12,15 @@ By walking across relationship types in the graph when creating time series mode
 to aggregate a signal from a set of child entities to a parent entity that does not normally have
 that signal.
 
+The Exabel Platform assumes that timestamps for data points are in UTC time.
+
 The resource name for a a time series is on the form
 ``entityTypes/ns1.entityTypeName/entities/ns2.entityName/signals/ns3.signalName``
 An alternative name for the same time series is
 ``signals/ns3.signalName/entityTypes/ns1.entityTypeName/entities/ns2.entityName``, but the former
 is the canonical version which always will be returned by the server.
+
+Creating and updating time series datapoints are eventually consistent.
 
 List time series by entity
 --------------------------
@@ -125,6 +129,8 @@ Get a specific time series
 
 Create time series
 ------------------
+
+The Exabel Platform assumes timestamps are in UTC time. If only the date is provided when a time series is created, the timestamp defaults to midnight UTC that day. 
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
