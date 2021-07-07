@@ -146,7 +146,7 @@ The Exabel Platform assumes timestamps are in UTC time. If only the date is prov
 
 ..  http:example:: curl wget python-requests
 
-    POST /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.fromTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
+    POST /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-01T00:00:00Z&view.timeRange.toTime=2019-01-03T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
@@ -195,7 +195,7 @@ the existing points with the same key, unless the new value is empty, in which c
 
 ..  http:example:: curl wget python-requests
 
-    PATCH /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-04T00:00:00Z&view.timeRange.fromTime=2019-01-06T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
+    PATCH /v1/entityTypes/store/entities/customer1.apple_store_fifth_avenue/signals/customer1.visitors?view.timeRange.fromTime=2019-01-04T00:00:00Z&view.timeRange.toTime=2019-01-06T00:00:00Z&view.timeRange.includeTo=true HTTP/1.1
     Host: data.api.exabel.com
     Accept: application/json
     X-Api-Key: API_KEY_GOES_HERE
