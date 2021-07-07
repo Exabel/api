@@ -172,7 +172,8 @@ Update time series
 ------------------
 
 The data in this request and the existing data are merged together. All points in the request will overwrite
-the existing points with the same key, unless the new value is empty, in which case the point will be deleted.
+the existing points with the same key. If a point that is previously updated is not included, it is **not** deleted,
+even though if it is within the range of this update.
 
 ..  http:patch:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
