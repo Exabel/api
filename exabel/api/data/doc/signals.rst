@@ -99,6 +99,7 @@ Create signal
 
 ..  http:post:: /v1/signals
 
+    :query boolean createLibrarySignal: Set to true to add the signal to the library when created.
     :reqjson string name: Signal resource name on the form ``signals/{signalId}`` (required). The part of the signal id
         after the namespace must start with a letter, and can only consist of letters, numbers, and underscore (_),
         and be at most 64 characters, i.e. match the regex ``[a-zA-Z]\w{0,63}``.

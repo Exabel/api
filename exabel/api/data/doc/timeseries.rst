@@ -132,6 +132,9 @@ Create time series
     :query boolean view.timeRange.excludeFrom: Set to true to exclude the start point from the range.
     :query timestamp view.timeRange.toTime: The end point of the time range. By default excluded from the range.
     :query boolean view.timeRange.includeTo: Set to true to include the end point in the range.
+    :query boolean create_tag: Set to true to create a tag for every entity type a signal has time series for.
+      If a tag already exists, it will be updated when time series are created (or deleted) regardless of the value
+      of this flag.
 
     :reqjson array points: Data points
 
