@@ -79,9 +79,8 @@ message GetSignalRequest {
 message CreateSignalRequest {
   // The signal to create.
   Signal signal = 1;
-  // By default a library signal is created along with the signal.
-  // This flag can be used to avoid creating a library signal.
-  bool no_library_signal = 2;
+  // Set to true to add the signal to the library when created.
+  bool create_library_signal = 2;
 }
 
 // The request to update one signal.
