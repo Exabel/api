@@ -12,11 +12,16 @@ By walking across relationship types in the graph when creating time series mode
 to aggregate a signal from a set of child entities to a parent entity that does not normally have
 that signal.
 
+The Exabel Platform currently only supports modelling in daily or higher resolution. Time stamps must
+be normalised to **midnight UTC**.
+
 The resource name for a a time series is on the form
 ``entityTypes/ns1.entityTypeName/entities/ns2.entityName/signals/ns3.signalName``
 An alternative name for the same time series is
 ``signals/ns3.signalName/entityTypes/ns1.entityTypeName/entities/ns2.entityName``, but the former
 is the canonical version which always will be returned by the server.
+
+Creating and updating time series points are *eventually consistent*.
 
 List time series by entity
 --------------------------
@@ -126,6 +131,9 @@ Get a specific time series
 Create time series
 ------------------
 
+**Note** Time series points are stored with second resolution, however the Exabel Platform only supports processing
+time series with daily or higher resolution. Time stamps must be normalised to **midnight UTC** (```00:00:00Z``).
+
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
     :query timestamp view.timeRange.fromTime: The start point of the time range. By default included in the range.
@@ -176,7 +184,10 @@ Update time series
 
 The data in this request and the existing data are merged together. All points in the request will overwrite
 the existing points with the same key. If a point that is previously updated is not included, it is **not** deleted,
-even though if it is within the range of this update.
+even though if it is within the range of this update. Data points without values are ignored.
+
+**Note** Time series points are stored with second resolution, however the Exabel Platform only supports processing
+time series with daily or higher resolution. Time stamps must be normalised to **midnight UTC** (```00:00:00Z``).
 
 ..  http:patch:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
@@ -202,7 +213,6 @@ even though if it is within the range of this update.
     {
       "points": [
         {"time": "2019-01-04T00:00:00Z", "value": 4231},
-        {"time": "2019-01-05T00:00:00Z"},
         {"time": "2019-01-06T00:00:00Z", "value": 3521}
       ]
     }
