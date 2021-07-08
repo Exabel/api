@@ -121,8 +121,6 @@ message GetTimeSeriesRequest {
 // The request to create one time series. The parents of the time series will be inferred from
 // "time_series.name". The returned time series will contain its canonical name.
 message CreateTimeSeriesRequest {
-  reserved 4;
-  reserved "no_tag";
   // The time series to create.
   TimeSeries time_series = 1;
   // Specifies which parts of the time series should be returned in the request.
@@ -133,7 +131,7 @@ message CreateTimeSeriesRequest {
   DefaultKnownTime default_known_time = 3;
   // Set to true to create a tag for every entity type a signal has time series for. If a tag already exists,
   // it will be updated when time series are created (or deleted) regardless of the value of this flag.
-  bool create_tag = 5;
+  bool create_tag = 4;
 }
 
 // The request to update one time series. The returned time series will contain its canonical name.
