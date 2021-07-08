@@ -66,7 +66,7 @@ spec:
       resourceRequestMemory: '200Mi', resourceLimitMemory: '2Gi',
     ),
     containerTemplate(
-      name: 'jnlp', image: 'eu.gcr.io/jenkins-exabel/jenkins-k8s-slave:v6',
+      name: 'jnlp', image: 'eu.gcr.io/jenkins-exabel/jenkins-k8s-slave:v7',
       args: '${computer.jnlpmac} ${computer.name}',
       resourceRequestCpu: '0.1', resourceLimitCpu: '3.0',
       resourceRequestMemory: '150Mi', resourceLimitMemory: '4Gi'
