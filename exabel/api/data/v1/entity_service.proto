@@ -147,31 +147,51 @@ message DeleteEntityRequest {
   string name = 1;
 }
 
-// The request to search for an entity.
+// The request to search for one or more entities.
 //
-// Currently we support search for companies, securities, and listings. Search terms are lowercased when used.
-// A search request for companies should contain either
-//   * an ISIN (International Securities Identification Number), or
-//   * a ticker and a MIC (Market Identifier Code), or
-//   * a bloomberg_ticker, or
-//   * a factset_identifier
+// Currently only companies, securities and listings can be searched.
+//
+// When multiple terms are present, each search is performed individually, with the results of each
+// query concatenated into the final results list.
+//
+// An exception to the above are the 'ticker' and 'MIC' fields, which must come in pairs, with
+// 'ticker' immediately before 'MIC'. One such pair is treated as one search query.
+//
+// A search for companies should contain either
+//   * an 'ISIN' (International Securities Identification Number) field, or
+//   * a 'ticker' and a 'MIC' (Market Identifier Code) field, or
+//   * a 'bloomberg_ticker' or a 'bloomberg_symbol' field, or
+//   * a 'factset_identifier' field, or
+//   * a 'text' field.
+//
+// A 'text' field is a free text search field, which searches for ISINs, tickers and/or company
+// names. If a search term is sufficiently long, it will also perform a prefix search. A maximum
+// of five companies are returned for each search.
+//
+// A search for securities should contain either
+//   * an 'ISIN' (International Securities Identification Number) field, or
+//   * a 'ticker' and a 'MIC' (Market Identifier Code) field.
+//
+// A search for listings should contain
+//   * a 'ticker' and a 'MIC' (Market Identifier Code) field.
 message SearchEntitiesRequest {
   // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
   string parent = 4;
   // The search terms that should be satisfied.
   repeated SearchTerm terms = 1;
   // The maximum number of results to return. Defaults to 1000, which is also the maximum value
-  // of this field.
+  // of this field. (Not implemented yet.)
   int32 page_size = 2;
   // The page token to resume the results from, as returned from a previous request to this method
-  // with the same query parameters.
+  // with the same query parameters. (Not implemented yet.)
   string page_token = 3;
 }
 
 // The response to searching for entities. Returns all entities matching the search parameters.
 message SearchEntitiesResponse {
-  // The resulting entities.
+  // The resulting entities, possibly concatenated from multiple search terms.
   repeated Entity entities = 1;
-  // The page token where the search continues. Can be sent to a subsequent query.
+  // The page token where the search continues. Can be sent to a subsequent query. (Not implemented
+  // yet.)
   string next_page_token = 2;
 }
