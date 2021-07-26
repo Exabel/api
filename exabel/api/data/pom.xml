@@ -9,7 +9,7 @@
     <relativePath>../../..</relativePath>
   </parent>
   <artifactId>data</artifactId>
-  <version>1.0.16</version>
+  <version>1.0.17</version>
 
   <dependencies>
     <dependency>

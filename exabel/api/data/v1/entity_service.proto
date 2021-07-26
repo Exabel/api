@@ -154,12 +154,12 @@ message DeleteEntityRequest {
 // When multiple terms are present, each search is performed individually, with the results of each
 // query concatenated into the final results list.
 //
-// An exception to the above are the 'ticker' and 'MIC' fields, which must come in pairs, with
-// 'ticker' immediately before 'MIC'. One such pair is treated as one search query.
+// An exception to the above are the 'MIC' and 'ticker' fields, which must come in pairs, with
+// 'MIC' immediately before 'ticker'. One such pair is treated as one search query.
 //
 // A search for companies should contain either
 //   * an 'ISIN' (International Securities Identification Number) field, or
-//   * a 'ticker' and a 'MIC' (Market Identifier Code) field, or
+//   * a 'MIC' (Market Identifier Code) and a 'ticker' field, or
 //   * a 'bloomberg_ticker' or a 'bloomberg_symbol' field, or
 //   * a 'factset_identifier' field, or
 //   * a 'text' field.
@@ -170,10 +170,10 @@ message DeleteEntityRequest {
 //
 // A search for securities should contain either
 //   * an 'ISIN' (International Securities Identification Number) field, or
-//   * a 'ticker' and a 'MIC' (Market Identifier Code) field.
+//   * a 'MIC' (Market Identifier Code) and a 'ticker' field.
 //
 // A search for listings should contain
-//   * a 'ticker' and a 'MIC' (Market Identifier Code) field.
+//   * a 'MIC' (Market Identifier Code) and a 'ticker' field.
 message SearchEntitiesRequest {
   // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
   string parent = 4;
