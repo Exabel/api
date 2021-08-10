@@ -152,7 +152,7 @@ message DeleteEntityRequest {
 // Currently only companies, securities and listings can be searched.
 //
 // When multiple terms are present, each search is performed individually, with the results of each
-// query concatenated into the final results list.
+// query put into one 'SearchResult'.
 //
 // An exception to the above are the 'MIC' and 'ticker' fields, which must come in pairs, with
 // 'MIC' immediately before 'ticker'. One such pair is treated as one search query.
@@ -189,9 +189,21 @@ message SearchEntitiesRequest {
 
 // The response to searching for entities. Returns all entities matching the search parameters.
 message SearchEntitiesResponse {
-  // The resulting entities, possibly concatenated from multiple search terms.
-  repeated Entity entities = 1;
+  // The results of each search, in the request order. Note that some consecutive terms are defined
+  // as belonging to one search query, and in these cases the number of results will be less than
+  // the number of search terms.
+  repeated SearchResult results = 3;
   // The page token where the search continues. Can be sent to a subsequent query. (Not implemented
   // yet.)
   string next_page_token = 2;
+  // The resulting entities, concatenated from multiple search terms. (Kept for backwards
+  // compatibility.)
+  repeated Entity entities = 1;
+  // The result of one search.
+  message SearchResult {
+    // The terms used for this search.
+    repeated SearchTerm terms = 1;
+    // All entities matching one search, possibly empty if no entities matched this search.
+    repeated Entity entities = 2;
+  }
 }
