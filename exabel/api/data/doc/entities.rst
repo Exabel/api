@@ -342,10 +342,16 @@ Delete entity
 Search for entities
 -------------------
 
-Search for entities. We currently support search for *company* entities based on ISIN, Bloomberg
-ticker (`bloomberg_ticker`),Factset Identifier (`factset_identifier`), or both MIC and ticker.
-These field names are lowercased when used in a request. Note that `bloomberg_ticker` only works
-for currently listed tickers.
+Search for entities. We currently support the following search types:
+
+- *Company* entities based on ISIN, Bloomberg ticker (`bloomberg_ticker`),
+  Bloomberg Symbol (`bloomberg_symbol`), Factset Identifier
+  (`factset_identifier`), both MIC and ticker, or a free text search (`text`).
+  Note that `bloomberg_ticker` only works for currently listed tickers.
+
+- *Security* entities based on ISIN, or both MIC and ticker.
+
+- *Listing* entities based on both MIC and ticker.
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities:search
 
@@ -366,6 +372,10 @@ for currently listed tickers.
         {
           "field": "ticker",
           "query": "AAPL"
+        },
+        {
+          "field": "text",
+          "query": "microsoft"
         }]
     }
 
@@ -374,10 +384,32 @@ for currently listed tickers.
     Content-Type: application/json; charset=utf-8
 
     {
-      "entities": [{
-        "name": "entityTypes/company/entities/F_000C7F-E",
-        "displayName": "Apple, Inc.",
-        "readOnly": true,
-        "properties": {}
+      "results": [{
+        "terms": [{
+            "field": "mic",
+            "query": "XNAS"
+          },
+          {
+            "field": "ticker",
+            "query": "AAPL"
+          }],
+        "entities": [{
+          "name": "entityTypes/company/entities/F_000C7F-E",
+          "displayName": "Apple, Inc.",
+          "readOnly": true,
+          "properties": {}
+        }]
+      },
+      {
+        "terms": [{
+          "field": "text",
+          "query": "microsoft"
+        }],
+        "entities": [{
+          "name": "entityTypes/company/entities/F_000Q07-E",
+          "displayName": "Microsoft Corp.",
+          "readOnly": true,
+          "properties": {}
+        }]
       }]
     }
