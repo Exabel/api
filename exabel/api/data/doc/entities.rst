@@ -339,19 +339,46 @@ Delete entity
     HTTP/1.1 200 OK
 
 
+
 Search for entities
 -------------------
 
-Search for entities. We currently support the following search types:
+Search for entities. We currently support the following search fields and
+entity types:
 
-- *Company* entities based on ISIN, Bloomberg ticker (`bloomberg_ticker`),
-  Bloomberg Symbol (`bloomberg_symbol`), Factset Identifier
-  (`factset_identifier`), both MIC and ticker, or a free text search (`text`).
-  Note that `bloomberg_ticker` only works for currently listed tickers.
+.. list-table:: Search fields
+   :widths: 10 20 15 65
+   :header-rows: 1
 
-- *Security* entities based on ISIN, or both MIC and ticker.
+   * - Fields
+     - Supported entities
+     - Example
+     - Comments
+   * - `ISIN`
+     - Companies, securities
+     - `US-000402625-0`
+     - International Securities Identification Number.
+   * - `MIC` and `ticker`
+     - Companies, securities, listings
+     - `XNAS` and `AAPL`
+     - Market Identifier Code. Must be present in pairs, with `MIC` immediately before `ticker`. One such pair is treated as one search query.
+   * - `bloomberg_ticker`
+     - Companies
+     - `HSBA LN`
+     - A Bloomberg ticker. Only works for currently listed tickers.
+   * - `bloomberg_symbol`
+     - Companies
+     - `HSBA LN Equity`
+     - A Bloomberg ticker, optionally with its symbol. Only works for currently listed tickers.
+   * - `factset_identifier`
+     - Companies
+     - `WWDPYB-S`
+     - An identifier provided by Factset.
+   * - `text`
+     - Companies
+     - `microsoft`
+     - A free text search for ISINs, tickers and/or company names. If a search term is sufficiently long, it will also perform a prefix search.
 
-- *Listing* entities based on both MIC and ticker.
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities:search
 
