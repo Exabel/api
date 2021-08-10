@@ -342,10 +342,42 @@ Delete entity
 Search for entities
 -------------------
 
-Search for entities. We currently support search for *company* entities based on ISIN, Bloomberg
-ticker (`bloomberg_ticker`),Factset Identifier (`factset_identifier`), or both MIC and ticker.
-These field names are lowercased when used in a request. Note that `bloomberg_ticker` only works
-for currently listed tickers.
+Search for entities. We currently support the following search fields and
+entity types:
+
+.. list-table:: Search fields
+   :widths: 10 20 15 65
+   :header-rows: 1
+
+   * - Fields
+     - Supported entities
+     - Example
+     - Comments
+   * - `ISIN`
+     - Companies, securities
+     - `US-000402625-0`
+     - International Securities Identification Number.
+   * - `MIC` and `ticker`
+     - Companies, securities, listings
+     - `XNAS` and `AAPL`
+     - Market Identifier Code. Must be present in pairs, with `MIC` immediately before `ticker`. One such pair is treated as one search query.
+   * - `bloomberg_ticker`
+     - Companies
+     - `HSBA LN`
+     - A Bloomberg ticker. Only works for currently listed tickers.
+   * - `bloomberg_symbol`
+     - Companies
+     - `HSBA LN Equity`
+     - A Bloomberg ticker, optionally with its symbol. Only works for currently listed tickers.
+   * - `factset_identifier`
+     - Companies
+     - `WWDPYB-S`
+     - An identifier provided by Factset.
+   * - `text`
+     - Companies
+     - `microsoft`
+     - A free text search for ISINs, tickers and/or company names. If a search term is sufficiently long, it will also perform a prefix search.
+
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities:search
 
@@ -366,6 +398,10 @@ for currently listed tickers.
         {
           "field": "ticker",
           "query": "AAPL"
+        },
+        {
+          "field": "text",
+          "query": "microsoft"
         }]
     }
 
@@ -374,10 +410,32 @@ for currently listed tickers.
     Content-Type: application/json; charset=utf-8
 
     {
-      "entities": [{
-        "name": "entityTypes/company/entities/F_000C7F-E",
-        "displayName": "Apple, Inc.",
-        "readOnly": true,
-        "properties": {}
+      "results": [{
+        "terms": [{
+            "field": "mic",
+            "query": "XNAS"
+          },
+          {
+            "field": "ticker",
+            "query": "AAPL"
+          }],
+        "entities": [{
+          "name": "entityTypes/company/entities/F_000C7F-E",
+          "displayName": "Apple, Inc.",
+          "readOnly": true,
+          "properties": {}
+        }]
+      },
+      {
+        "terms": [{
+          "field": "text",
+          "query": "microsoft"
+        }],
+        "entities": [{
+          "name": "entityTypes/company/entities/F_000Q07-E",
+          "displayName": "Microsoft Corp.",
+          "readOnly": true,
+          "properties": {}
+        }]
       }]
     }
