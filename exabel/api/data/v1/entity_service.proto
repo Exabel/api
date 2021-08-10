@@ -201,7 +201,9 @@ message SearchEntitiesResponse {
   repeated Entity entities = 1;
   // The result of one search.
   message SearchResult {
-    // All entities matching one search, possibly empty if no entities matched.
-    repeated Entity entities = 1;
+    // The terms used for this search.
+    repeated SearchTerms terms = 1;
+    // All entities matching one search, possibly empty if no entities matched this search.
+    repeated Entity entities = 2;
   }
 }
