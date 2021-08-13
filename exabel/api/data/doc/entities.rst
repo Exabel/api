@@ -372,7 +372,7 @@ entity types:
    * - `factset_identifier`
      - Companies
      - `WWDPYB-S`
-     - An identifier provided by Factset.
+     - An identifier provided by FactSet, either a FactSet entity identifier or a FactSet permanent identifier (also know as `fsym_id`).
    * - `text`
      - Companies
      - `microsoft`
