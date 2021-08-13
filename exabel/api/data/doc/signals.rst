@@ -175,7 +175,8 @@ Update signal
     {
       "displayName": "Daily visitors",
       "description": "The number of visitors in a store per day",
-      "updateMask": "displayName,description"
+      "downsamplingMethod": "SUM",
+      "updateMask": "displayName,description,downsamplingMethod"
     }
 
 
@@ -185,7 +186,8 @@ Update signal
     {
       "name": "signals/customer1.visitors",
       "displayName": "Daily visitors",
-      "description": "The number of visitors in a store per day"
+      "description": "The number of visitors in a store per day",
+      "downsamplingMethod": "SUM"
     }
 
 

@@ -161,7 +161,7 @@ message DeleteEntityRequest {
 //   * an 'ISIN' (International Securities Identification Number) field, or
 //   * a 'MIC' (Market Identifier Code) and a 'ticker' field, or
 //   * a 'bloomberg_ticker' or a 'bloomberg_symbol' field, or
-//   * a 'factset_identifier' field, or
+//   * an identifier provided by Factset, either a FactSet entity identifier or a FactSet permanent identifier (also know as `fsym_id`), or
 //   * a 'text' field.
 //
 // A 'text' field is a free text search field, which searches for ISINs, tickers and/or company

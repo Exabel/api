@@ -25,7 +25,6 @@ Create a signal and upload a time series
            name="signals/ns.customer_sentiment",
            display_name="Customer sentiment",
            description="Customers’ emotions with regard to the companies",
-           entity_type="entityTypes/company",
        )
    )
 
@@ -223,4 +222,4 @@ View uploaded time series
 The time series can be viewed in Signal Explorer in the Exabel platform with the DSL expression
 ``graph_signal('ns.brand_sentiment', ['ns.HAS_BRAND'])``.
 
-Visit https://doc.exabel.com/data/graph for an in-depth description of how to use the ``graph_signal``.
+Visit https://doc.exabel.com/data/data_api_signals.html for an in-depth description of how to use the ``graph_signal``.
