@@ -1,0 +1,85 @@
+@font-face {
+    font-family: "labgrotesque";
+    font-weight: 300;
+    font-style: normal;
+    font-display: block;
+    src: url(../fonts/labgrotesque-light.woff2) format("woff2"), url(../fonts/labgrotesque-light.woff) format("woff")
+}
+
+@font-face {
+    font-family: "labgrotesque";
+    font-weight: 300;
+    font-style: italic;
+    font-display: block;
+    src: url(../fonts/labgrotesque-lightitalic.woff2) format("woff2"), url(../fonts/labgrotesque-lightitalic.woff) format("woff")
+}
+
+@font-face {
+    font-family: "labgrotesque";
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+    src: url(../fonts/labgrotesque-regular.woff2) format("woff2"), url(../fonts/labgrotesque-regular.woff) format("woff")
+}
+
+@font-face {
+    font-family: "labgrotesque";
+    font-weight: 400;
+    font-style: italic;
+    font-display: block;
+    src: url(../fonts/labgrotesque-italic.woff2) format("woff2"), url(../fonts/labgrotesque-italic.woff) format("woff")
+}
+
+@font-face {
+    font-family: "labgrotesque";
+    font-weight: 500;
+    font-style: normal;
+    font-display: block;
+    src: url(../fonts/labgrotesque-medium.woff2) format("woff2"), url(../fonts/labgrotesque-medium.woff) format("woff")
+}
+
+@font-face {
+    font-family: "labgrotesque";
+    font-weight: 500;
+    font-style: italic;
+    font-display: block;
+    src: url(../fonts/labgrotesque-mediumitalic.woff2) format("woff2"), url(../fonts/labgrotesque-mediumitalic.woff) format("woff")
+}
+
+@font-face {
+    font-family: "labgrotesque";
+    font-weight: 600;
+    font-style: normal;
+    font-display: block;
+    src: url(../fonts/labgrotesque-bold.woff2) format("woff2"), url(../fonts/labgrotesque-bold.woff) format("woff")
+}
+
+@font-face {
+    font-family: "labgrotesque";
+    font-weight: 600;
+    font-style: italic;
+    font-display: block;
+    src: url(../fonts/labgrotesque-bolditalic.woff2) format("woff2"), url(../fonts/labgrotesque-bolditalic.woff) format("woff")
+}
+
+
+.wy-nav-side, .wy-side-nav-search {
+    background-color: #2f2a48;
+}
+
+html, body, h1, h2, h3, h4, body.wy-body-for-nav {
+    font-family: "labgrotesque", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+pre,
+code,
+.rst-content tt,
+.rst-content tt,
+.rst-content code,
+kbd,
+samp,
+.rst-content pre.literal-block,
+.rst-content div[class^='highlight'] pre,
+.rst-content .linenodiv pre {
+    font-family: "roboto-mono",Consolas,Menlo,Courier,monospace
+}

@@ -132,7 +132,7 @@ Create time series
 ------------------
 
 **Note** Time series points are stored with second resolution, however the Exabel Platform only supports processing
-time series with daily or higher resolution. Time stamps must be normalised to **midnight UTC** (```00:00:00Z``).
+time series with daily or higher resolution. Time stamps must be normalised to **midnight UTC** (``00:00:00Z``).
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
