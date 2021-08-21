@@ -132,7 +132,7 @@ Create time series
 ------------------
 
 **Note** Time series points are stored with second resolution, however the Exabel Platform only supports processing
-time series with daily or higher resolution. Time stamps must be normalised to **midnight UTC** (```00:00:00Z``).
+time series with daily or higher resolution. Time stamps must be normalised to **midnight UTC** (``00:00:00Z``).
 
 ..  http:post:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 
@@ -187,7 +187,7 @@ the existing points with the same key. If a point that is previously updated is 
 even though if it is within the range of this update. Data points without values are ignored.
 
 **Note** Time series points are stored with second resolution, however the Exabel Platform only supports processing
-time series with daily or higher resolution. Time stamps must be normalised to **midnight UTC** (```00:00:00Z``).
+time series with daily or higher resolution. Time stamps must be normalised to **midnight UTC** (``00:00:00Z``).
 
 ..  http:patch:: /v1/entityTypes/{entityTypeId}/entities/{entityId}/signals/{signalId}
 

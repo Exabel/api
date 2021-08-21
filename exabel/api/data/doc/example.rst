@@ -59,7 +59,8 @@ View uploaded time series
 The time series can be viewed in Signal Explorer in the Exabel platform with the DSL expression
 ``graph_signal('ns.customer_sentiment')``.
 
-Visit https://doc.exabel.com/data/graph for an in-depth description of how to use the ``graph_signal``.
+Visit https://doc.exabel.com/data/data_api_signals.html for an in-depth description of how to use
+the ``graph_signal`` function.
 
 
 Download the time series

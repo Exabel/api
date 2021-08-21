@@ -24,4 +24,5 @@ You can either use the REST endpoint directly or use the Exabel Python SDK found
 https://pypi.org/project/exabel-data-sdk/.
 
 Finally, once data has been uploaded, the data is available for use in the platform.
-Visit https://doc.exabel.com/data/graph for an in-depth description on how to use the data within the platform.
+Visit https://doc.exabel.com/data/data_api_signals.html for an in-depth description on how to use the data within
+the platform.
