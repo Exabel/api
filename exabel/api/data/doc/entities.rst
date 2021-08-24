@@ -12,36 +12,45 @@ domain, brand, or region. Every entity has a single entity type.
 The available entity types provided by Exabel are the following:
 
 .. list-table:: Entity types
-    :widths: 25 40 20
+    :widths: 25 40 20 20
     :header-rows: 1
 
     * - Entity type
       - Resource name
       - Customers can create entities
+      - Can be listed
     * - brand
       - ``entityTypes/brand``
+      - yes
       - yes
     * - company
       - ``entityTypes/company``
       - no
+      - no
     * - country
       - ``entityTypes/country``
       - no
+      - yes
     * - currency
       - ``entityTypes/currency``
       - no
+      - yes
     * - listing
       - ``entityTypes/listing``
+      - no
       - no
     * - regional
       - ``entityTypes/regional``
       - no
+      - no
     * - security
       - ``entityTypes/security``
+      - no
       - no
     * - web_domain
       - ``entityTypes/web_domain``
       - no
+      - yes
 
 A regional is a group of listings (of the same security) with the same trading currency in the same
 region. The other entity types should be self-explanatory.
@@ -144,7 +153,7 @@ namespace since the entity belongs to the global namespace.)
 
 A large number of entities are created and managed by Exabel. Those entities cover all publicly
 listed companies on a large number of exchanges, along with the corresponding securities and
-listings.
+listings. Some of those entity types are too large to be listed, but they can be searched for.
 
 Of the built-in entity types all except for the *brand* entity type are `read-only`, meaning that
 new entities can only be added by Exabel. Customers can add entities with the *brand* entity type,
@@ -156,7 +165,8 @@ The collection id for entities is ``entities``.
 List entities
 -------------
 
-Lists all entities of a given entity type.
+Lists all entities of a given entity type. Some entity types cannot be listed (consult the table
+above), but must be searched for instead.
 
 ..  http:get:: /v1/entityTypes/{entityTypeId}/entities
 
