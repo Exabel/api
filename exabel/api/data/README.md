@@ -35,36 +35,7 @@ When modifying any APIs, the following steps needs to be followed:
 7. When step 6 is completed, update the dependencies of the consuming project(s) again and create
 a new PR.
 
-# Documentation
-
-[Original design documentation](https://docs.google.com/document/d/1_qogmUdmApPPHqzPgY_jhs0vvpqyMZBOQs_Dm5mZdL0/edit)
-
-## Prerequisites
-
-* Python 3
-  ```
-  pyenv install
-  ```
-* Sphinx with theme `sphinx_rtd_theme`: https://www.sphinx-doc.org/en/master/usage/installation.html
-  ```
-  pip3 install -r requirements.txt
-  ```
-
-## Building
-
-Produce HTML output in the folder 'target/html':
-```
-make html
-```
-
-
 ## Deploy
-
-### Documentation
-
-#### Firebase Hosting
-
-Documentation is automatically deployed using GitHub actions to https://exabel-doc-api-data.web.app/
 
 ### Endpoints
 
@@ -74,9 +45,3 @@ The projects that run implementations of this API must have "Service Consumer" a
 Controller" permissions for this API.
 
 API overview in Cloud Console: https://console.cloud.google.com/endpoints/api/data.api.exabel.com/overview?project=exabel-api&organizationId=935607507718
-
-## Auth0 integration
-
-Aerobatic uses a separate "regular web application" in Auth0 (called "Documentation"),
-and the login page hosted by Auth0. Client id, client secret, and tenant is set as
-environment properties Aerobatic: https://dashboard.aerobatic.com/exabel/exabel-api-doc/envvars
