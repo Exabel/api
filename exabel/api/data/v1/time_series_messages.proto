@@ -9,6 +9,7 @@ option java_outer_classname = "TimeSeriesMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
 import "exabel/api/time/time_range.proto";
+import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
@@ -68,5 +69,7 @@ message DefaultKnownTime {
     bool current_time = 1;
     // Specifies that the default known time for each point is a specific time stamp.
     google.protobuf.Timestamp known_time = 2;
+    // Specifies that the default known time for each point is an offset from its time stamp.
+    google.protobuf.Duration time_offset = 3;
   }
 }

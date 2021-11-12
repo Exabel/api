@@ -47,3 +47,6 @@ lint:
     - id: NAMES_NO_DATA
       files:
       - exabel/api/data/v1
+    - id: WKT_DURATION_SUFFIX
+      files:
+      - exabel/api/data/v1/time_series_messages.proto
