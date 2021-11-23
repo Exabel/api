@@ -23,6 +23,9 @@ message EntityType {
   string description = 3;
   // Output only. Whether this resource is read only.
   bool read_only = 4;
+  // Whether this is an intermediate entity type, not normally searchable or assignable to signals.
+  // This should normally be set on many-to-many connections.
+  bool intermediate = 5;
 }
 
 // An entity resource in the Data API. All entities have one entity type as its parent.
