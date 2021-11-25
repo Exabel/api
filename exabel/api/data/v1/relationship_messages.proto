@@ -22,6 +22,9 @@ message RelationshipType {
   string description = 2;
   // Output only. Whether this resource is read only.
   bool read_only = 3;
+  // Whether this relationship type specifices an "ownership" in the data set model. The
+  // relationship direction goes from the owner to the sub entity.
+  bool is_ownership = 4;
   // The arbitrary properties of this relationship type.
   google.protobuf.Struct properties = 100;
 }
