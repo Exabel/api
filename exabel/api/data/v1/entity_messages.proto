@@ -23,10 +23,10 @@ message EntityType {
   string description = 3;
   // Output only. Whether this resource is read only.
   bool read_only = 4;
-  // Whether this is an intermediate entity type which is not normally searchable. This is normally
+  // Whether this is an associative entity type which is not normally searchable. This is normally
   // set on entity types that act as many-to-many connections in order to connect a signal to a pair
   // of entities.
-  bool intermediate = 5;
+  bool is_associative = 5;
 }
 
 // An entity resource in the Data API. All entities have one entity type as its parent.
