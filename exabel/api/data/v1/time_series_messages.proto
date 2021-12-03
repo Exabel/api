@@ -9,6 +9,7 @@ option java_outer_classname = "TimeSeriesMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
 import "exabel/api/time/time_range.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
@@ -20,26 +21,27 @@ import "google/protobuf/wrappers.proto";
 // be retrieved via this API. They may still be listed in a "ListTimeSeries" request and be used on
 // the Exabel platform.
 message TimeSeries {
-  // Required. The resource name of the time series, for example
+  // The resource name of the time series, for example
   // "entityTypes/ns1.type/entities/ns2.entities/signals/ns3.signal".
   // An alternative name for the same time series is
   // "signals/ns3.signal/entityTypes/ns1.type/entities/ns2.entity", but the former is the canonical
   // version which always will be returned by the server. The namespaces must be empty (being
   // global) or one of the predetermined namespaces the customer has access to. If ns2 is not empty,
   // it must be equals to ns3, and if ns1 is not empty, all three namespaces must be equal.
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = IMMUTABLE,
+                   (google.api.field_behavior) = REQUIRED];
   // The time series data of this time series. Partial results may be returned from the server based
   // on the "view" parameter of the request and whether the time series is provided by Exabel or
   // not. When returned from the server the points are sorted increasingly by time.
   repeated TimeSeriesPoint points = 2;
-  // Output only. Whether this resource is read only.
-  bool read_only = 3;
+  // Whether this resource is read only.
+  bool read_only = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // A time series point of a time series.
 message TimeSeriesPoint {
-  // Required. The time stamp of this point. Time stamps are truncated to whole seconds.
-  google.protobuf.Timestamp time = 1;
+  // The time stamp of this point. Time stamps are truncated to whole seconds.
+  google.protobuf.Timestamp time = 1 [(google.api.field_behavior) = REQUIRED];
   // The value at this point. Points returned from the server always have values, but are possibly
   // NaNs (Not a Number). Points sent to the server might have no value, in which case they are
   // ignored.
@@ -55,10 +57,10 @@ message TimeSeriesView {
   // be treated as not set. If not set, no points will be returned. If set, but empty, all points
   // will be returned.
   api.time.TimeRange time_range = 1;
-  // Optional. Specifies that the data should be returned as if it was requested at the given time
+  // Specifies that the data should be returned as if it was requested at the given time
   // (in the past). Values inserted after this known time are disregarded. If not set, the newest
   // values are returned.
-  google.protobuf.Timestamp known_time = 2;
+  google.protobuf.Timestamp known_time = 2 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // A default known time specification to use when creating or updating time series. If any inserted

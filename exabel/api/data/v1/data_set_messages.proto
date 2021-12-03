@@ -8,17 +8,20 @@ option java_multiple_files = true;
 option java_outer_classname = "DataSetMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
+import "google/api/field_behavior.proto";
+
 // A data set resource in the Data API.
 message DataSet {
-  // Required. The resource name of the data set, for example "dataSets/namespace.dataSetIdentifier".
+  // The resource name of the data set, for example "dataSets/namespace.dataSetIdentifier".
   // The namespace must be one of the predetermined namespaces the customer has access to.
   // The data set identifier must match the regex \w[\w-]{0,63}.
-  string name = 1;
-  // Required. The display name of the data set.
-  string display_name = 2;
+  string name = 1 [(google.api.field_behavior) = IMMUTABLE,
+                   (google.api.field_behavior) = REQUIRED];
+  // The display name of the data set.
+  string display_name = 2 [(google.api.field_behavior) = REQUIRED];
   // One or more paragraphs of text description.
   string description = 3;
   // The list of signals comprising this data set. Signals are represented by their resource names,
   // for instance "signals/namespace.signalIdentifier".
-  repeated string signals = 4;
+  repeated string signals = 4 [(google.api.field_behavior) = UNORDERED_LIST];
 }

@@ -8,20 +8,22 @@ option java_multiple_files = true;
 option java_outer_classname = "RelationshipMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
+import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
 
 // A relationship type resource in the Data API.
 message RelationshipType {
-  // Required. The resource name of the relationship type, for example
+  // The resource name of the relationship type, for example
   // "relationshipTypes/namespace.relationshipTypeIdentifier".
   // The namespace must be empty (being global) or one of the predetermined namespaces the customer
   // has access to.
   // The relationship type identifier must match the regex [A-Z][A-Z0-9_]{0,63}.
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = IMMUTABLE,
+                   (google.api.field_behavior) = REQUIRED];
   // One or more paragraphs of text description.
   string description = 2;
-  // Output only. Whether this resource is read only.
-  bool read_only = 3;
+  // Whether this resource is read only.
+  bool read_only = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Whether this relationship type specifices an "ownership" in the data set model. The
   // relationship direction goes from the owner to the sub entity.
   bool is_ownership = 4;
@@ -35,19 +37,19 @@ message RelationshipType {
 // single user). The namespaces of the end points must either be empty (being global) or one of the
 // predetermined namespaces the customer has access to.
 message Relationship {
-  // Required. The parent of the relationship, for example "relationshipTypes/ns.type1". This is its
+  // The parent of the relationship, for example "relationshipTypes/ns.type1". This is its
   // relationship type.
-  string parent = 1;
-  // Required. The resource name of the start point of the relationship, for example
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entities/ns.entity1".
-  string from_entity = 2;
-  // Required. The resource name of the end point of the relationship, for example
+  string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
+  // The resource name of the end point of the relationship, for example
   // "entityTypes/ns.type2/entities/ns.entity2".
-  string to_entity = 3;
+  string to_entity = 3 [(google.api.field_behavior) = REQUIRED];
   // One or more paragraphs of text description.
   string description = 4;
-  // Output only. Whether this resource is read only.
-  bool read_only = 5;
+  // Whether this resource is read only.
+  bool read_only = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The arbitrary properties of this relationship.
   google.protobuf.Struct properties = 100;
 }

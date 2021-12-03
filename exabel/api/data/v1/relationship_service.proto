@@ -105,15 +105,15 @@ message ListRelationshipTypesResponse {
 
 // The request to create one relationship type.
 message CreateRelationshipTypeRequest {
-  // Required. The relationship type to create.
+  // The relationship type to create.
   RelationshipType relationship_type = 1;
 }
 
 // The request to update one relationship type.
 message UpdateRelationshipTypeRequest {
-  // Required. The relationship type to update.
+  // The relationship type to update.
   RelationshipType relationship_type = 1;
-  // Required. The update mask to apply to the resource. Only the fields mentioned in this mask will be
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;
 }
@@ -126,13 +126,13 @@ message DeleteRelationshipTypeRequest {
 
 // The response to get one relationship type.
 message GetRelationshipTypeRequest {
-  // Required. The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
+  // The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
   string name = 1;
 }
 
 // The request to list relationship for a given entity. At least one of from_entity and to_entity must be provided.
 message ListRelationshipsRequest {
-  // Required. The type of the relationship, for example "relationshipTypes/ns.type1".
+  // The type of the relationship, for example "relationshipTypes/ns.type1".
   // Use parent 'relationshipTypes/-' to include all types.
   string parent = 1;
   // The resource name of the start point of the relationship, for example
@@ -161,25 +161,25 @@ message ListRelationshipsResponse {
 
 // The request to get one relationship.
 message GetRelationshipRequest {
-  // Required. The type of the relationship, for example "relationshipTypes/ns.type1".
+  // The type of the relationship, for example "relationshipTypes/ns.type1".
   string parent = 1;
-  // Required. The resource name of the start point of the relationship, for example
+  // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
-  // Required. The resource name of the end point of the relationship, for example
+  // The resource name of the end point of the relationship, for example
   // "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3;
 }
 
 // The request to create one relationship.
 message CreateRelationshipRequest {
-  // Required. The relationship to create.
+  // The relationship to create.
   Relationship relationship = 1;
 }
 
 // The request to update one relationship.
 message UpdateRelationshipRequest {
-  // Required. The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
+  // The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
   // and it should be created instead.
   Relationship relationship = 1;
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
@@ -189,12 +189,12 @@ message UpdateRelationshipRequest {
 
 // The request to delete one relationship.
 message DeleteRelationshipRequest {
-  // Required. The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
+  // The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
   string parent = 1;
-  // Required. The resource name of the start point of the relationship, for example
+  // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
-  // Required. The resource name of the end point of the relationship, for example
+  // The resource name of the end point of the relationship, for example
   // "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3;
 }
