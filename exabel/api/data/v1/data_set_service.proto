@@ -38,7 +38,7 @@ service DataSetService {
   // Updates one data set and returns it.
   rpc UpdateDataSet(UpdateDataSetRequest) returns (DataSet) {
     option (google.api.http) = {
-      patch: "/v1/{dataSet.name=dataSets/*}"
+      patch: "/v1/{data_set.name=dataSets/*}"
       body: "data_set"
     };
   }
