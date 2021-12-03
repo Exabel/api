@@ -11,6 +11,7 @@ option java_package = "com.exabel.api.data.v1";
 import "exabel/api/data/v1/entity_messages.proto";
 import "exabel/api/data/v1/search_messages.proto";
 import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
@@ -94,13 +95,13 @@ message ListEntityTypesResponse {
 // The request to get one entity type.
 message GetEntityTypeRequest {
   // The resource name of the requested entity type, for example "entityTypes/ns.type1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to list entities.
 message ListEntitiesRequest {
   // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
-  string parent = 1;
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
   // The maximum number of results to return. Defaults to 1000, which is also the maximum value
   // of this field.
   int32 page_size = 2;
@@ -122,21 +123,21 @@ message ListEntitiesResponse {
 // The request to get one entity.
 message GetEntityRequest {
   // The resource name of the requested entity, for example "entityTypes/ns.type1/entities/ns.entity1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The response to create one entity.
 message CreateEntityRequest {
   // The parent entity type of the created entity, for example "entityTypes/ns.type1".
-  string parent = 1;
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
   // The entity to create.
-  Entity entity = 2;
+  Entity entity = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to update one entity.
 message UpdateEntityRequest {
   // The entity to update.
-  Entity entity = 1;
+  Entity entity = 1 [(google.api.field_behavior) = REQUIRED];
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;
@@ -145,7 +146,7 @@ message UpdateEntityRequest {
 // The request to delete one entity.
 message DeleteEntityRequest {
   // The resource name of the entity to delete, for example "entityTypes/ns.type1/entities/ns.entity1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to search for one or more entities.
@@ -177,9 +178,9 @@ message DeleteEntityRequest {
 //   * a 'MIC' (Market Identifier Code) and a 'ticker' field.
 message SearchEntitiesRequest {
   // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
-  string parent = 4;
+  string parent = 4 [(google.api.field_behavior) = REQUIRED];
   // The search terms that should be satisfied.
-  repeated SearchTerm terms = 1;
+  repeated SearchTerm terms = 1 [(google.api.field_behavior) = REQUIRED];
   // The maximum number of results to return. Defaults to 1000, which is also the maximum value
   // of this field. (Not implemented yet.)
   int32 page_size = 2;

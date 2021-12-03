@@ -10,6 +10,7 @@ option java_package = "com.exabel.api.data.v1";
 
 import "exabel/api/data/v1/entity_messages.proto";
 import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/field_mask.proto";
 
 // Manages entity types in the Data API, for internal usage.
@@ -36,13 +37,13 @@ service InternalEntityService {
 // The request to create one entity type.
 message CreateEntityTypeRequest {
   // The entity type to create.
-  EntityType entity_type = 1;
+  EntityType entity_type = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to update one entity type.
 message UpdateEntityTypeRequest {
   // The entity type to update.
-  EntityType entity_type = 1;
+  EntityType entity_type = 1 [(google.api.field_behavior) = REQUIRED];
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;

@@ -11,6 +11,7 @@ option java_package = "com.exabel.api.data.v1";
 import "exabel/api/data/v1/time_series_messages.proto";
 import "exabel/api/time/time_range.proto";
 import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 
 // Manages time series in the Data API.
@@ -87,7 +88,7 @@ service TimeSeriesService {
 message ListTimeSeriesRequest {
   // The parent entity or signal of time series to list, for example "entityTypes/ns.type1/entities/ns.entity1"
   // or "signal/ns.signal1".
-  string parent = 1;
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
   // The maximum number of results to return. Defaults to 1000, which is also the maximum value
   // of this field.
   int32 page_size = 2;
@@ -113,7 +114,7 @@ message GetTimeSeriesRequest {
   // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1"
   // or "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1". The returned time series will
   // always contain its canonical name "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
 }
@@ -122,7 +123,7 @@ message GetTimeSeriesRequest {
 // "time_series.name". The returned time series will contain its canonical name.
 message CreateTimeSeriesRequest {
   // The time series to create.
-  TimeSeries time_series = 1;
+  TimeSeries time_series = 1 [(google.api.field_behavior) = REQUIRED];
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
   // The specification of the default known time to use for points that don't explicitly have a
@@ -139,7 +140,7 @@ message UpdateTimeSeriesRequest {
   // The time series to update. The data in this request and the existing data are merged together:
   // All points in the request will overwrite the existing points with the same key, unless
   // the new value is empty, in which case the point will be deleted.
-  TimeSeries time_series = 1;
+  TimeSeries time_series = 1 [(google.api.field_behavior) = REQUIRED];
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
   // The specification of the default known time to use for points that don't explicitly have a
@@ -153,7 +154,7 @@ message DeleteTimeSeriesRequest {
   // The resource name of the time series to be deleted, for example
   // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or
   // "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to delete parts of one time series.
@@ -161,7 +162,7 @@ message BatchDeleteTimeSeriesPointsRequest {
   // The resource name of the time series to be deleted, for example
   // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or
   // "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
   // The list of time ranges to delete from the time series. Each time range may
   // be expanded to whole hours (UTC time).
   repeated api.time.TimeRange time_ranges = 2;

@@ -10,6 +10,7 @@ option java_package = "com.exabel.api.data.v1";
 
 import "exabel/api/data/v1/signal_messages.proto";
 import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
@@ -72,13 +73,13 @@ message ListSignalsResponse {
 // The request to get one signal.
 message GetSignalRequest {
   // The resource name of the requested signal, for example "signals/ns.signal1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to create one signal.
 message CreateSignalRequest {
   // The signal to create.
-  Signal signal = 1;
+  Signal signal = 1 [(google.api.field_behavior) = REQUIRED];
   // Set to true to add the signal to the library when created.
   bool create_library_signal = 2;
 }
@@ -86,7 +87,7 @@ message CreateSignalRequest {
 // The request to update one signal.
 message UpdateSignalRequest {
   // The signal to update.
-  Signal signal = 1;
+  Signal signal = 1 [(google.api.field_behavior) = REQUIRED];
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;
@@ -95,5 +96,5 @@ message UpdateSignalRequest {
 // The request to delete one signal.
 message DeleteSignalRequest {
   // The resource name of the signal to delete, for example "signals/ns.signal1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }

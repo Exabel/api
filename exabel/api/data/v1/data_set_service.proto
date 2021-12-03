@@ -10,6 +10,7 @@ option java_package = "com.exabel.api.data.v1";
 
 import "exabel/api/data/v1/data_set_messages.proto";
 import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
@@ -61,19 +62,19 @@ message ListDataSetsResponse {
 // The request to get one data set.
 message GetDataSetRequest {
   // The resource name of the requested data set, for example "dataSets/ns.set1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The response to create one data set.
 message CreateDataSetRequest {
   // The data set to create.
-  DataSet data_set = 1;
+  DataSet data_set = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to update one data set.
 message UpdateDataSetRequest {
   // The data set to update.
-  DataSet data_set = 1;
+  DataSet data_set = 1 [(google.api.field_behavior) = REQUIRED];
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified. If the "signals" field is updated, the new list will replace the existing list.
   google.protobuf.FieldMask update_mask = 2;
@@ -82,5 +83,5 @@ message UpdateDataSetRequest {
 // The request to delete one data set.
 message DeleteDataSetRequest {
   // The resource name of the data set to delete, for example "dataSets/ns.set1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
