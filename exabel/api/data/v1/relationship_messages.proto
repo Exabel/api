@@ -18,8 +18,10 @@ message RelationshipType {
   // The namespace must be empty (being global) or one of the predetermined namespaces the customer
   // has access to.
   // The relationship type identifier must match the regex [A-Z][A-Z0-9_]{0,63}.
-  string name = 1 [(google.api.field_behavior) = IMMUTABLE,
-                   (google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = REQUIRED
+  ];
   // One or more paragraphs of text description.
   string description = 2;
   // Whether this resource is read only.

@@ -15,8 +15,10 @@ message DataSet {
   // The resource name of the data set, for example "dataSets/namespace.dataSetIdentifier".
   // The namespace must be one of the predetermined namespaces the customer has access to.
   // The data set identifier must match the regex \w[\w-]{0,63}.
-  string name = 1 [(google.api.field_behavior) = IMMUTABLE,
-                   (google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = REQUIRED
+  ];
   // The display name of the data set.
   string display_name = 2 [(google.api.field_behavior) = REQUIRED];
   // One or more paragraphs of text description.

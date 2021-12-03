@@ -8,8 +8,8 @@ option java_multiple_files = true;
 option java_outer_classname = "SignalMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
-import "google/api/field_behavior.proto";
 import "exabel/api/math/aggregation.proto";
+import "google/api/field_behavior.proto";
 
 // A signal resource in the Data API. Signals are normally associated with a set of entity types,
 // but may apply to any entities.
@@ -18,8 +18,10 @@ message Signal {
   // "signals/namespace.signalIdentifier". The namespace must be empty (being global) or one of the
   // predetermined namespaces the customer has access to.
   // The signal identifier must match the regex [a-zA-Z]\w{0,63}.
-  string name = 1 [(google.api.field_behavior) = IMMUTABLE,
-                   (google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = REQUIRED
+  ];
   // No longer in use.
   string entity_type = 2 [deprecated = true];
   // The display name of the signal.
