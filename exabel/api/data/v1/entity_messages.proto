@@ -49,8 +49,8 @@ message Entity {
   string display_name = 2 [(google.api.field_behavior) = REQUIRED];
   // One or more paragraphs of text description.
   string description = 3;
-  // Output only. Whether this resource is read only.
-  bool read_only = 4;
+  // Whether this resource is read only.
+  bool read_only = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The arbitrary properties of this entity.
   google.protobuf.Struct properties = 100;
 }
