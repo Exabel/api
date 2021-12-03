@@ -10,6 +10,7 @@ option java_package = "com.exabel.api.data.v1";
 
 import "exabel/api/data/v1/relationship_messages.proto";
 import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
@@ -105,15 +106,15 @@ message ListRelationshipTypesResponse {
 
 // The request to create one relationship type.
 message CreateRelationshipTypeRequest {
-  // Required. The relationship type to create.
-  RelationshipType relationship_type = 1;
+  // The relationship type to create.
+  RelationshipType relationship_type = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to update one relationship type.
 message UpdateRelationshipTypeRequest {
-  // Required. The relationship type to update.
-  RelationshipType relationship_type = 1;
-  // Required. The update mask to apply to the resource. Only the fields mentioned in this mask will be
+  // The relationship type to update.
+  RelationshipType relationship_type = 1 [(google.api.field_behavior) = REQUIRED];
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;
 }
@@ -121,20 +122,20 @@ message UpdateRelationshipTypeRequest {
 // The request to delete one relationship type.
 message DeleteRelationshipTypeRequest {
   // The resource name of the relationship type to delete, for example "relationshipTypes/ns.type1".
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The response to get one relationship type.
 message GetRelationshipTypeRequest {
-  // Required. The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
-  string name = 1;
+  // The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to list relationship for a given entity. At least one of from_entity and to_entity must be provided.
 message ListRelationshipsRequest {
-  // Required. The type of the relationship, for example "relationshipTypes/ns.type1".
+  // The type of the relationship, for example "relationshipTypes/ns.type1".
   // Use parent 'relationshipTypes/-' to include all types.
-  string parent = 1;
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
   // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
@@ -161,27 +162,27 @@ message ListRelationshipsResponse {
 
 // The request to get one relationship.
 message GetRelationshipRequest {
-  // Required. The type of the relationship, for example "relationshipTypes/ns.type1".
-  string parent = 1;
-  // Required. The resource name of the start point of the relationship, for example
+  // The type of the relationship, for example "relationshipTypes/ns.type1".
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entities/ns.entity1".
-  string from_entity = 2;
-  // Required. The resource name of the end point of the relationship, for example
+  string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
+  // The resource name of the end point of the relationship, for example
   // "entityTypes/ns.type2/entities/ns.entity2".
-  string to_entity = 3;
+  string to_entity = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to create one relationship.
 message CreateRelationshipRequest {
-  // Required. The relationship to create.
-  Relationship relationship = 1;
+  // The relationship to create.
+  Relationship relationship = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to update one relationship.
 message UpdateRelationshipRequest {
-  // Required. The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
+  // The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
   // and it should be created instead.
-  Relationship relationship = 1;
+  Relationship relationship = 1 [(google.api.field_behavior) = REQUIRED];
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;
@@ -189,12 +190,12 @@ message UpdateRelationshipRequest {
 
 // The request to delete one relationship.
 message DeleteRelationshipRequest {
-  // Required. The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
-  string parent = 1;
-  // Required. The resource name of the start point of the relationship, for example
+  // The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entities/ns.entity1".
-  string from_entity = 2;
-  // Required. The resource name of the end point of the relationship, for example
+  string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
+  // The resource name of the end point of the relationship, for example
   // "entityTypes/ns.type2/entities/ns.entity2".
-  string to_entity = 3;
+  string to_entity = 3 [(google.api.field_behavior) = REQUIRED];
 }
