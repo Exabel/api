@@ -26,4 +26,6 @@ message DataSet {
   // The list of signals comprising this data set. Signals are represented by their resource names,
   // for instance "signals/namespace.signalIdentifier".
   repeated string signals = 4 [(google.api.field_behavior) = UNORDERED_LIST];
+  // Whether this resource is read only.
+  bool read_only = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
