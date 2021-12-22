@@ -5,6 +5,7 @@ config_version: 3
 name: data.api.exabel.com
 title: Exabel Data API
 apis:
+- name: exabel.api.data.v1.DataSetService
 - name: exabel.api.data.v1.EntityService
 - name: exabel.api.data.v1.RelationshipService
 - name: exabel.api.data.v1.SignalService
