@@ -117,6 +117,9 @@ message UpdateRelationshipTypeRequest {
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;
+  // If set to true, and the resource is not found, a new resource will be created.
+  // In this situation, the "update_mask" is ignored.
+  bool allow_missing = 3;
 }
 
 // The request to delete one relationship type.
@@ -180,12 +183,14 @@ message CreateRelationshipRequest {
 
 // The request to update one relationship.
 message UpdateRelationshipRequest {
-  // The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
-  // and it should be created instead.
+  // The relationship to update.
   Relationship relationship = 1 [(google.api.field_behavior) = REQUIRED];
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified.
   google.protobuf.FieldMask update_mask = 2;
+  // If set to true, and the resource is not found, a new resource will be created.
+  // In this situation, the "update_mask" is ignored.
+  bool allow_missing = 3;
 }
 
 // The request to delete one relationship.
