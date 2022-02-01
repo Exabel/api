@@ -148,7 +148,6 @@ message UpdateTimeSeriesRequest {
   // (`current_time = true`).
   DefaultKnownTime default_known_time = 3;
   // If set to true, and the resource is not found, a new resource will be created.
-  // In this situation, the "update_mask" is ignored.
   bool allow_missing = 4;
 }
 
