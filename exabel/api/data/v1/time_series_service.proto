@@ -147,6 +147,9 @@ message UpdateTimeSeriesRequest {
   // known time set. If not set, the time of insertion is used as the default known time
   // (`current_time = true`).
   DefaultKnownTime default_known_time = 3;
+  // If set to true, and the resource is not found, a new resource will be created.
+  // In this situation, the "update_mask" is ignored.
+  bool allow_missing = 4;
 }
 
 // The request to delete one time series.

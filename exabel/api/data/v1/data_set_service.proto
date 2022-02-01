@@ -78,6 +78,9 @@ message UpdateDataSetRequest {
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
   // modified. If the "signals" field is updated, the new list will replace the existing list.
   google.protobuf.FieldMask update_mask = 2;
+  // If set to true, and the resource is not found, a new resource will be created.
+  // In this situation, the "update_mask" is ignored.
+  bool allow_missing = 3;
 }
 
 // The request to delete one data set.
