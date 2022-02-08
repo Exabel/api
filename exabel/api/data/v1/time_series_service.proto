@@ -149,6 +149,9 @@ message UpdateTimeSeriesRequest {
   DefaultKnownTime default_known_time = 3;
   // If set to true, and the resource is not found, a new resource will be created.
   bool allow_missing = 4;
+  // If allow_missing is set to true and the time series does not exist, also create a tag for every
+  // entity type the signal has time series for.
+  bool create_tag = 5;
 }
 
 // The request to delete one time series.

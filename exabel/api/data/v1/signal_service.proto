@@ -94,6 +94,8 @@ message UpdateSignalRequest {
   // If set to true, and the resource is not found, a new resource will be created.
   // In this situation, the "update_mask" is ignored.
   bool allow_missing = 3;
+  // If allow_missing is set to true and the signal does not exist, also add it to the library.
+  bool create_library_signal = 4;
 }
 
 // The request to delete one signal.
