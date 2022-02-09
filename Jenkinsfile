@@ -127,13 +127,7 @@ spec:
               String mvnProfile = buildLevel == BUILD_ALL ? 'jenkins' : 'jenkins-simple'
               sh 'mvn -B install -P' + mvnProfile
 
-              step([$class: 'WarningsPublisher', consoleParsers: [[parserName: 'Maven'], [parserName: 'Java Compiler (javac)']]])
-              step([$class: 'AnalysisPublisher'])
-
-              // Stop build if failed by a publisher
-              if (currentBuild.result == 'FAILURE') {
-                error 'Failed due to static code analysis';
-              }
+              recordIssues enabledForFailure: false, tools: [mavenConsole(), java(), javaDoc()]
             }
             stage('Test endpoint definitions') {
               Collection<String> serviceFiles = findFiles(glob: 'exabel/*/*/*-api.yaml').collect { it.path }
@@ -181,16 +175,30 @@ spec:
           }
         }
       }
-
-      if (!ON_MASTER) {
-        notifySlack('#40b59b', 'SUCCESS')
-      }
     } catch (org.jenkinsci.plugins.workflow.steps.FlowInterruptedException e) {
-      notifySlack('#ffaa00', 'CANCELLED')
+      notifySlack('#ffaa00', 'ABORTED')
       throw e
     } catch (Exception e) {
       notifySlack('#f51767', 'FAILURE')
       throw e
+    }
+    switch (currentBuild.currentResult) {
+      // SUCCESS, UNSTABLE, FAILURE, NOT_BUILT or ABORTED.
+      // https://github.com/jenkinsci/jenkins/blob/master/core/src/main/java/hudson/model/Result.java
+      case "SUCCESS":
+        if (!ON_MASTER) {
+          notifySlack('#40b59b', currentBuild.currentResult)
+        } else if (!env.CHANGE_ID && currentBuild.previousBuild != null && currentBuild.previousBuild.result != 'SUCCESS') {
+          // Only notify when changing build status to success on master
+          notifySlack('#40b59b', 'FIXED')
+        }
+        break;
+      case "FAILURE":
+        notifySlack('#f51767', currentBuild.currentResult)
+        break
+      default:
+        notifySlack('#ffaa00', currentBuild.currentResult)
+        break
     }
   }
 }
