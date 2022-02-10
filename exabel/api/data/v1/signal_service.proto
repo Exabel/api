@@ -89,10 +89,10 @@ message UpdateSignalRequest {
   // The signal to update.
   Signal signal = 1 [(google.api.field_behavior) = REQUIRED];
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be
-  // modified.
+  // modified. If "allow_missing" is set, this field is ignored.
   google.protobuf.FieldMask update_mask = 2;
   // If set to true, and the resource is not found, a new resource will be created.
-  // In this situation, the "update_mask" is ignored.
+  // If this is set, "update_mask" is ignored.
   bool allow_missing = 3;
   // If allow_missing is set to true and the signal does not exist, also add it to the library.
   bool create_library_signal = 4;
