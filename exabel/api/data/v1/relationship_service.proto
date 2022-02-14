@@ -7,6 +7,7 @@ package exabel.api.data.v1;
 option java_multiple_files = true;
 option java_outer_classname = "RelationshipServiceProto";
 option java_package = "com.exabel.api.data.v1";
+option go_package = "exabel.com/api/data/v1";
 
 import "exabel/api/data/v1/relationship_messages.proto";
 import "google/api/annotations.proto";
@@ -16,18 +17,24 @@ import "google/protobuf/field_mask.proto";
 
 // Manages relationship types and relationships in the Data API.
 service RelationshipService {
+  // List relationship types
+  //
   // List all relationship types from a common catalog.
   rpc ListRelationshipTypes(ListRelationshipTypesRequest) returns (ListRelationshipTypesResponse) {
     option (google.api.http) = {
       get: "/v1/relationshipTypes"
     };
   }
+  // Get relationship type
+  //
   // Gets one relationship type.
   rpc GetRelationshipType(GetRelationshipTypeRequest) returns (RelationshipType) {
     option (google.api.http) = {
       get: "/v1/{name=relationshipTypes/*}"
     };
   }
+  // Create relationship type
+  //
   // Creates one relationship type and returns it.
   rpc CreateRelationshipType(CreateRelationshipTypeRequest) returns (RelationshipType) {
     option (google.api.http) = {
@@ -35,6 +42,8 @@ service RelationshipService {
       body: "relationship_type"
     };
   }
+  // Update relationship type
+  //
   // Updates one relationship type and returns it.
   rpc UpdateRelationshipType(UpdateRelationshipTypeRequest) returns (RelationshipType) {
     option (google.api.http) = {
@@ -42,6 +51,8 @@ service RelationshipService {
       body: "relationship_type"
     };
   }
+  // Delete relationship type
+  //
   // Deletes one relationship type. A relationship type cannot be deleted if
   // there exist relationships having that type.
   rpc DeleteRelationshipType(DeleteRelationshipTypeRequest) returns (google.protobuf.Empty) {
@@ -49,12 +60,16 @@ service RelationshipService {
       delete: "/v1/{name=relationshipTypes/*}"
     };
   }
+  // List relationships
+  //
   // Lists relationship for a given entity.
   rpc ListRelationships(ListRelationshipsRequest) returns (ListRelationshipsResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=relationshipTypes/*}/relationships"
     };
   }
+  // Get relationship
+  //
   // Gets one relationship.
   // TODO(nordli): This method has the same URL as ListRelationships.
   rpc GetRelationship(GetRelationshipRequest) returns (Relationship) {
@@ -62,6 +77,8 @@ service RelationshipService {
       get: "/v1/{parent=relationshipTypes/*}/relationships"
     };
   }
+  // Create releationship
+  //
   // Creates one relationship and returns it.
   rpc CreateRelationship(CreateRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
@@ -69,6 +86,8 @@ service RelationshipService {
       body: "relationship"
     };
   }
+  // Update relationship
+  //
   // Updates one relationship and returns it.
   rpc UpdateRelationship(UpdateRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
@@ -76,6 +95,8 @@ service RelationshipService {
       body: "relationship"
     };
   }
+  // Delete relationship
+  //
   // Deletes one relationship.
   rpc DeleteRelationship(DeleteRelationshipRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {

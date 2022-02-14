@@ -7,6 +7,7 @@ package exabel.api.time;
 option java_multiple_files = true;
 option java_outer_classname = "TimeRangeProto";
 option java_package = "com.exabel.api.time";
+option go_package = "exabel.com/api/time";
 
 import "google/protobuf/timestamp.proto";
 

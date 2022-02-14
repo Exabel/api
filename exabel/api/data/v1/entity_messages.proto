@@ -7,46 +7,37 @@ package exabel.api.data.v1;
 option java_multiple_files = true;
 option java_outer_classname = "EntityMessagesProto";
 option java_package = "com.exabel.api.data.v1";
+option go_package = "exabel.com/api/data/v1";
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
 
 // An entity type resource in the Data API.
 message EntityType {
-  // The resource name of the entity type, for example "entityTypes/entityTypeIdentifier" or
-  // "entityTypes/namespace.entityTypeIdentifier". The namespace must be empty (being global) or
-  // one of the predetermined namespaces the customer has access to.
-  // The entity type identifier must match the regex \w[\w-]{0,63}.
+  // The resource name of the entity type, for example "entityTypes/entityTypeIdentifier" or "entityTypes/namespace.entityTypeIdentifier". The namespace must be empty (being global) or one of the predetermined namespaces the customer has access to. The entity type identifier must match the regex \w[\w-]{0,63}.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = REQUIRED
   ];
-  // The display name of the entity type.
-  string display_name = 2 [(google.api.field_behavior) = REQUIRED];
+  // The display name of the entity type. Required when creating entity type.
+  string display_name = 2;
   // One or more paragraphs of text description.
   string description = 3;
   // Whether this resource is read only.
   bool read_only = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Whether this is an associative entity type which is not normally searchable. This is normally
-  // set on entity types that act as many-to-many connections in order to connect a signal to a pair
-  // of entities.
+  // Whether this is an associative entity type which is not normally searchable. This is normally set on entity types that act as many-to-many connections in order to connect a signal to a pair of entities.
   bool is_associative = 5;
 }
 
 // An entity resource in the Data API. All entities have one entity type as its parent.
 message Entity {
-  // The resource name of the entity,
-  // for example "entityTypes/entityTypeIdentifier/entities/entityIdentifier" or
-  // "entityTypes/namespace1.entityTypeIdentifier/entities/namespace2.entityIdentifier".
-  // The namespaces must be empty (being global) or one of the predetermined namespaces the customer
-  // has access to. If namespace1 is not empty, it must be equal to namespace2.
-  // The entity identifier must match the regex \w[\w-]{0,63}.
+  // The resource name of the entity, for example "entityTypes/entityTypeIdentifier/entities/entityIdentifier" or  "entityTypes/namespace1.entityTypeIdentifier/entities/namespace2.entityIdentifier". The namespaces must be empty (being global) or one of the predetermined namespaces the customer has access to. If namespace1 is not empty, it must be equal to namespace2. The entity identifier must match the regex \w[\w-]{0,63}.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = REQUIRED
   ];
-  // The display name of the entity.
-  string display_name = 2 [(google.api.field_behavior) = REQUIRED];
+  // The display name of the entity. Required when creating entity.
+  string display_name = 2;
   // One or more paragraphs of text description.
   string description = 3;
   // Whether this resource is read only.

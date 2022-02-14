@@ -7,6 +7,7 @@ package exabel.api.data.v1;
 option java_multiple_files = true;
 option java_outer_classname = "TimeSeriesServiceProto";
 option java_package = "com.exabel.api.data.v1";
+option go_package = "exabel.com/api/data/v1";
 
 import "exabel/api/data/v1/time_series_messages.proto";
 import "exabel/api/time/time_range.proto";
@@ -16,67 +17,79 @@ import "google/protobuf/empty.proto";
 
 // Manages time series in the Data API.
 service TimeSeriesService {
+  // List time series
+  //
   // Lists all time series for one entity or for one signal. Only the names are returned.
   rpc ListTimeSeries(ListTimeSeriesRequest) returns (ListTimeSeriesResponse) {
     option (google.api.http) = {
-      get: "/v1/{parent=entityTypes/*/entities/*}/timeSeries"
+      get: "/v1/{parent}/timeSeries"
       additional_bindings: {
-        get: "/v1/{parent=signals/*}/timeSeries"
+        get: "/v1/{parent}/timeSeries"
       }
     };
   }
+  // Get time series
+  //
   // Gets one time series. The known_time (of present) must be formatted
   // according to RFC3339, as specified by
   // https://developers.google.com/protocol-buffers/docs/proto3#json.
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
+      get: "/v1/{name}"
       additional_bindings: {
-        get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
+        get: "/v1/{name}"
       }
     };
   }
+  // Create time series
+  //
   // Creates one time series and returns it.
   rpc CreateTimeSeries(CreateTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      post: "/v1/{time_series.name=entityTypes/*/entities/*/signals/*}"
+      post: "/v1/{time_series.name}"
       body: "time_series"
       additional_bindings: {
-        post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
+        post: "/v1/{time_series.name}"
         body: "time_series"
       }
     };
   }
+  // Update time series
+  //
   // Updates one time series and returns it. The data in this request and the
   // existing data will be merged together.
   rpc UpdateTimeSeries(UpdateTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      patch: "/v1/{time_series.name=entityTypes/*/entities/*/signals/*}"
+      patch: "/v1/{time_series.name}"
       body: "time_series"
       additional_bindings: {
-        post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
+        post: "/v1/{time_series.name}"
         body: "time_series"
       }
     };
   }
+  // Delete time series
+  //
   // Deletes one time series. The time series and all its points will be deleted.
   rpc DeleteTimeSeries(DeleteTimeSeriesRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{name=entityTypes/*/entities/*/signals/*}"
+      delete: "/v1/{name}"
       additional_bindings: {
-        delete: "/v1/{name=signals/*/entityTypes/*/entities/*}"
+        delete: "/v1/{name}"
       }
     };
   }
+  // Delete time series points
+  //
   // Deletes part(s) of one time series. The requested points will be deleted, but the time series
   // will not. With this request, it is possible to delete all points from a time series, but not
   // the time series itself.
   rpc BatchDeleteTimeSeriesPoints(BatchDeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      post: "/v1/{name=entityTypes/*/entities/*/signals/*}/points:batchDelete"
+      post: "/v1/{name}/points:batchDelete"
       body: "*"
       additional_bindings: {
-        post: "/v1/{name=signals/*/entityTypes/*/entities/*}/points:batchDelete"
+        post: "/v1/{name}/points:batchDelete"
         body: "*"
       }
     };
@@ -86,14 +99,11 @@ service TimeSeriesService {
 // The request to list time series. This request has an implicit empty "TimeSeriesView" parameter,
 // so only the canonical names are returned.
 message ListTimeSeriesRequest {
-  // The parent entity or signal of time series to list, for example "entityTypes/ns.type1/entities/ns.entity1"
-  // or "signal/ns.signal1".
+  // The parent entity or signal of time series to list, for example "entityTypes/ns.type1/entities/ns.entity1"/ or "signal/ns.signal1".
   string parent = 1 [(google.api.field_behavior) = REQUIRED];
-  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
-  // of this field.
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum value of this field.
   int32 page_size = 2;
-  // The page token to resume the results from, as returned from a previous request to this method
-  // with the same query parameters.
+  // The page token to resume the results from, as returned from a previous request to this method with the same query parameters.
   string page_token = 3;
 }
 
@@ -107,63 +117,46 @@ message ListTimeSeriesResponse {
   int32 total_size = 3;
 }
 
-// The request to get one time series. The returned time series will contain its canonical name.
-// Not all time series are capable of returning data.
+// The request to get one time series. The returned time series will contain its canonical name. Not all time series are capable of returning data.
 message GetTimeSeriesRequest {
-  // The resource name of the requested time series, for example
-  // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1"
-  // or "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1". The returned time series will
-  // always contain its canonical name "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1".
+  // The resource name of the requested time series, for example "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1". The returned time series will always contain its canonical name "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1".
   string name = 1 [(google.api.field_behavior) = REQUIRED];
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
 }
 
-// The request to create one time series. The parents of the time series will be inferred from
-// "time_series.name". The returned time series will contain its canonical name.
+// The request to create one time series. The parents of the time series will be inferred from "time_series.name". The returned time series will contain its canonical name.
 message CreateTimeSeriesRequest {
   // The time series to create.
   TimeSeries time_series = 1 [(google.api.field_behavior) = REQUIRED];
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
-  // The specification of the default known time to use for points that don't explicitly have a
-  // known time set. If not set, the time of insertion is used as the default known time
-  // (`current_time = true`).
+  // The specification of the default known time to use for points that don't explicitly have a known time set. If not set, the time of insertion is used as the default known time (`current_time = true`).
   DefaultKnownTime default_known_time = 3;
-  // Set to true to create a tag for every entity type a signal has time series for. If a tag already exists,
-  // it will be updated when time series are created (or deleted) regardless of the value of this flag.
+  // Set to true to create a tag for every entity type a signal has time series for. If a tag already exists, it will be updated when time series are created (or deleted) regardless of the value of this flag.
   bool create_tag = 4;
 }
 
 // The request to update one time series. The returned time series will contain its canonical name.
 message UpdateTimeSeriesRequest {
-  // The time series to update. The data in this request and the existing data are merged together:
-  // All points in the request will overwrite the existing points with the same key, unless
-  // the new value is empty, in which case the point will be deleted.
+  // The time series to update. The data in this request and the existing data are merged together: All points in the request will overwrite the existing points with the same key, unless the new value is empty, in which case the point will be deleted.
   TimeSeries time_series = 1 [(google.api.field_behavior) = REQUIRED];
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
-  // The specification of the default known time to use for points that don't explicitly have a
-  // known time set. If not set, the time of insertion is used as the default known time
-  // (`current_time = true`).
+  // The specification of the default known time to use for points that don't explicitly have a known time set. If not set, the time of insertion is used as the default known time (`current_time = true`).
   DefaultKnownTime default_known_time = 3;
 }
 
 // The request to delete one time series.
 message DeleteTimeSeriesRequest {
-  // The resource name of the time series to be deleted, for example
-  // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or
-  // "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1".
+  // The resource name of the time series to be deleted, for example "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1".
   string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The request to delete parts of one time series.
 message BatchDeleteTimeSeriesPointsRequest {
-  // The resource name of the time series to be deleted, for example
-  // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or
-  // "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1".
+  // The resource name of the time series to be deleted, for example "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1".
   string name = 1 [(google.api.field_behavior) = REQUIRED];
-  // The list of time ranges to delete from the time series. Each time range may
-  // be expanded to whole hours (UTC time).
+  // The list of time ranges to delete from the time series. Each time range may be expanded to whole hours (UTC time).
   repeated api.time.TimeRange time_ranges = 2;
 }

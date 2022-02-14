@@ -7,6 +7,7 @@ package exabel.api.data.v1;
 option java_multiple_files = true;
 option java_outer_classname = "TimeSeriesMessagesProto";
 option java_package = "com.exabel.api.data.v1";
+option go_package = "exabel.com/api/data/v1";
 
 import "exabel/api/time/time_range.proto";
 import "google/api/field_behavior.proto";
@@ -14,27 +15,14 @@ import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
-// A time series resource in the Data API. All time series have one entity and one signal as its
-// parents. As such, it can be referred to as both "{entity_name}/{signal_name}" and
-// "{signal_name}/{entity_name}". The first version is the canonical form.
-// Some time series are provided by Exabel and their data cannot
-// be retrieved via this API. They may still be listed in a "ListTimeSeries" request and be used on
-// the Exabel platform.
+// A time series resource in the Data API. All time series have one entity and one signal as its parents. As such, it can be referred to as both "{entity_name}/{signal_name}" and "{signal_name}/{entity_name}". The first version is the canonical form. Some time series are provided by Exabel and their data cannot be retrieved via this API. They may still be listed in a "ListTimeSeries" request and be used on the Exabel platform.
 message TimeSeries {
-  // The resource name of the time series, for example
-  // "entityTypes/ns1.type/entities/ns2.entities/signals/ns3.signal".
-  // An alternative name for the same time series is
-  // "signals/ns3.signal/entityTypes/ns1.type/entities/ns2.entity", but the former is the canonical
-  // version which always will be returned by the server. The namespaces must be empty (being
-  // global) or one of the predetermined namespaces the customer has access to. If ns2 is not empty,
-  // it must be equals to ns3, and if ns1 is not empty, all three namespaces must be equal.
+  // The resource name of the time series, for example "entityTypes/ns1.type/entities/ns2.entities/signals/ns3.signal". An alternative name for the same time series is "signals/ns3.signal/entityTypes/ns1.type/entities/ns2.entity", but the former is the canonical version which always will be returned by the server. The namespaces must be empty (being global) or one of the predetermined namespaces the customer has access to. If ns2 is not empty, it must be equals to ns3, and if ns1 is not empty, all three namespaces must be equal.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = REQUIRED
   ];
-  // The time series data of this time series. Partial results may be returned from the server based
-  // on the "view" parameter of the request and whether the time series is provided by Exabel or
-  // not. When returned from the server the points are sorted increasingly by time.
+  // The time series data of this time series. Partial results may be returned from the server based on the "view" parameter of the request and whether the time series is provided by Exabel or not. When returned from the server the points are sorted increasingly by time.
   repeated TimeSeriesPoint points = 2;
   // Whether this resource is read only.
   bool read_only = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -44,29 +32,21 @@ message TimeSeries {
 message TimeSeriesPoint {
   // The time stamp of this point. Time stamps are truncated to whole seconds.
   google.protobuf.Timestamp time = 1 [(google.api.field_behavior) = REQUIRED];
-  // The value at this point. Points returned from the server always have values, but are possibly
-  // NaNs (Not a Number). Points sent to the server might have no value, in which case they are
-  // ignored.
+  // The value at this point. Points returned from the server always have values, but are possibly NaNs (Not a Number). Points sent to the server might have no value, in which case they are ignored.
   google.protobuf.DoubleValue value = 2;
   // The known time of this point.
   google.protobuf.Timestamp known_time = 3 [(google.api.field_behavior) = INPUT_ONLY];
 }
 
-// A view of the time series, specifying which parts of its data to return. The default view is
-// to only return the name of the time series.
+// A view of the time series, specifying which parts of its data to return. The default view is to only return the name of the time series.
 message TimeSeriesView {
-  // The time range of points to return. If the time series is provided by Exabel, this field will
-  // be treated as not set. If not set, no points will be returned. If set, but empty, all points
-  // will be returned.
+  // The time range of points to return. If the time series is provided by Exabel, this field will be treated as not set. If not set, no points will be returned. If set, but empty, all points will be returned.
   api.time.TimeRange time_range = 1;
-  // Specifies that the data should be returned as if it was requested at the given time
-  // (in the past). Values inserted after this known time are disregarded. If not set, the newest
-  // values are returned.
+  // Specifies that the data should be returned as if it was requested at the given time (in the past). Values inserted after this known time are disregarded. If not set, the newest values are returned.
   google.protobuf.Timestamp known_time = 2 [(google.api.field_behavior) = OPTIONAL];
 }
 
-// A default known time specification to use when creating or updating time series. If any inserted
-// values has a value for its known_time, that value is used instead.
+// A default known time specification to use when creating or updating time series. If any inserted values has a value for its known_time, that value is used instead.
 message DefaultKnownTime {
   oneof specification {
     // Specifies that the default known time of all inserted points is the current time.

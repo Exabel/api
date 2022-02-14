@@ -7,6 +7,7 @@ package exabel.api.data.v1;
 option java_multiple_files = true;
 option java_outer_classname = "SignalServiceProto";
 option java_package = "com.exabel.api.data.v1";
+option go_package = "exabel.com/api/data/v1";
 
 import "exabel/api/data/v1/signal_messages.proto";
 import "google/api/annotations.proto";
@@ -16,18 +17,24 @@ import "google/protobuf/field_mask.proto";
 
 // Manages signals in the Data API.
 service SignalService {
+  // List signals
+  //
   // Lists all known signals.
   rpc ListSignals(ListSignalsRequest) returns (ListSignalsResponse) {
     option (google.api.http) = {
       get: "/v1/signals"
     };
   }
+  // Get signal
+  //
   // Gets one signal.
   rpc GetSignal(GetSignalRequest) returns (Signal) {
     option (google.api.http) = {
       get: "/v1/{name=signals/*}"
     };
   }
+  // Create signal
+  //
   // Creates one signal and returns it.
   rpc CreateSignal(CreateSignalRequest) returns (Signal) {
     option (google.api.http) = {
@@ -35,6 +42,8 @@ service SignalService {
       body: "signal"
     };
   }
+  // Update signal
+  //
   // Updates one signal and returns it.
   rpc UpdateSignal(UpdateSignalRequest) returns (Signal) {
     option (google.api.http) = {
@@ -42,6 +51,8 @@ service SignalService {
       body: "signal"
     };
   }
+  // Delete signal
+  //
   // Deletes one signal. ALL time series for this signal will also be deleted.
   rpc DeleteSignal(DeleteSignalRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
@@ -52,11 +63,9 @@ service SignalService {
 
 // The request to list signals.
 message ListSignalsRequest {
-  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
-  // of this field.
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum value of this field.
   int32 page_size = 1;
-  // The page token to resume the results from, as returned from a previous request to this method
-  // with the same query parameters.
+  // The page token to resume the results from, as returned from a previous request to this method with the same query parameters.
   string page_token = 2;
 }
 

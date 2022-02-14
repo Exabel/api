@@ -7,6 +7,7 @@ package exabel.api.data.v1;
 option java_multiple_files = true;
 option java_outer_classname = "SearchMessagesProto";
 option java_package = "com.exabel.api.data.v1";
+option go_package = "exabel.com/api/data/v1";
 
 import "google/api/field_behavior.proto";
 

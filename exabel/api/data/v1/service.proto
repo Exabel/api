@@ -1,0 +1,40 @@
+// Copyright (c) 2019-2021 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.data.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "SignalMessagesProto";
+option java_package = "com.exabel.api.data.v1";
+option go_package = "exabel.com/api/data/v1";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Exabel Data API";
+    version: "1.0.25";
+    contact: {
+      name: "Exabel";
+      url: "https://www.exabel.com/";
+      email: "support@exabel.com";
+    };
+  };
+
+  external_docs: {
+    url: "https://doc.exabel.com/api/data/";
+    description: "More about the Exabel Data API";
+  }
+  schemes: HTTPS;
+  security_definitions: {security: [{ key: "API key", value: {type: 2, name: "x-api-key", in: 2}}]};
+  security: {
+    security_requirement: {
+      key: "API key";
+      value: {};
+    }
+  }
+  consumes: "application/json";
+  produces: "application/json";
+  host: "data.api.exabel.com";
+};
