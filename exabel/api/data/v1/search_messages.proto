@@ -13,8 +13,7 @@ import "google/api/field_behavior.proto";
 
 // A single search term in a search request.
 message SearchTerm {
-  // The name of the field that should be matched. Field names are
-  // case-insensitive.
+  // The name of the field that should be matched. Field names are case-insensitive.
   string field = 1 [(google.api.field_behavior) = REQUIRED];
   // The query against which the field is matched.
   string query = 2 [(google.api.field_behavior) = REQUIRED];

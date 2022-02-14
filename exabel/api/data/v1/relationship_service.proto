@@ -107,11 +107,9 @@ service RelationshipService {
 
 // The request to list relationship types.
 message ListRelationshipTypesRequest {
-  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
-  // of this field.
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum value of this field.
   int32 page_size = 1;
-  // The page token to resume the results from, as returned from a previous request to this method
-  // with the same query parameters.
+  // The page token to resume the results from, as returned from a previous request to this method with the same query parameters.
   string page_token = 2;
 }
 
@@ -135,9 +133,12 @@ message CreateRelationshipTypeRequest {
 message UpdateRelationshipTypeRequest {
   // The relationship type to update.
   RelationshipType relationship_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
-  // modified.
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be modified.
+  // If "allow_missing" is set, this field is ignored.
   google.protobuf.FieldMask update_mask = 2;
+  // If set to true, and the resource is not found, a new resource will be created.
+  // If this is set, "update_mask" is ignored.
+  bool allow_missing = 3;
 }
 
 // The request to delete one relationship type.
@@ -157,17 +158,13 @@ message ListRelationshipsRequest {
   // The type of the relationship, for example "relationshipTypes/ns.type1".
   // Use parent 'relationshipTypes/-' to include all types.
   string parent = 1 [(google.api.field_behavior) = REQUIRED];
-  // The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entities/ns.entity1".
+  // The resource name of the start point of the relationship, for example "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
-  // The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entities/ns.entity2".
+  // The resource name of the end point of the relationship, for example "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3;
-  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
-  // of this field.
+  // The maximum number of results to return. Defaults to 1000, which is also the maximum value of this field.
   int32 page_size = 4;
-  // The page token to resume the results from, as returned from a previous request to this method
-  // with the same query parameters.
+  // The page token to resume the results from, as returned from a previous request to this method with the same query parameters.
   string page_token = 5;
 }
 
@@ -185,11 +182,9 @@ message ListRelationshipsResponse {
 message GetRelationshipRequest {
   // The type of the relationship, for example "relationshipTypes/ns.type1".
   string parent = 1 [(google.api.field_behavior) = REQUIRED];
-  // The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entities/ns.entity1".
+  // The resource name of the start point of the relationship, for example "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
-  // The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entities/ns.entity2".
+  // The resource name of the end point of the relationship, for example "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -201,22 +196,22 @@ message CreateRelationshipRequest {
 
 // The request to update one relationship.
 message UpdateRelationshipRequest {
-  // The relationship to update. If the relationship does not exist, NOT_FOUND (404) is returned
-  // and it should be created instead.
+  // The relationship to update.
   Relationship relationship = 1 [(google.api.field_behavior) = REQUIRED];
-  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
-  // modified.
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be modified.
+  // If "allow_missing" is set, this field is ignored.
   google.protobuf.FieldMask update_mask = 2;
+  // If set to true, and the resource is not found, a new resource will be created.
+  // If this is set, "update_mask" is ignored.
+  bool allow_missing = 3;
 }
 
 // The request to delete one relationship.
 message DeleteRelationshipRequest {
   // The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
   string parent = 1 [(google.api.field_behavior) = REQUIRED];
-  // The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entities/ns.entity1".
+  // The resource name of the start point of the relationship, for example "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
-  // The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entities/ns.entity2".
+  // The resource name of the end point of the relationship, for example "entityTypes/ns.type2/entities/ns.entity2".
   string to_entity = 3 [(google.api.field_behavior) = REQUIRED];
 }

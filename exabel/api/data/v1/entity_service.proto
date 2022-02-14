@@ -151,9 +151,12 @@ message CreateEntityRequest {
 message UpdateEntityRequest {
   // The entity to update.
   Entity entity = 1 [(google.api.field_behavior) = REQUIRED];
-  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
-  // modified.
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be modified.
+  // If "allow_missing" is set, this field is ignored.
   google.protobuf.FieldMask update_mask = 2;
+  // If set to true, and the resource is not found, a new resource will be created.
+  // If this is set, "update_mask" is ignored.
+  bool allow_missing = 3;
 }
 
 // The request to delete one entity.
@@ -174,7 +177,7 @@ message DeleteEntityRequest {
 //   * an 'ISIN' (International Securities Identification Number) field, or
 //   * a 'MIC' (Market Identifier Code) and a 'ticker' field, or
 //   * a 'bloomberg_ticker' or a 'bloomberg_symbol' field, or
-//   * an identifier provided by FactSet, either a FactSet entity identifier or a FactSet permanent identifier (also know as `fsym_id`), or
+//   * an identifier provided by FactSet, either a FactSet entity identifier or a FactSet permanent identifier (also know as 'fsym_id'), or
 //   * a 'text' field.
 //
 // A 'text' field is a free text search field, which searches for ISINs, tickers and/or company names. If a search term is sufficiently long, it will also perform a prefix search. A maximum of five companies are returned for each search.

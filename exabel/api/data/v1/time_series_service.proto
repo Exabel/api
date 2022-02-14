@@ -22,22 +22,20 @@ service TimeSeriesService {
   // Lists all time series for one entity or for one signal. Only the names are returned.
   rpc ListTimeSeries(ListTimeSeriesRequest) returns (ListTimeSeriesResponse) {
     option (google.api.http) = {
-      get: "/v1/{parent}/timeSeries"
+      get: "/v1/{parent=entityTypes/*/entities/*}/timeSeries"
       additional_bindings: {
-        get: "/v1/{parent}/timeSeries"
+        get: "/v1/{parent=signals/*}/timeSeries"
       }
     };
   }
   // Get time series
   //
-  // Gets one time series. The known_time (of present) must be formatted
-  // according to RFC3339, as specified by
-  // https://developers.google.com/protocol-buffers/docs/proto3#json.
+  // Gets one time series. The known_time (of present) must be formatted according to RFC3339, as specified by https://developers.google.com/protocol-buffers/docs/proto3#json.
   rpc GetTimeSeries(GetTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      get: "/v1/{name}"
+      get: "/v1/{name=entityTypes/*/entities/*/signals/*}"
       additional_bindings: {
-        get: "/v1/{name}"
+        get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
     };
   }
@@ -46,24 +44,23 @@ service TimeSeriesService {
   // Creates one time series and returns it.
   rpc CreateTimeSeries(CreateTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      post: "/v1/{time_series.name}"
+      post: "/v1/{time_series.name=entityTypes/*/entities/*/signals/*}"
       body: "time_series"
       additional_bindings: {
-        post: "/v1/{time_series.name}"
+        post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
         body: "time_series"
       }
     };
   }
   // Update time series
   //
-  // Updates one time series and returns it. The data in this request and the
-  // existing data will be merged together.
+  // Updates one time series and returns it. The data in this request and the existing data will be merged together.
   rpc UpdateTimeSeries(UpdateTimeSeriesRequest) returns (TimeSeries) {
     option (google.api.http) = {
-      patch: "/v1/{time_series.name}"
+      patch: "/v1/{time_series.name=entityTypes/*/entities/*/signals/*}"
       body: "time_series"
       additional_bindings: {
-        post: "/v1/{time_series.name}"
+        post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
         body: "time_series"
       }
     };
@@ -73,9 +70,9 @@ service TimeSeriesService {
   // Deletes one time series. The time series and all its points will be deleted.
   rpc DeleteTimeSeries(DeleteTimeSeriesRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{name}"
+      delete: "/v1/{name=entityTypes/*/entities/*/signals/*}"
       additional_bindings: {
-        delete: "/v1/{name}"
+        delete: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
     };
   }
@@ -86,7 +83,7 @@ service TimeSeriesService {
   // the time series itself.
   rpc BatchDeleteTimeSeriesPoints(BatchDeleteTimeSeriesPointsRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      post: "/v1/{name}/points:batchDelete"
+      post: "/v1/{name=entityTypes/*/entities/*/signals/*}/points:batchDelete"
       body: "*"
       additional_bindings: {
         post: "/v1/{name}/points:batchDelete"
@@ -131,7 +128,7 @@ message CreateTimeSeriesRequest {
   TimeSeries time_series = 1 [(google.api.field_behavior) = REQUIRED];
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
-  // The specification of the default known time to use for points that don't explicitly have a known time set. If not set, the time of insertion is used as the default known time (`current_time = true`).
+  // The specification of the default known time to use for points that don't explicitly have a known time set. If not set, the time of insertion is used as the default known time ('current_time = true').
   DefaultKnownTime default_known_time = 3;
   // Set to true to create a tag for every entity type a signal has time series for. If a tag already exists, it will be updated when time series are created (or deleted) regardless of the value of this flag.
   bool create_tag = 4;
@@ -143,8 +140,12 @@ message UpdateTimeSeriesRequest {
   TimeSeries time_series = 1 [(google.api.field_behavior) = REQUIRED];
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
-  // The specification of the default known time to use for points that don't explicitly have a known time set. If not set, the time of insertion is used as the default known time (`current_time = true`).
+  // The specification of the default known time to use for points that don't explicitly have a known time set. If not set, the time of insertion is used as the default known time ('current_time = true').
   DefaultKnownTime default_known_time = 3;
+  // If set to true, and the resource is not found, a new resource will be created.
+  bool allow_missing = 4;
+  // If allow_missing is set to true and the time series does not exist, also create a tag for every entity type the signal has time series for.
+  bool create_tag = 5;
 }
 
 // The request to delete one time series.
