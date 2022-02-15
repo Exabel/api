@@ -54,7 +54,7 @@ service TimeSeriesService {
       patch: "/v1/{time_series.name=entityTypes/*/entities/*/signals/*}"
       body: "time_series"
       additional_bindings: {
-        post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
+        patch: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
         body: "time_series"
       }
     };
