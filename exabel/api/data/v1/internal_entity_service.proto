@@ -12,6 +12,7 @@ import "exabel/api/data/v1/entity_messages.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/field_mask.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Manages entity types in the Data API, for internal usage.
 service InternalEntityService {
@@ -37,13 +38,19 @@ service InternalEntityService {
 // The request to create one entity type.
 message CreateEntityTypeRequest {
   // The entity type to create.
-  EntityType entity_type = 1 [(google.api.field_behavior) = REQUIRED];
+  EntityType entity_type = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "entityTypeName"}
+  ];
 }
 
 // The request to update one entity type.
 message UpdateEntityTypeRequest {
   // The entity type to update.
-  EntityType entity_type = 1 [(google.api.field_behavior) = REQUIRED];
+  EntityType entity_type = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "entityTypeName"}
+  ];
   // The update mask to apply to the resource. Only the fields mentioned in this mask will be modified.
   // If "allow_missing" is set, this field is ignored.
   google.protobuf.FieldMask update_mask = 2;

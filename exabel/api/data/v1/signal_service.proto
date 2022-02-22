@@ -14,6 +14,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Manages signals in the Data API.
 service SignalService {
@@ -82,7 +83,10 @@ message ListSignalsResponse {
 // The request to get one signal.
 message GetSignalRequest {
   // The resource name of the requested signal, for example "signals/ns.signal1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "signalName"}
+  ];
 }
 
 // The request to create one signal.
@@ -110,5 +114,8 @@ message UpdateSignalRequest {
 // The request to delete one signal.
 message DeleteSignalRequest {
   // The resource name of the signal to delete, for example "signals/ns.signal1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "signalName"}
+  ];
 }

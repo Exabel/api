@@ -14,6 +14,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Manages data sets in the Data API.
 service DataSetService {
@@ -73,7 +74,10 @@ message ListDataSetsResponse {
 // The request to get one data set.
 message GetDataSetRequest {
   // The resource name of the requested data set, for example "dataSets/ns.set1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "dataSetName"}
+  ];
 }
 
 // The response to create one data set.
@@ -97,5 +101,8 @@ message UpdateDataSetRequest {
 // The request to delete one data set.
 message DeleteDataSetRequest {
   // The resource name of the data set to delete, for example "dataSets/ns.set1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "dataSetName"}
+  ];
 }

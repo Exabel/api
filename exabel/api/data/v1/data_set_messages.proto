@@ -20,7 +20,8 @@ message DataSet {
   // The resource name of the data set, for example "dataSets/namespace.dataSetIdentifier". The namespace must be one of the predetermined namespaces the customer has access to. The data set identifier must match the regex \w[\w-]{0,63}.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "dataSetName"}
   ];
   // The display name of the data set. Required when creating data set.
   string display_name = 2;

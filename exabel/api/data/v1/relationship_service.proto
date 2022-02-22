@@ -14,6 +14,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Manages relationship types and relationships in the Data API.
 service RelationshipService {
@@ -144,20 +145,29 @@ message UpdateRelationshipTypeRequest {
 // The request to delete one relationship type.
 message DeleteRelationshipTypeRequest {
   // The resource name of the relationship type to delete, for example "relationshipTypes/ns.type1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "relationshipTypeName"}
+  ];
 }
 
 // The response to get one relationship type.
 message GetRelationshipTypeRequest {
   // The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "relationshipTypeName"}
+  ];
 }
 
 // The request to list relationship for a given entity. At least one of from_entity and to_entity must be provided.
 message ListRelationshipsRequest {
   // The type of the relationship, for example "relationshipTypes/ns.type1".
   // Use parent 'relationshipTypes/-' to include all types.
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "relationshipTypeName"}
+  ];
   // The resource name of the start point of the relationship, for example "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
   // The resource name of the end point of the relationship, for example "entityTypes/ns.type2/entities/ns.entity2".
@@ -181,7 +191,10 @@ message ListRelationshipsResponse {
 // The request to get one relationship.
 message GetRelationshipRequest {
   // The type of the relationship, for example "relationshipTypes/ns.type1".
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "relationshipTypeName"}
+  ];
   // The resource name of the start point of the relationship, for example "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
   // The resource name of the end point of the relationship, for example "entityTypes/ns.type2/entities/ns.entity2".
@@ -209,7 +222,10 @@ message UpdateRelationshipRequest {
 // The request to delete one relationship.
 message DeleteRelationshipRequest {
   // The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "relationshipTypeName"}
+  ];
   // The resource name of the start point of the relationship, for example "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
   // The resource name of the end point of the relationship, for example "entityTypes/ns.type2/entities/ns.entity2".

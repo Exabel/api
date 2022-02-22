@@ -11,13 +11,15 @@ option go_package = "exabel.com/api/data/v1";
 
 import "exabel/api/math/aggregation.proto";
 import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // A signal resource in the Data API. Signals are normally associated with a set of entity types, but may apply to any entities.
 message Signal {
   // The resource name of the signal, for example "signals/signalIdentifier" or "signals/namespace.signalIdentifier". The namespace must be empty (being global) or one of the predetermined namespaces the customer has access to. The signal identifier must match the regex [a-zA-Z]\w{0,63}.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "signalName"}
   ];
   // No longer in use.
   string entity_type = 2 [deprecated = true];

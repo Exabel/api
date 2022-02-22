@@ -14,13 +14,15 @@ import "google/api/field_behavior.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // A time series resource in the Data API. All time series have one entity and one signal as its parents. As such, it can be referred to as both "{entity_name}/{signal_name}" and "{signal_name}/{entity_name}". The first version is the canonical form. Some time series are provided by Exabel and their data cannot be retrieved via this API. They may still be listed in a "ListTimeSeries" request and be used on the Exabel platform.
 message TimeSeries {
   // The resource name of the time series, for example "entityTypes/ns1.type/entities/ns2.entities/signals/ns3.signal". An alternative name for the same time series is "signals/ns3.signal/entityTypes/ns1.type/entities/ns2.entity", but the former is the canonical version which always will be returned by the server. The namespaces must be empty (being global) or one of the predetermined namespaces the customer has access to. If ns2 is not empty, it must be equals to ns3, and if ns1 is not empty, all three namespaces must be equal.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "timeSeriesName"}
   ];
   // The time series data of this time series. Partial results may be returned from the server based on the "view" parameter of the request and whether the time series is provided by Exabel or not. When returned from the server the points are sorted increasingly by time.
   repeated TimeSeriesPoint points = 2;

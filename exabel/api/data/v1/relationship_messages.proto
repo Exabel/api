@@ -11,13 +11,15 @@ option go_package = "exabel.com/api/data/v1";
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // A relationship type resource in the Data API.
 message RelationshipType {
   // The resource name of the relationship type, for example "relationshipTypes/namespace.relationshipTypeIdentifier". The namespace must be empty (being global) or one of the predetermined namespaces the customer has access to. The relationship type identifier must match the regex [A-Z][A-Z0-9_]{0,63}.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "relationshipTypeName"}
   ];
   // One or more paragraphs of text description.
   string description = 2;
@@ -32,7 +34,10 @@ message RelationshipType {
 // A relationship resource in the Data API. All relationships have one relationship type as its parent. Relationships do not have resource names, but are identified by their (type, from, to) triple. There can only be one relationship of one type between two entities (as viewed by a single user). The namespaces of the end points must either be empty (being global) or one of the predetermined namespaces the customer has access to.
 message Relationship {
   // The parent of the relationship, for example "relationshipTypes/ns.type1". This is its relationship type.
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "relationshipTypeName"}
+  ];
   // The resource name of the start point of the relationship, for example "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
   // The resource name of the end point of the relationship, for example "entityTypes/ns.type2/entities/ns.entity2".
