@@ -2,23 +2,6 @@ This repository contains Exabel APIs.
 
 All APIs should follow Google's [API Design Guide](https://cloud.google.com/apis/design/).
 
-## Java
-
-Each API folder is also a maven module that will generate Java classes of the proto buffer
-definitions and proto descriptors. The `protobuf-maven-plugin` is used to automatically download
-and invoke the correct version of `protoc`.
-
-`mvn clean install` will generate source code for protocol buffers and gRPC services and compile
-the sources into the the module's artifact. It will also generate protobuf descriptors to
-`target/generated-resources/protobuf/descriptor-sets/descriptor.pb`.
-
-### Plugins
-
-We are using the following protoc plugins:
-
-* `protoc-gen-grpc-java`: To generate Java stubs of gRPC servers and clients.
-* `exabel-proto-extensions`: To generate additional setter and getter methods on proto messages.
-
 ## Prototool
 
 This repository uses [prototool](https://github.com/uber/prototool) to format proto buffers and to
