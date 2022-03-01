@@ -19,7 +19,10 @@ message RelationshipType {
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = REQUIRED,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "relationshipTypeName"}
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      pathParamName: "relationshipTypeName",
+      example: "\"relationshipTypeName/customer1.HAS_STORE\""
+    }
   ];
   // One or more paragraphs of text description.
   string description = 2;
@@ -36,12 +39,23 @@ message Relationship {
   // The parent of the relationship, for example "relationshipTypes/ns.type1". This is its relationship type.
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "relationshipTypeName"}
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      pathParamName: "relationshipTypeName",
+      example: "\"relationshipTypeName/customer1.HAS_STORE\""}
   ];
   // The resource name of the start point of the relationship, for example "entityTypes/ns.type1/entities/ns.entity1".
-  string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
+  string from_entity = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"entityTypes/company/entities/F_12345-E\""
+    }
+  ];
   // The resource name of the end point of the relationship, for example "entityTypes/ns.type2/entities/ns.entity2".
-  string to_entity = 3 [(google.api.field_behavior) = REQUIRED];
+  string to_entity = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"entityTypes/customer1.store/entities/some_store_id\""
+    }];
   // One or more paragraphs of text description.
   string description = 4;
   // Whether this resource is read only.

@@ -19,16 +19,25 @@ message EntityType {
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = REQUIRED,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {pathParamName: "entityTypeName"}
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      pathParamName: "entityTypeName",
+      example: "\"entityTypes/company\""
+    }
   ];
   // The display name of the entity type. Required when creating entity type.
-  string display_name = 2;
+  string display_name = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"Companies\"" }
+  ];
   // One or more paragraphs of text description.
-  string description = 3;
+  string description = 3[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "\"Public companies\"" }
+  ];
   // Whether this resource is read only.
   bool read_only = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Whether this is an associative entity type which is not normally searchable. This is normally set on entity types that act as many-to-many connections in order to connect a signal to a pair of entities.
-  bool is_associative = 5;
+  bool is_associative = 5[
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { example: "false" }
+  ];
 }
 
 // An entity resource in the Data API. All entities have one entity type as its parent.
