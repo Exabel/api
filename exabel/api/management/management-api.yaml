@@ -1,8 +1,0 @@
-# https://cloud.google.com/service-management/reference/rest/v1/services.configs
-type: google.api.Service
-config_version: 3
-name: management.api.exabel.com
-title: Exabel Management API
-apis:
-- name: exabel.api.management.v1.LibraryService
-- name: exabel.api.management.v1.UserService
