@@ -1,0 +1,94 @@
+// Copyright (c) 2022 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.analytics.v1;
+
+option go_package = "exabel.com/api/analytics/v1";
+option java_multiple_files = true;
+option java_outer_classname = "DerivedSignalMessagesProto";
+option java_package = "com.exabel.api.analytics.v1";
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/wrappers.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
+// A derived signal.
+//
+// As opposed to raw signals which represents time series on entities, a derived signal
+// represents a calculation through a DSL expression.
+message DerivedSignal {
+  // The resource name. Example: derivedSignals/123. These resource names are not
+  // namespaced, and the identifier is always an integer. It is required in all operations except the create operation.
+  string name = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "derivedSignalName"
+      }
+      example: "\"derivedSignals/123\""
+    }
+  ];
+  // The label. Can be used to refer to this signal in other expressions. Must be a valid Python identifier,
+  // i.e. match the regex `^[a-zA-Z_]\w$` and not equal any Python keyword.
+  string label = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"close_price_ma7\""
+      pattern: "^[a-zA-Z_]\\w$"
+    }
+  ];
+  // The expression. A DSL expression.
+  string expression = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"close_price().moving_average(7)\""
+    }
+  ];
+  // The description.
+  string description = 4 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"Close price 7 day moving average\""
+    }
+  ];
+  // Additional signal metadata.
+  DerivedSignalMetadata metadata = 5;
+}
+
+// The metadata of a derived signal.
+message DerivedSignalMetadata {
+  // The number of decimals to use when displaying signal values.
+  google.protobuf.Int32Value decimals = 1;
+  // The unit of the signal.
+  DerivedSignalUnit unit = 2;
+  // The type of the signal. Output only.
+  DerivedSignalType type = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+// Enum representing the unit of a signal.
+enum DerivedSignalUnit {
+  // The signal unit was not specified.
+  DERIVED_SIGNAL_UNIT_INVALID = 0;
+  // The signal represents normal floating point numbers.
+  NUMBER = 1;
+  // The signal represents a ratio, typically with values in the interval [0, 1].
+  // Values will be displayed as a percentage.
+  RATIO = 2;
+  // The signal represents a difference in a ratio. Values will be displayed
+  // as percentage points.
+  RATIO_DIFFERENCE = 3;
+}
+
+// Enum representing the type of a signal.
+enum DerivedSignalType {
+  // The signal type was not specified.
+  DERIVED_SIGNAL_TYPE_INVALID = 0;
+  // The signal is a normal derived signal, represented by an editable expression and label.
+  DERIVED_SIGNAL = 1;
+  // A signal time series uploaded through the app's file upload.
+  // The expression refers to a raw signal and cannot be modified.
+  FILE_UPLOADED_SIGNAL = 2;
+  // A signal company time series uploaded through the app's file upload.
+  // The expression refers to a raw signal and cannot be modified.
+  FILE_UPLOADED_COMPANY_SIGNAL = 3;
+  // A persisted signal.
+  // The expression refers to a raw signal and cannot be modified.
+  PERSISTED_SIGNAL = 4;
+}

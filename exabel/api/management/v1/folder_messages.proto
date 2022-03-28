@@ -1,0 +1,94 @@
+// Copyright (c) 2022 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.management.v1;
+
+option go_package = "exabel.com/api/management/v1";
+option java_multiple_files = true;
+option java_outer_classname = "FolderMessagesProto";
+option java_package = "com.exabel.api.management.v1";
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
+// A folder.
+message Folder {
+  // The folder resource name. Example: `folders/123`. Output only.
+  string name = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "folderName"
+      }
+      example: "\"folders/123\""
+    }
+  ];
+  // The display name.
+  string display_name = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"My shared folder\""
+    }
+  ];
+  // Whether the caller has write access to the folder. Output only.
+  bool write = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The items in the folder.
+  repeated FolderItem items = 4 [(google.api.field_behavior) = UNORDERED_LIST];
+}
+
+// An item in a folder.
+message FolderItem {
+  // The parent folder resource name. Example `folders/123'`.
+  string parent = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "folderName"
+      }
+      example: "\"folders/123\""
+    }
+  ];
+  // The folder item resource name. Example: `derivedSignals/123` or `models/987`. Output only.
+  string name = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"derivedSignals/123\""
+    }
+  ];
+  // The display name.
+  string display_name = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"my_signal\""
+    }
+  ];
+  // The item type.
+  FolderItemType item_type = 4;
+  // The timestamp the item was created.
+  google.protobuf.Timestamp create_time = 5;
+  // The time the item was last updated.
+  google.protobuf.Timestamp update_time = 6;
+  // The resource name of the user who created the item.
+  string created_by = 7;
+  // The resource name of the user who last updated the item.
+  string updated_by = 8;
+}
+
+// An enum representing the type of a folder item.
+enum FolderItemType {
+  // Invalid item type.
+  FOLDER_ITEM_TYPE_INVALID = 0;
+  // Derived signal.
+  DERIVED_SIGNAL = 1;
+  // Prediction model.
+  PREDICTION_MODEL = 2;
+  // Portfolio strategy.
+  PORTFOLIO_STRATEGY = 3;
+  // Dashboard.
+  DASHBOARD = 4;
+  // Company or entity drill down view.
+  DRILL_DOWN = 5;
+  // Static tag.
+  TAG = 6;
+  // Screen.
+  SCREEN = 7;
+}

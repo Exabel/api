@@ -1,5 +1,4 @@
 # https://cloud.google.com/service-management/reference/rest/v1/services.configs
-# See README.md for deployment.
 type: google.api.Service
 config_version: 3
 name: data.api.exabel.com

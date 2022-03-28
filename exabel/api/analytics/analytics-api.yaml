@@ -1,0 +1,8 @@
+# https://cloud.google.com/service-management/reference/rest/v1/services.configs
+type: google.api.Service
+config_version: 3
+name: analytics.api.exabel.com
+title: Exabel Analytics API
+apis:
+- name: exabel.api.analytics.v1.DerivedSignalService
+- name: exabel.api.analytics.v1.PredictionModelService

@@ -1,15 +1,17 @@
-// Copyright (c) 2019-2021 Exabel AS. All rights reserved.
+// Copyright (c) 2019-2022 Exabel AS. All rights reserved.
 
 syntax = "proto3";
 
 package exabel.api.data.v1;
 
+option go_package = "exabel.com/api/data/v1";
 option java_multiple_files = true;
 option java_outer_classname = "EntityMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
 
 // An entity type resource in the Data API.
 message EntityType {
@@ -19,18 +21,36 @@ message EntityType {
   // The entity type identifier must match the regex \w[\w-]{0,63}.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityTypeName"
+      }
+      example: "\"entityTypes/company\""
+    }
   ];
-  // The display name of the entity type.
-  string display_name = 2 [(google.api.field_behavior) = REQUIRED];
+  // The display name of the entity type. Required when creating entity type.
+  string display_name = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"Companies\""
+    }
+  ];
   // One or more paragraphs of text description.
-  string description = 3;
+  string description = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"Public companies\""
+    }
+  ];
   // Whether this resource is read only.
   bool read_only = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Whether this is an associative entity type which is not normally searchable. This is normally
   // set on entity types that act as many-to-many connections in order to connect a signal to a pair
   // of entities.
-  bool is_associative = 5;
+  bool is_associative = 5 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "false"
+    }
+  ];
 }
 
 // An entity resource in the Data API. All entities have one entity type as its parent.
@@ -43,10 +63,15 @@ message Entity {
   // The entity identifier must match the regex \w[\w-]{0,63}.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityName"
+      }
+    }
   ];
-  // The display name of the entity.
-  string display_name = 2 [(google.api.field_behavior) = REQUIRED];
+  // The display name of the entity. Required when creating entity.
+  string display_name = 2;
   // One or more paragraphs of text description.
   string description = 3;
   // Whether this resource is read only.
