@@ -1,0 +1,48 @@
+// Copyright (c) 2022 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.analytics.v1;
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Exabel Analytics API"
+    version: "1.0.0"
+    contact: {
+      name: "Exabel"
+      url: "https://www.exabel.com/"
+      email: "support@exabel.com"
+    }
+  }
+  external_docs: {
+    url: "https://help.exabel.com/docs/analytics-api"
+    description: "More about the Exabel Analytics API"
+  }
+  schemes: HTTPS
+  security_definitions: {
+    security: [
+      {
+        key: "API key"
+        value: {
+          type: TYPE_API_KEY
+          name: "x-api-key"
+          in: IN_HEADER
+        }
+      }
+    ]
+  }
+  security: {
+    security_requirement: {
+      key: "API key"
+    }
+  }
+  consumes: "application/json"
+  produces: "application/json"
+  host: "analytics.api.exabel.com"
+};
+option go_package = "exabel.com/api/analytics/v1";
+option java_multiple_files = true;
+option java_outer_classname = "ServiceProto";
+option java_package = "com.exabel.api.analytics.v1";
+
+import "protoc_gen_openapiv2/options/annotations.proto";

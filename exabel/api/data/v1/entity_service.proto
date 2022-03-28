@@ -1,9 +1,10 @@
-// Copyright (c) 2019-2021 Exabel AS. All rights reserved.
+// Copyright (c) 2019-2022 Exabel AS. All rights reserved.
 
 syntax = "proto3";
 
 package exabel.api.data.v1;
 
+option go_package = "exabel.com/api/data/v1";
 option java_multiple_files = true;
 option java_outer_classname = "EntityServiceProto";
 option java_package = "com.exabel.api.data.v1";
@@ -14,6 +15,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
 
 // Manages entity types and entities in the Data API.
 service EntityService {
@@ -22,11 +24,47 @@ service EntityService {
     option (google.api.http) = {
       get: "/v1/entityTypes"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List entity types"
+    };
   }
   // Gets one entity type.
   rpc GetEntityType(GetEntityTypeRequest) returns (EntityType) {
     option (google.api.http) = {
       get: "/v1/{name=entityTypes/*}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get entity type"
+    };
+  }
+  // Creates one entity type and returns it.
+  rpc CreateEntityType(CreateEntityTypeRequest) returns (EntityType) {
+    option (google.api.http) = {
+      post: "/v1/entityTypes"
+      body: "entity_type"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create entity type"
+    };
+  }
+  // Updates one entity type and returns it.
+  rpc UpdateEntityType(UpdateEntityTypeRequest) returns (EntityType) {
+    option (google.api.http) = {
+      patch: "/v1/{entity_type.name=entityTypes/*}"
+      body: "entity_type"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update entity type"
+    };
+  }
+  // Deletes one entity type. This can only be performed on types without any
+  // entites.
+  rpc DeleteEntityType(DeleteEntityTypeRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=entityTypes/*}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete entity type"
     };
   }
   // Lists all entities of a given entity type. Some entity types are too large
@@ -35,11 +73,29 @@ service EntityService {
     option (google.api.http) = {
       get: "/v1/{parent=entityTypes/*}/entities"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List entities"
+    };
+  }
+  // Deletes all entities of a given entity type (and their relationships). Note
+  // that the 'confirm' field must be set for the operation to succeed. Only
+  // entities in the current writable namespace(s) are deleted, and the entity
+  // type itself is not deleted.
+  rpc DeleteEntities(DeleteEntitiesRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{parent=entityTypes/*}/entities"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete entities"
+    };
   }
   // Gets one entity.
   rpc GetEntity(GetEntityRequest) returns (Entity) {
     option (google.api.http) = {
       get: "/v1/{name=entityTypes/*/entities/*}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get entity"
     };
   }
   // Creates one entity and returns it.
@@ -48,12 +104,18 @@ service EntityService {
       post: "/v1/{parent=entityTypes/*}/entities"
       body: "entity"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create entity"
+    };
   }
   // Updates one entity and returns it.
   rpc UpdateEntity(UpdateEntityRequest) returns (Entity) {
     option (google.api.http) = {
       patch: "/v1/{entity.name=entityTypes/*/entities/*}"
       body: "entity"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update entity"
     };
   }
   // Deletes one entity. ALL relationships and time series for this entity will
@@ -62,12 +124,18 @@ service EntityService {
     option (google.api.http) = {
       delete: "/v1/{name=entityTypes/*/entities/*}"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete entity"
+    };
   }
   // Search for entities.
   rpc SearchEntities(SearchEntitiesRequest) returns (SearchEntitiesResponse) {
     option (google.api.http) = {
       post: "/v1/{parent=entityTypes/*}/entities:search"
       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Search entities"
     };
   }
 }
@@ -95,13 +163,72 @@ message ListEntityTypesResponse {
 // The request to get one entity type.
 message GetEntityTypeRequest {
   // The resource name of the requested entity type, for example "entityTypes/ns.type1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityTypeName"
+      }
+    }
+  ];
+}
+
+// The request to create one entity type.
+message CreateEntityTypeRequest {
+  // The entity type to create.
+  EntityType entity_type = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityTypeName"
+      }
+    }
+  ];
+}
+
+// The request to update one entity type.
+message UpdateEntityTypeRequest {
+  // The entity type to update.
+  EntityType entity_type = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityTypeName"
+      }
+    }
+  ];
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
+  // modified. If "allow_missing" is set, this field is ignored.
+  google.protobuf.FieldMask update_mask = 2;
+  // If set to true, and the resource is not found, a new resource will be created.
+  // If this is set, "update_mask" is ignored.
+  bool allow_missing = 3;
+}
+
+// The request to delete one entity type.
+message DeleteEntityTypeRequest {
+  // The resource name of the entity type to delete, for example "entityTypes/ns.type1".
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityTypeName"
+      }
+    }
+  ];
 }
 
 // The request to list entities.
 message ListEntitiesRequest {
   // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityTypeName"
+      }
+    }
+  ];
   // The maximum number of results to return. Defaults to 1000, which is also the maximum value
   // of this field.
   int32 page_size = 2;
@@ -120,16 +247,45 @@ message ListEntitiesResponse {
   int32 total_size = 3;
 }
 
+// The request to delete entities.
+message DeleteEntitiesRequest {
+  // The parent entity type of the entities to delete, for example "entityTypes/ns.type1".
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityTypeName"
+      }
+    }
+  ];
+  // This field is a safe guard and must be set to true for the operation to succeed.
+  bool confirm = 2;
+}
+
 // The request to get one entity.
 message GetEntityRequest {
   // The resource name of the requested entity, for example "entityTypes/ns.type1/entities/ns.entity1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityName"
+      }
+    }
+  ];
 }
 
 // The response to create one entity.
 message CreateEntityRequest {
   // The parent entity type of the created entity, for example "entityTypes/ns.type1".
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityTypeName"
+      }
+    }
+  ];
   // The entity to create.
   Entity entity = 2 [(google.api.field_behavior) = REQUIRED];
 }
@@ -137,9 +293,16 @@ message CreateEntityRequest {
 // The request to update one entity.
 message UpdateEntityRequest {
   // The entity to update.
-  Entity entity = 1 [(google.api.field_behavior) = REQUIRED];
-  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
-  // modified. If "allow_missing" is set, this field is ignored.
+  Entity entity = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityName"
+      }
+    }
+  ];
+  // The update mask to apply to the resource. Only the fields mentioned in this mask will be modified.
+  // If "allow_missing" is set, this field is ignored.
   google.protobuf.FieldMask update_mask = 2;
   // If set to true, and the resource is not found, a new resource will be created.
   // If this is set, "update_mask" is ignored.
@@ -149,7 +312,14 @@ message UpdateEntityRequest {
 // The request to delete one entity.
 message DeleteEntityRequest {
   // The resource name of the entity to delete, for example "entityTypes/ns.type1/entities/ns.entity1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityName"
+      }
+    }
+  ];
 }
 
 // The request to search for one or more entities.
@@ -166,7 +336,8 @@ message DeleteEntityRequest {
 //   * an 'ISIN' (International Securities Identification Number) field, or
 //   * a 'MIC' (Market Identifier Code) and a 'ticker' field, or
 //   * a 'bloomberg_ticker' or a 'bloomberg_symbol' field, or
-//   * an identifier provided by FactSet, either a FactSet entity identifier or a FactSet permanent identifier (also know as `fsym_id`), or
+//   * a 'FIGI' (Financial Instruments Global Identifier), or
+//   * an identifier provided by FactSet, either a FactSet entity identifier or a FactSet permanent identifier (also know as 'fsym_id'), or
 //   * a 'text' field.
 //
 // A 'text' field is a free text search field, which searches for ISINs, tickers and/or company
@@ -181,7 +352,14 @@ message DeleteEntityRequest {
 //   * a 'MIC' (Market Identifier Code) and a 'ticker' field.
 message SearchEntitiesRequest {
   // The parent entity type of the entities to list, for example "entityTypes/ns.type1".
-  string parent = 4 [(google.api.field_behavior) = REQUIRED];
+  string parent = 4 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "entityTypeName"
+      }
+    }
+  ];
   // The search terms that should be satisfied.
   repeated SearchTerm terms = 1 [(google.api.field_behavior) = REQUIRED];
   // The maximum number of results to return. Defaults to 1000, which is also the maximum value

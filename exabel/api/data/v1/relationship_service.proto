@@ -1,9 +1,10 @@
-// Copyright (c) 2019-2021 Exabel AS. All rights reserved.
+// Copyright (c) 2019-2022 Exabel AS. All rights reserved.
 
 syntax = "proto3";
 
 package exabel.api.data.v1;
 
+option go_package = "exabel.com/api/data/v1";
 option java_multiple_files = true;
 option java_outer_classname = "RelationshipServiceProto";
 option java_package = "com.exabel.api.data.v1";
@@ -13,6 +14,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
 
 // Manages relationship types and relationships in the Data API.
 service RelationshipService {
@@ -21,11 +23,17 @@ service RelationshipService {
     option (google.api.http) = {
       get: "/v1/relationshipTypes"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List relationship types"
+    };
   }
   // Gets one relationship type.
   rpc GetRelationshipType(GetRelationshipTypeRequest) returns (RelationshipType) {
     option (google.api.http) = {
       get: "/v1/{name=relationshipTypes/*}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get relationship type"
     };
   }
   // Creates one relationship type and returns it.
@@ -34,12 +42,18 @@ service RelationshipService {
       post: "/v1/relationshipTypes"
       body: "relationship_type"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create relationship type"
+    };
   }
   // Updates one relationship type and returns it.
   rpc UpdateRelationshipType(UpdateRelationshipTypeRequest) returns (RelationshipType) {
     option (google.api.http) = {
       patch: "/v1/{relationship_type.name=relationshipTypes/*}"
       body: "relationship_type"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update relationship type"
     };
   }
   // Deletes one relationship type. A relationship type cannot be deleted if
@@ -48,18 +62,26 @@ service RelationshipService {
     option (google.api.http) = {
       delete: "/v1/{name=relationshipTypes/*}"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete relationship type"
+    };
   }
   // Lists relationship for a given entity.
   rpc ListRelationships(ListRelationshipsRequest) returns (ListRelationshipsResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=relationshipTypes/*}/relationships"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List relationships"
+    };
   }
   // Gets one relationship.
-  // TODO(nordli): This method has the same URL as ListRelationships.
   rpc GetRelationship(GetRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
-      get: "/v1/{parent=relationshipTypes/*}/relationships"
+      get: "/v1/{parent=relationshipTypes/*}/relationships/{from_entity=entityTypes/*}/{to_entity=entityTypes/*}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get relationship"
     };
   }
   // Creates one relationship and returns it.
@@ -68,6 +90,9 @@ service RelationshipService {
       post: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
       body: "relationship"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create relationship"
+    };
   }
   // Updates one relationship and returns it.
   rpc UpdateRelationship(UpdateRelationshipRequest) returns (Relationship) {
@@ -75,11 +100,17 @@ service RelationshipService {
       patch: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
       body: "relationship"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update relationship"
+    };
   }
   // Deletes one relationship.
   rpc DeleteRelationship(DeleteRelationshipRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{parent=relationshipTypes/*}/relationships"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete relationship"
     };
   }
 }
@@ -125,20 +156,41 @@ message UpdateRelationshipTypeRequest {
 // The request to delete one relationship type.
 message DeleteRelationshipTypeRequest {
   // The resource name of the relationship type to delete, for example "relationshipTypes/ns.type1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "relationshipTypeName"
+      }
+    }
+  ];
 }
 
 // The response to get one relationship type.
 message GetRelationshipTypeRequest {
   // The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "relationshipTypeName"
+      }
+    }
+  ];
 }
 
 // The request to list relationship for a given entity. At least one of from_entity and to_entity must be provided.
 message ListRelationshipsRequest {
   // The type of the relationship, for example "relationshipTypes/ns.type1".
   // Use parent 'relationshipTypes/-' to include all types.
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "relationshipTypeName"
+      }
+    }
+  ];
   // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2;
@@ -166,7 +218,14 @@ message ListRelationshipsResponse {
 // The request to get one relationship.
 message GetRelationshipRequest {
   // The type of the relationship, for example "relationshipTypes/ns.type1".
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "relationshipTypeName"
+      }
+    }
+  ];
   // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
@@ -196,7 +255,14 @@ message UpdateRelationshipRequest {
 // The request to delete one relationship.
 message DeleteRelationshipRequest {
   // The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "relationshipTypeName"
+      }
+    }
+  ];
   // The resource name of the start point of the relationship, for example
   // "entityTypes/ns.type1/entities/ns.entity1".
   string from_entity = 2 [(google.api.field_behavior) = REQUIRED];

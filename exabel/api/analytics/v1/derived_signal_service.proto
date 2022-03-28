@@ -1,0 +1,104 @@
+// Copyright (c) 2022 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.analytics.v1;
+
+option go_package = "exabel.com/api/analytics/v1";
+option java_multiple_files = true;
+option java_outer_classname = "DerivedSignalServiceProto";
+option java_package = "com.exabel.api.analytics.v1";
+
+import "exabel/api/analytics/v1/derived_signal_messages.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
+// Service to manage derived signals.
+//
+// A derived signal is a DSL expression with a unique label. The label must be unique to the
+// customer.
+service DerivedSignalService {
+  // Get a derived signal.
+  rpc GetDerivedSignal(GetDerivedSignalRequest) returns (DerivedSignal) {
+    option (google.api.http) = {
+      get: "/v1/{name=derivedSignals/*}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get derived signal"
+    };
+  }
+  // Create a derived signal.
+  rpc CreateDerivedSignal(CreateDerivedSignalRequest) returns (DerivedSignal) {
+    option (google.api.http) = {
+      post: "/v1/derivedSignals"
+      body: "signal"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create derived signal"
+    };
+  }
+  // Update a derived signal.
+  rpc UpdateDerivedSignal(UpdateDerivedSignalRequest) returns (DerivedSignal) {
+    option (google.api.http) = {
+      patch: "/v1/{signal.name=derivedSignals/*}"
+      body: "signal"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update derived signal"
+    };
+  }
+  // Delete a derived signal.
+  rpc DeleteDerivedSignal(DeleteDerivedSignalRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=derivedSignals/*}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete derived signal"
+    };
+  }
+}
+
+// Request to GetDerivedSignal.
+message GetDerivedSignalRequest {
+  // The derived signal resource name.
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "derivedSignalName"
+      }
+      example: "\"derivedSignals/123\""
+    }
+  ];
+}
+
+// Request to CreateDerivedSignal.
+message CreateDerivedSignalRequest {
+  // A derived signal.
+  DerivedSignal signal = 1 [(google.api.field_behavior) = REQUIRED];
+  // The resource name of the folder to put the signal in. Example: folder/123.
+  // If this is not provided, the signal will be put in the default analytics API folder.
+  string folder = 2;
+}
+
+// Request to UpdateDerivedSignal.
+message UpdateDerivedSignalRequest {
+  // A derived signal.
+  DerivedSignal signal = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+// Request to DeleteDerivedSignal.
+message DeleteDerivedSignalRequest {
+  // The derived signal resource name.
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "derivedSignalName"
+      }
+      example: "\"derivedSignals/123\""
+    }
+  ];
+}

@@ -1,9 +1,10 @@
-// Copyright (c) 2019-2021 Exabel AS. All rights reserved.
+// Copyright (c) 2019-2022 Exabel AS. All rights reserved.
 
 syntax = "proto3";
 
 package exabel.api.data.v1;
 
+option go_package = "exabel.com/api/data/v1";
 option java_multiple_files = true;
 option java_outer_classname = "SignalServiceProto";
 option java_package = "com.exabel.api.data.v1";
@@ -13,6 +14,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
 
 // Manages signals in the Data API.
 service SignalService {
@@ -21,11 +23,17 @@ service SignalService {
     option (google.api.http) = {
       get: "/v1/signals"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List signals"
+    };
   }
   // Gets one signal.
   rpc GetSignal(GetSignalRequest) returns (Signal) {
     option (google.api.http) = {
       get: "/v1/{name=signals/*}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get signal"
     };
   }
   // Creates one signal and returns it.
@@ -34,6 +42,9 @@ service SignalService {
       post: "/v1/signals"
       body: "signal"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create signal"
+    };
   }
   // Updates one signal and returns it.
   rpc UpdateSignal(UpdateSignalRequest) returns (Signal) {
@@ -41,11 +52,17 @@ service SignalService {
       patch: "/v1/{signal.name=signals/*}"
       body: "signal"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update signal"
+    };
   }
   // Deletes one signal. ALL time series for this signal will also be deleted.
   rpc DeleteSignal(DeleteSignalRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{name=signals/*}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete signal"
     };
   }
 }
@@ -73,7 +90,14 @@ message ListSignalsResponse {
 // The request to get one signal.
 message GetSignalRequest {
   // The resource name of the requested signal, for example "signals/ns.signal1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "signalName"
+      }
+    }
+  ];
 }
 
 // The request to create one signal.
@@ -101,5 +125,12 @@ message UpdateSignalRequest {
 // The request to delete one signal.
 message DeleteSignalRequest {
   // The resource name of the signal to delete, for example "signals/ns.signal1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "signalName"
+      }
+    }
+  ];
 }

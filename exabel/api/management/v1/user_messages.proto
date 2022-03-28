@@ -1,0 +1,32 @@
+// Copyright (c) 2022 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.management.v1;
+
+option go_package = "exabel.com/api/management/v1";
+option java_multiple_files = true;
+option java_outer_classname = "UserMessagesProto";
+option java_package = "com.exabel.api.management.v1";
+
+import "google/api/field_behavior.proto";
+
+// A user.
+message User {
+  // The user resource name. Example: `users/123`.
+  string name = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The user's email.
+  string email = 2;
+  // Whether the user is blocked from accessing the system.
+  bool blocked = 3;
+}
+
+// A group.
+message Group {
+  // The group resource name. Example: `groups/123`.
+  string name = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The display name.
+  string display_name = 2;
+  // The users in this group. Only populated for some responses.
+  repeated User users = 3;
+}

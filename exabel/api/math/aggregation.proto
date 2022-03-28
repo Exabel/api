@@ -1,9 +1,10 @@
-// Copyright (c) 2019-2021 Exabel AS. All rights reserved.
+// Copyright (c) 2019-2022 Exabel AS. All rights reserved.
 
 syntax = "proto3";
 
 package exabel.api.math;
 
+option go_package = "exabel.com/api/math";
 option java_multiple_files = true;
 option java_outer_classname = "AggregationProto";
 option java_package = "com.exabel.api.math";

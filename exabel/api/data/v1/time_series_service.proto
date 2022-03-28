@@ -1,9 +1,10 @@
-// Copyright (c) 2019-2021 Exabel AS. All rights reserved.
+// Copyright (c) 2019-2022 Exabel AS. All rights reserved.
 
 syntax = "proto3";
 
 package exabel.api.data.v1;
 
+option go_package = "exabel.com/api/data/v1";
 option java_multiple_files = true;
 option java_outer_classname = "TimeSeriesServiceProto";
 option java_package = "com.exabel.api.data.v1";
@@ -13,6 +14,7 @@ import "exabel/api/time/time_range.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
 
 // Manages time series in the Data API.
 service TimeSeriesService {
@@ -23,6 +25,9 @@ service TimeSeriesService {
       additional_bindings: {
         get: "/v1/{parent=signals/*}/timeSeries"
       }
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List time series"
     };
   }
   // Gets one time series. The known_time (of present) must be formatted
@@ -35,6 +40,9 @@ service TimeSeriesService {
         get: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get time series"
+    };
   }
   // Creates one time series and returns it.
   rpc CreateTimeSeries(CreateTimeSeriesRequest) returns (TimeSeries) {
@@ -45,6 +53,9 @@ service TimeSeriesService {
         post: "/v1/{time_series.name=signals/*/entityTypes/*/entities/*}"
         body: "time_series"
       }
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create time series"
     };
   }
   // Updates one time series and returns it. The data in this request and the
@@ -58,6 +69,9 @@ service TimeSeriesService {
         body: "time_series"
       }
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update time series"
+    };
   }
   // Deletes one time series. The time series and all its points will be deleted.
   rpc DeleteTimeSeries(DeleteTimeSeriesRequest) returns (google.protobuf.Empty) {
@@ -66,6 +80,9 @@ service TimeSeriesService {
       additional_bindings: {
         delete: "/v1/{name=signals/*/entityTypes/*/entities/*}"
       }
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete time series"
     };
   }
   // Deletes part(s) of one time series. The requested points will be deleted, but the time series
@@ -80,6 +97,9 @@ service TimeSeriesService {
         body: "*"
       }
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Batch delete time series points"
+    };
   }
 }
 
@@ -88,7 +108,14 @@ service TimeSeriesService {
 message ListTimeSeriesRequest {
   // The parent entity or signal of time series to list, for example "entityTypes/ns.type1/entities/ns.entity1"
   // or "signal/ns.signal1".
-  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "timeSeriesParent"
+      }
+    }
+  ];
   // The maximum number of results to return. Defaults to 1000, which is also the maximum value
   // of this field.
   int32 page_size = 2;
@@ -114,7 +141,14 @@ message GetTimeSeriesRequest {
   // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1"
   // or "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1". The returned time series will
   // always contain its canonical name "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "timeSeriesName"
+      }
+    }
+  ];
   // Specifies which parts of the time series should be returned in the request.
   TimeSeriesView view = 2;
 }
@@ -159,7 +193,14 @@ message DeleteTimeSeriesRequest {
   // The resource name of the time series to be deleted, for example
   // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or
   // "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "timeSeriesName"
+      }
+    }
+  ];
 }
 
 // The request to delete parts of one time series.
@@ -167,7 +208,14 @@ message BatchDeleteTimeSeriesPointsRequest {
   // The resource name of the time series to be deleted, for example
   // "entityTypes/ns.type1/entities/ns.entity1/signals/ns.signal1" or
   // "signals/ns.signal1/entityTypes/ns.type1/entities/ns.entity1".
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {
+        path_param_name: "timeSeriesName"
+      }
+    }
+  ];
   // The list of time ranges to delete from the time series. Each time range may
   // be expanded to whole hours (UTC time).
   repeated api.time.TimeRange time_ranges = 2;
