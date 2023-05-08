@@ -1,0 +1,212 @@
+// Copyright (c) 2019-2022 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.analytics.v1;
+
+import "exabel/api/analytics/v1/tag_messages.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
+option go_package = "exabel.com/api/analytics/v1";
+option java_multiple_files = true;
+option java_outer_classname = "TagServiceProto";
+option java_package = "com.exabel.api.analytics.v1";
+
+// Service for managing tags. See the User Guide for more information about tags:
+// https://help.exabel.com/docs/tags-screens
+//
+// Requests to the TagService are executed in the context of the customer's service account (SA).
+// The SA is a special user that is a member of the customer user group, giving it access to all
+// folders that are shared with this user group, but not to private folders.
+// Hence, only tags that are in folders shared to the SA, via the customer user group,
+// will be accessible via the TagService.
+service TagService {
+  // Create a tag.
+  rpc CreateTag(CreateTagRequest) returns (Tag) {
+    option (google.api.http) = {
+      post: "/v1/tags"
+      body: "tag"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Create tag"};
+  }
+  // Get a tag.
+  rpc GetTag(GetTagRequest) returns (Tag) {
+    option (google.api.http) = {get: "/v1/{name=tags/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Get tag"};
+  }
+  // Update a tag.
+  //
+  // Note that this method will update all fields unless `update_mask` is set.
+  rpc UpdateTag(UpdateTagRequest) returns (Tag) {
+    option (google.api.http) = {
+      patch: "/v1/{tag.name=tags/*}"
+      body: "tag"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Update tag"};
+  }
+  // Delete a tag.
+  rpc DeleteTag(DeleteTagRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {delete: "/v1/{name=tags/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Delete tag"};
+  }
+  // List all tags accessible by the user.
+  rpc ListTags(ListTagsRequest) returns (ListTagsResponse) {
+    option (google.api.http) = {get: "/v1/tags"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List tags"};
+  }
+  // Add entities to a tag. Entities that exist in the tag already will be ignored
+  //
+  // Entities that exist in the tag already will be ignored.
+  rpc AddEntities(AddEntitiesRequest) returns (AddEntitiesResponse) {
+    option (google.api.http) = {
+      post: "/v1/{name=tags/*}:addEntities"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Add entities to tag"};
+  }
+  // Remove a set of entities from tag.
+  rpc RemoveEntities(RemoveEntitiesRequest) returns (RemoveEntitiesResponse) {
+    option (google.api.http) = {
+      post: "/v1/{name=tags/*}:removeEntities"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Remove entities from tag"};
+  }
+  // List all entities in a tag.
+  rpc ListTagEntities(ListTagEntitiesRequest) returns (ListTagEntitiesResponse) {
+    option (google.api.http) = {get: "/v1/{parent=tags/*}/entities"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List entities in tag"};
+  }
+}
+
+// Request to CreateTag.
+message CreateTagRequest {
+  // A tag
+  Tag tag = 1 [(google.api.field_behavior) = REQUIRED];
+  // Resource name of the Library folder to create the signal in, e.g. `folders/123`. If not
+  // specified, the signal will be created in an “Analytics API” folder that is shared with the
+  // customer user group.
+  string folder = 2;
+}
+
+// Request to GetTag.
+message GetTagRequest {
+  // Resource name of the requested tag
+  // Example: `tags/user:abc123`.
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {path_param_name: "tagName"}
+    }
+  ];
+}
+
+// Request to UpdateTag.
+message UpdateTagRequest {
+  // A tag.
+  Tag tag = 1 [(google.api.field_behavior) = REQUIRED];
+  // Use this to update only selected fields. For example, specify `display_name` to update only
+  // the display name.
+  //
+  // For REST requests, this is a comma-separated string.
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+// Request to DeleteTag.
+message DeleteTagRequest {
+  // The tag resource name.
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {path_param_name: "tagName"}
+    }
+  ];
+}
+
+// Request to list tags.
+message ListTagsRequest {
+  // Maximum number of results to return. Default is 20 and max is 1000.
+  int32 page_size = 1;
+  // Token for a specific page of results, as returned from a previous list request with the same
+  // query parameters.
+  string page_token = 2;
+}
+
+// Response to list tags.
+message ListTagsResponse {
+  // The tags in the requested page.
+  repeated Tag tags = 1;
+  // Token for the next page of results, which can be sent to a subsequent query.
+  // The end of the list is reached when the token is empty.
+  string next_page_token = 2;
+  // Total number of results, irrespective of paging.
+  int32 total_size = 3;
+}
+
+// Request to add entities to tag.
+message AddEntitiesRequest {
+  // Resource name of the tag to add entities to
+  // Example: `tags/user:abc123`.
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {path_param_name: "tagName"}
+    }
+  ];
+
+  // List of entity resource names to add to tag. You may find these resource names with the
+  // EntityService.
+  repeated string entity_names = 2;
+}
+
+// Response to add entities to a tag
+message AddEntitiesResponse {}
+
+// Request to remove entities from a tag.
+message RemoveEntitiesRequest {
+  // Resource name of the tag to remove entities from
+  // Example: `tags/user:abc123`.
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {path_param_name: "tagName"}
+    }
+  ];
+  // List of entity resource names to remove from tag.
+  repeated string entity_names = 2;
+}
+
+// Response to remove entities from a tag
+message RemoveEntitiesResponse {}
+
+// Request to list entities in a tag.
+message ListTagEntitiesRequest {
+  // The parent tag to list entities for
+  // Example: `tags/user:abc123`.
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {path_param_name: "tagName"}
+    }
+  ];
+  // Maximum number of results to return. Default is 20 and max is 1000.
+  int32 page_size = 2;
+  // Token for a specific page of results, as returned from a previous list request with the same
+  // query parameters.
+  string page_token = 3;
+}
+
+// Response to list entities in a tag.
+message ListTagEntitiesResponse {
+  // List of entity resource names.
+  repeated string entity_names = 1;
+  // Token for the next page of results, which can be sent to a subsequent query.
+  // The end of the list is reached when the token is empty.
+  string next_page_token = 2;
+  // Total number of results, irrespective of paging.
+  int32 total_size = 3;
+}

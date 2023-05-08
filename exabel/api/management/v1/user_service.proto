@@ -4,34 +4,32 @@ syntax = "proto3";
 
 package exabel.api.management.v1;
 
+import "exabel/api/management/v1/user_messages.proto";
+import "google/api/annotations.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
 option go_package = "exabel.com/api/management/v1";
 option java_multiple_files = true;
 option java_outer_classname = "UserServiceProto";
 option java_package = "com.exabel.api.management.v1";
 
-import "exabel/api/management/v1/user_messages.proto";
-import "google/api/annotations.proto";
-import "protoc_gen_openapiv2/options/annotations.proto";
-
 // Service to manage users and groups.
+//
+// Supported operations are listing the current customer's user groups and users.
 service UserService {
-  // List all groups. Only groups for the current customer is returned.
+  // Lists all groups. Only groups for the current customer is returned.
+  //
+  // List all user groups in your customer, including the users in each user group.
   rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse) {
-    option (google.api.http) = {
-      get: "/v1/groups"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "List groups"
-    };
+    option (google.api.http) = {get: "/v1/groups"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List groups"};
   }
-  // List all users in the current customer.
+  // Lists all users in the current customer.
+  //
+  // List all users in your customer
   rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
-    option (google.api.http) = {
-      get: "/v1/users"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "List users"
-    };
+    option (google.api.http) = {get: "/v1/users"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List users"};
   }
 }
 
@@ -40,7 +38,7 @@ message ListGroupsRequest {}
 
 // Response from ListGroups.
 message ListGroupsResponse {
-  // The returned groups.
+  // List of user groups, including users in each user group.
   repeated Group groups = 1;
 }
 
@@ -49,6 +47,6 @@ message ListUsersRequest {}
 
 // Response from ListUsers.
 message ListUsersResponse {
-  // The returned users.
+  // List of users.
   repeated User users = 1;
 }

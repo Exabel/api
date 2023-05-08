@@ -4,85 +4,132 @@ syntax = "proto3";
 
 package exabel.api.management.v1;
 
+import "exabel/api/management/v1/folder_messages.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
 option go_package = "exabel.com/api/management/v1";
 option java_multiple_files = true;
 option java_outer_classname = "LibraryServiceProto";
 option java_package = "com.exabel.api.management.v1";
 
-import "exabel/api/management/v1/folder_messages.proto";
-import "exabel/api/management/v1/user_messages.proto";
-import "google/api/annotations.proto";
-import "google/api/field_behavior.proto";
-import "google/protobuf/empty.proto";
-import "protoc_gen_openapiv2/options/annotations.proto";
-
 // Service to manage library items.
+//
+// Requests to the LibraryService are executed in the context of the customer's service account (SA).
+// The SA is a special user that is a member of the customer user group, giving it access to all
+// folders that are shared with this user group, but not to private folders.
 service LibraryService {
-  // List all folders. Folders are returned without folder items.
+  // Lists all folders.
+  //
+  // Folders are returned without folder items - use the "Get folder" or "List folder items"
+  // methods to get folder items.
   rpc ListFolders(ListFoldersRequest) returns (ListFoldersResponse) {
-    option (google.api.http) = {
-      get: "/v1/folders"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "List folders"
-    };
+    option (google.api.http) = {get: "/v1/folders"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List folders"};
   }
-  // Get a folder including its items.
+  // Gets a folder including its items.
+  //
+  // The folder will be returned with its items.
   rpc GetFolder(GetFolderRequest) returns (Folder) {
-    option (google.api.http) = {
-      get: "/v1/{name=folders/*}"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Get folder"
-    };
+    option (google.api.http) = {get: "/v1/{name=folders/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Get folder"};
   }
-  // List all items of a specific type.
+  // Creates a folder.
+  //
+  // Only the display name and description can be set. Items must be added to the new folder
+  // subsequently with the "Move folder items" method.
+  //
+  // The folder will be created as private to the service account user. To let other users access
+  // this folder, you must also share it with the "Share folder" method.
+  //
+  // It is also possible to create a folder type by calling `UpdateFolder`
+  // with `allow_missing` set to `true`.
+  rpc CreateFolder(CreateFolderRequest) returns (Folder) {
+    option (google.api.http) = {
+      post: "/v1/folders"
+      body: "folder"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Create folder"};
+  }
+  // Updates a folder.
+  //
+  // Only the display name and description can be updated. Items must be added to a folder with the
+  // "Move folder items" method.
+  //
+  // This can also be used to create an entity by setting `allow_missing` to `true`.
+  //
+  // Note that this method will update all fields unless `update_mask` is set.
+  rpc UpdateFolder(UpdateFolderRequest) returns (Folder) {
+    option (google.api.http) = {
+      patch: "/v1/{folder.name=folders/*}"
+      body: "folder"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Update folder"};
+  }
+  // Deletes a folder.
+  //
+  // The folder must be empty before it can be deleted. Use the "Move folder items" if needed to
+  // move items into another folder.
+  rpc DeleteFolder(DeleteFolderRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {delete: "/v1/{name=folders/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Delete folder"};
+  }
+  // Lists all items of a specific type.
+  //
+  // List all folder items of a specific type (e.g. derived signal, dashboard). To get all items in
+  // a folder, use the "Get folder" method instead.
   rpc ListItems(ListItemsRequest) returns (ListItemsResponse) {
-    option (google.api.http) = {
-      get: "/v1/{parent=folders/*}/items"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "List folder items"
-    };
+    option (google.api.http) = {get: "/v1/{parent=folders/*}/items"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List folder items"};
   }
-  // List the groups that a specific folder is shared with.
-  rpc ListSharedGroups(ListSharedGroupsRequest) returns (ListSharedGroupsResponse) {
-    option (google.api.http) = {
-      get: "/v1/{name=folders/*}/groups"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "List shared groups"
-    };
+  // Moves items to a folder.
+  //
+  // Specify the target folder that items should be moved into. The service account must have write
+  // access to all items that you want to move.
+  rpc MoveItems(MoveItemsRequest) returns (MoveItemsResponse) {
+    option (google.api.http) = {post: "/v1/{target_folder=folders/*}:moveItems"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Move folder items"};
   }
-  // Share a folder with a group.
+  // Lists the accessors of a specific folder.
+  //
+  // An accessor is a user group with either read-only or read/write access.
+  rpc ListFolderAccessors(ListFolderAccessorsRequest) returns (ListFolderAccessorsResponse) {
+    option (google.api.http) = {get: "/v1/{name=folders/*}/accessors"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List folder accessors"};
+  }
+  // Shares a folder with a group.
+  //
+  // You may find the user group resource names from the "List groups" method in the UserService.
+  // - To grant write access to a group with only read access, call this method with the `write` flag set to `true`.
+  // - To revoke only write access from a group, call this method with the `write` flag set to `false`.
   rpc ShareFolder(ShareFolderRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       post: "/v1/{folder=folders/*}:share"
       body: "*"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Share folder"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Share folder"};
   }
-  // Remove sharing of a folder with a group.
+  // Removes sharing of a folder with a group.
+  //
+  // This revokes both read and write access. To revoke only write access, use the "Share folder"
+  // method with the `write` flag set to `false`.
   rpc UnshareFolder(UnshareFolderRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       post: "/v1/{folder=folders/*}:unshare"
       body: "*"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Unshare folder"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Unshare folder"};
   }
-  // Transfer ownership of items from one user to another.
-  rpc TransferOwnership(TransferOwnershipRequest) returns (TransferOwnershipResponse) {
-    option (google.api.http) = {
-      post: "/v1/{from_user=users/*}:transfer"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Transfer ownership"
-    };
+
+  // Search for folder items.
+  //
+  // Search for all folder items or items of a specific type (e.g. derived signal, dashboard) across all folders.
+  rpc SearchItems(SearchItemsRequest) returns (SearchItemsResponse) {
+    option (google.api.http) = {get: "/v1/{folder=folders/*}/items:search"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Search for folder items"};
   }
 }
 
@@ -91,20 +138,49 @@ message ListFoldersRequest {}
 
 // Response from ListFolders.
 message ListFoldersResponse {
-  // The accessible folders.
+  // List of accessible folders.
   //
-  // The items field within the folders is empty.
+  // The items field for each folder will be empty when listing folders - use the "Get folder"
+  // or "List folder items" methods to retrieve items.
   repeated Folder folders = 1;
 }
 
 message GetFolderRequest {
   // The folder resource name.
   string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "folderName"
-      }
-      example: "\"folders/123\""
+      field_configuration: {path_param_name: "folderName"}
+    }
+  ];
+}
+
+message CreateFolderRequest {
+  // The folder to create. Only the display name and description can be set.
+  Folder folder = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message UpdateFolderRequest {
+  // The updated folder. The resource name must be set. Only the display name, and description can
+  // be set.
+  Folder folder = 1 [(google.api.field_behavior) = REQUIRED];
+  // Use this to update only selected fields. For example, specify `display_name` to update only the
+  // display name. If `allow_missing` is set, this field is ignored.
+  // Currently, only the display name and description may be modified.
+  //
+  // For REST requests, this is a comma-separated string.
+  google.protobuf.FieldMask update_mask = 2;
+  // If set to `true`, a new folder will be created if it did not exist, and `update_mask` is
+  // ignored.
+  bool allow_missing = 3;
+}
+
+message DeleteFolderRequest {
+  // The resource name of the folder to delete, for example `folders/1`.
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {path_param_name: "folderName"}
     }
   ];
 }
@@ -114,87 +190,92 @@ message ListItemsRequest {
   string parent = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "folderName"
-      }
+      field_configuration: {path_param_name: "folderName"}
       example: "\"folders/123\""
     }
   ];
-  // The item type.
+  // Specify an item type to list.
   FolderItemType item_type = 2;
 }
 
 message ListItemsResponse {
-  // The folder items.
+  // List of folder items.
   repeated FolderItem items = 1;
 }
 
-message ListSharedGroupsRequest {
-  // The folder resource name.
-  string name = 1 [
+message MoveItemsRequest {
+  // List of resource names of the items to move, e.g. `models/123` or `derivedSignals/987`.
+  repeated string items = 1 [(google.api.field_behavior) = REQUIRED];
+  // The resource name of the target folder, for example `folders/10`.
+  string target_folder = 2 [
+    (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "folderName"
-      }
-      example: "\"folders/123\""
+      field_configuration: {path_param_name: "folderName"}
     }
   ];
 }
 
-message ListSharedGroupsResponse {
-  // The groups. The groups will not be populated with users.
-  repeated Group group = 1;
+message MoveItemsResponse {}
+
+message ListFolderAccessorsRequest {
+  // The folder resource name.
+  string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    field_configuration: {path_param_name: "folderName"}
+  }];
+}
+
+message ListFolderAccessorsResponse {
+  // List of user groups with access to the folder. This does not include the users in each user
+  // group - those may be queried through the UserService.
+  repeated FolderAccessor folder_accessors = 1;
 }
 
 message ShareFolderRequest {
-  // The resource name of the folder to share.
-  string folder = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "folderName"
-      }
-      example: "\"folders/123\""
-    }
-  ];
-  // The resource name of the group to share the folder with.
-  string group = 2 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"groups/123\""
-    }
-  ];
+  // Resource name of the folder to share.
+  string folder = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    field_configuration: {path_param_name: "folderName"}
+    example: "\"folders/123\""
+  }];
+  // Resource name of the user group to share the folder with.
+  string group = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"groups/123\""}];
+  // Whether the user group should have write access.
+  bool write = 3;
 }
 
 message UnshareFolderRequest {
-  // The resource name of the folder to unshare.
+  // Resource name of the folder to unshare.
+  string folder = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    field_configuration: {path_param_name: "folderName"}
+    example: "\"folders/123\""
+  }];
+  // Resource name of the user group to unshare the folder from.
+  string group = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"groups/123\""}];
+}
+
+message SearchItemsRequest {
+  // Resource name of the folder to search in. Only "folders/-", meaning all folders, is supported.
   string folder = 1 [
+    (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "folderName"
-      }
-      example: "\"folders/123\""
+      field_configuration: {path_param_name: "folderNameAllFolders"}
+      example: "\"folders/-\""
     }
   ];
-  // The resource name of the group to unshare the folder with.
-  string group = 2 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"groups/123\""
-    }
-  ];
+  // Search query.
+  string query = 2 [(google.api.field_behavior) = REQUIRED];
+  // The type of items to search for.
+  // If not set, all types are included in the result.
+  FolderItemType item_type = 3 [(google.api.field_behavior) = OPTIONAL];
+  // Token for a specific page of results, as returned from a previous search request with the same
+  // query parameters.
+  string page_token = 4;
+  // Maximum number of results to return. Defaults to 20.
+  int32 page_size = 5;
 }
 
-message TransferOwnershipRequest {
-  // The resource name of the user to transfer ownership from.
-  string from_user = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"users/123\""
-    }
-  ];
-  // The resource name of the user to transfer ownership to.
-  string to_user = 2 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"users/456\""
-    }
-  ];
+message SearchItemsResponse {
+  // Search results.
+  repeated SearchResult results = 1;
+  // Continuation token.
+  string next_page_token = 2;
 }
-
-message TransferOwnershipResponse {}

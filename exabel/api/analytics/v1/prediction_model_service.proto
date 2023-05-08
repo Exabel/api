@@ -4,41 +4,44 @@ syntax = "proto3";
 
 package exabel.api.analytics.v1;
 
-option go_package = "exabel.com/api/analytics/v1";
-option java_multiple_files = true;
-option java_outer_classname = "PredictionModelServiceProto";
-option java_package = "com.exabel.api.analytics.v1";
-
 import "exabel/api/analytics/v1/prediction_model_messages.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "protoc_gen_openapiv2/options/annotations.proto";
 
+option go_package = "exabel.com/api/analytics/v1";
+option java_multiple_files = true;
+option java_outer_classname = "PredictionModelServiceProto";
+option java_package = "com.exabel.api.analytics.v1";
+
 // Service to manage prediction models.
+//
+// The only current supported operation is to request to run a given prediction model.
+//
+// Requests to the PredictionModelService are executed in the context of the customer's service
+// account (SA). The SA is a special user that is a member of the customer user group, giving
+// it access to all folders that are shared with this user group, but not to private folders.
+// Hence, only prediction models that are in folders shared to the SA, via the customer user group,
+// will be accessible via the PredictionModelService.
 service PredictionModelService {
-  // Create a model run.
+  // Runs a prediction model.
   rpc CreatePredictionModelRun(CreatePredictionModelRunRequest) returns (PredictionModelRun) {
     option (google.api.http) = {
       post: "/v1/{parent=predictionModels/*}/runs"
       body: "run"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Run prediction model"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Run prediction model"};
   }
 }
 
 // Request to CreatePredictionModelRun.
 message CreatePredictionModelRunRequest {
   // Resource name of the prediction model for which the run should be created.
-  // Example: "predictionModels/123".
+  // Example: `predictionModels/123`.
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "predictionModelName"
-      }
-      example: "\"predictionModels/123\""
+      field_configuration: {path_param_name: "predictionModelName"}
     }
   ];
   // The model run.

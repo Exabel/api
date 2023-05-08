@@ -4,18 +4,45 @@ syntax = "proto3";
 
 package exabel.api.data.v1;
 
+import "google/api/field_behavior.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
 option go_package = "exabel.com/api/data/v1";
 option java_multiple_files = true;
 option java_outer_classname = "SearchMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
-import "google/api/field_behavior.proto";
-
 // A single search term in a search request.
 message SearchTerm {
   // The name of the field that should be matched. Field names are
   // case-insensitive.
-  string field = 1 [(google.api.field_behavior) = REQUIRED];
+  string field = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"text\""}
+  ];
   // The query against which the field is matched.
-  string query = 2 [(google.api.field_behavior) = REQUIRED];
+  string query = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"microsoft\""}
+  ];
+}
+
+// Options on how the search should be performed.
+message SearchOptions {
+  // The entity universe to search. Currently only supported for 'text' search for entityType/company.
+  SearchUniverse universe = 1;
+}
+
+// Enum to select search universe.
+enum SearchUniverse {
+  // No search universe specified. This is the default behaviour.
+  // For text search for entityTypes/company, this searches the Exabel company universe.
+  SEARCH_UNIVERSE_UNSPECIFIED = 0;
+  // Search all companies in the Exabel company universe. This includes all companies with
+  // price data or a directly connected time series. Only supported for text search for
+  // entityTypes/company.
+  EXABEL_COMPANIES = 1;
+  // Search all companies, including companies not in the Exabel company universe. This includes all
+  // FactSet companies of type 'SUB' and 'PVT'. Only supported for text search for entityTypes/company.
+  ALL_COMPANIES = 2;
 }

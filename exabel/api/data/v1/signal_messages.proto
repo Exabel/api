@@ -4,44 +4,46 @@ syntax = "proto3";
 
 package exabel.api.data.v1;
 
+import "exabel/api/math/aggregation.proto";
+import "google/api/field_behavior.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
 option go_package = "exabel.com/api/data/v1";
 option java_multiple_files = true;
 option java_outer_classname = "SignalMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
-import "exabel/api/math/aggregation.proto";
-import "google/api/field_behavior.proto";
-import "protoc_gen_openapiv2/options/annotations.proto";
-
 // A signal resource in the Data API. Signals are normally associated with a set of entity types,
 // but may apply to any entities.
 message Signal {
-  // The resource name of the signal, for example "signals/signalIdentifier" or
-  // "signals/namespace.signalIdentifier". The namespace must be empty (being global) or one of the
-  // predetermined namespaces the customer has access to.
-  // The signal identifier must match the regex [a-zA-Z]\w{0,63}.
+  // Unique resource name of the raw data signal, e.g. `signals/signalIdentifier` or
+  // `signals/namespace.signalIdentifier`. The namespace must be empty (being global) or a
+  // namespace accessible to the customer.
+  // The signal identifier must match the regex `[a-zA-Z]\w{0,63}`.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "signalName"
-      }
+      field_configuration: {path_param_name: "signalName"}
+      example: "\"signals/ns.signal\""
     }
   ];
   // No longer in use.
   string entity_type = 2 [deprecated = true];
-  // The display name of the signal. Required when creating signal.
-  string display_name = 3;
-  // One or more paragraphs of text description.
-  string description = 4;
+  // Used when showing the signal in the Exabel app. Required when creating a signal.
+  string display_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"My signal\""}];
+  // This is currently not used in the Exabel app, but may be in future.
+  string description = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Describes my signal\""}];
   // The default downsampling method to use when this signal is re-sampled into larger intervals.
   // When two or more values in an interval needs to be aggregated into a single value, specifies
   // how they are combined.
   api.math.Aggregation downsampling_method = 5;
-  // Whether this resource is read only.
+  // Global signals and those from data sets that you subscribe to will be read-only.
   bool read_only = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // The types of entities that this signal has time series for, for example
-  // "entityTypes/ns.type1", "entityTypes/ns.type2".
-  repeated string entity_types = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // List of entity types that this signal has time series for, e.g.
+  // `entityTypes/ns.type1`, `entityTypes/ns.type2`.
+  repeated string entity_types = 7 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "[\"entityTypes/ns.type1\", \"entityTypes/ns.type2\"]"}
+  ];
 }

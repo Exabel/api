@@ -1,0 +1,21 @@
+// Copyright (c) 2019-2022 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.data.v1;
+
+import "google/api/field_behavior.proto";
+
+option go_package = "exabel.com/api/data/v1";
+option java_multiple_files = true;
+option java_outer_classname = "NamespacesMessagesProto";
+option java_package = "com.exabel.api.data.v1";
+
+// A namespace resource in the Data API.
+message Namespace {
+  // Unique resource name of the namespace, e.g. `namespaces/namespaceIdentifier`.
+  string name = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Whether your customer has write access to the namespace. Your own customer namespace will
+  // always be writeable.
+  bool writeable = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

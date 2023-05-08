@@ -4,6 +4,12 @@ syntax = "proto3";
 
 package exabel.api.management.v1;
 
+import "protoc_gen_openapiv2/options/annotations.proto";
+
+option go_package = "exabel.com/api/management/v1";
+option java_multiple_files = true;
+option java_outer_classname = "ServiceProto";
+option java_package = "com.exabel.api.management.v1";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
     title: "Exabel Management API"
@@ -32,17 +38,9 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
     ]
   }
   security: {
-    security_requirement: {
-      key: "API key"
-    }
+    security_requirement: {key: "API key"}
   }
   consumes: "application/json"
   produces: "application/json"
   host: "management.api.exabel.com"
 };
-option go_package = "exabel.com/api/management/v1";
-option java_multiple_files = true;
-option java_outer_classname = "ServiceProto";
-option java_package = "com.exabel.api.management.v1";
-
-import "protoc_gen_openapiv2/options/annotations.proto";

@@ -4,11 +4,6 @@ syntax = "proto3";
 
 package exabel.api.data.v1;
 
-option go_package = "exabel.com/api/data/v1";
-option java_multiple_files = true;
-option java_outer_classname = "SignalServiceProto";
-option java_package = "com.exabel.api.data.v1";
-
 import "exabel/api/data/v1/signal_messages.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
@@ -16,86 +11,87 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "protoc_gen_openapiv2/options/annotations.proto";
 
-// Manages signals in the Data API.
+option go_package = "exabel.com/api/data/v1";
+option java_multiple_files = true;
+option java_outer_classname = "SignalServiceProto";
+option java_package = "com.exabel.api.data.v1";
+
+// Service for managing raw data signals. See the User Guide for more information about raw data
+// signals: https://help.exabel.com/docs/signals
 service SignalService {
   // Lists all known signals.
+  //
+  // Lists all raw data signals available to your customer, including those created by you, in the
+  // global catalog, and from data sets you are subscribed to.
   rpc ListSignals(ListSignalsRequest) returns (ListSignalsResponse) {
-    option (google.api.http) = {
-      get: "/v1/signals"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "List signals"
-    };
+    option (google.api.http) = {get: "/v1/signals"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List signals"};
   }
   // Gets one signal.
   rpc GetSignal(GetSignalRequest) returns (Signal) {
-    option (google.api.http) = {
-      get: "/v1/{name=signals/*}"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Get signal"
-    };
+    option (google.api.http) = {get: "/v1/{name=signals/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Get signal"};
   }
   // Creates one signal and returns it.
+  //
+  // It is also possible to create a signal by calling `UpdateSignal`
+  // with `allow_missing` set to `true`.
   rpc CreateSignal(CreateSignalRequest) returns (Signal) {
     option (google.api.http) = {
       post: "/v1/signals"
       body: "signal"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Create signal"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Create signal"};
   }
   // Updates one signal and returns it.
+  //
+  // This can also be used to create a signal by setting `allow_missing` to `true`.
+  //
+  // Note that this method will update all fields unless `update_mask` is set.
   rpc UpdateSignal(UpdateSignalRequest) returns (Signal) {
     option (google.api.http) = {
       patch: "/v1/{signal.name=signals/*}"
       body: "signal"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Update signal"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Update signal"};
   }
   // Deletes one signal. ALL time series for this signal will also be deleted.
+  //
+  // This will delete ***all*** time series for this signal.
   rpc DeleteSignal(DeleteSignalRequest) returns (google.protobuf.Empty) {
-    option (google.api.http) = {
-      delete: "/v1/{name=signals/*}"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Delete signal"
-    };
+    option (google.api.http) = {delete: "/v1/{name=signals/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Delete signal"};
   }
 }
 
 // The request to list signals.
 message ListSignalsRequest {
-  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
-  // of this field.
+  // Maximum number of results to return. Defaults to 1000, which is the maximum allowed value.
   int32 page_size = 1;
-  // The page token to resume the results from, as returned from a previous request to this method
-  // with the same query parameters.
+  // Token for a specific page of results, as returned from a previous list request with the same
+  // query parameters.
   string page_token = 2;
 }
 
 // The response to list signals. Returns all known signals.
 message ListSignalsResponse {
-  // The resulting signals.
+  // List of signals.
   repeated Signal signals = 1;
-  // The page token where the list continues. Can be sent to a subsequent query.
+  // Token for the next page of results, which can be sent to a subsequent query.
+  // The end of the list is reached when the number of results is less than the page size
+  // (NOT when the token is empty).
   string next_page_token = 2;
-  // The total number of results, irrespective of paging.
+  // Total number of results, irrespective of paging.
   int32 total_size = 3;
 }
 
 // The request to get one signal.
 message GetSignalRequest {
-  // The resource name of the requested signal, for example "signals/ns.signal1".
+  // The resource name of the requested signal, for example `signals/ns.signal1`.
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "signalName"
-      }
+      field_configuration: {path_param_name: "signalName"}
     }
   ];
 }
@@ -104,7 +100,8 @@ message GetSignalRequest {
 message CreateSignalRequest {
   // The signal to create.
   Signal signal = 1 [(google.api.field_behavior) = REQUIRED];
-  // Set to true to add the signal to the library when created.
+  // Set to `true` to also create a derived signal in the Library, referencing this new raw data
+  // signal. This will be created in the "Upload" folder.
   bool create_library_signal = 2;
 }
 
@@ -112,25 +109,27 @@ message CreateSignalRequest {
 message UpdateSignalRequest {
   // The signal to update.
   Signal signal = 1 [(google.api.field_behavior) = REQUIRED];
-  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
-  // modified. If "allow_missing" is set, this field is ignored.
+  // Use this to update only selected fields. For example, specify `display_name` to
+  // update only the display name. If `allow_missing` is set, this field is ignored.
+  //
+  // For REST requests, this is a comma-separated string.
   google.protobuf.FieldMask update_mask = 2;
-  // If set to true, and the resource is not found, a new resource will be created.
-  // If this is set, "update_mask" is ignored.
+  // If set to `true`, a new raw data signal will be created if it did not exist, and `update_mask`
+  // is ignored.
   bool allow_missing = 3;
-  // If allow_missing is set to true and the signal does not exist, also add it to the library.
+  // Set to `true` to also create a derived signal in the Library, referencing this new raw data
+  // signal. This will be created in the "Upload" folder. This is only applicable if a new raw
+  // data signal has been created (with `allow_missing` set to `true`).
   bool create_library_signal = 4;
 }
 
 // The request to delete one signal.
 message DeleteSignalRequest {
-  // The resource name of the signal to delete, for example "signals/ns.signal1".
+  // The resource name of the signal to delete, for example `signals/ns.signal1`.
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "signalName"
-      }
+      field_configuration: {path_param_name: "signalName"}
     }
   ];
 }

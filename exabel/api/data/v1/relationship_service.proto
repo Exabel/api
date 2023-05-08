@@ -4,11 +4,6 @@ syntax = "proto3";
 
 package exabel.api.data.v1;
 
-option go_package = "exabel.com/api/data/v1";
-option java_multiple_files = true;
-option java_outer_classname = "RelationshipServiceProto";
-option java_package = "com.exabel.api.data.v1";
-
 import "exabel/api/data/v1/relationship_messages.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
@@ -16,122 +11,130 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "protoc_gen_openapiv2/options/annotations.proto";
 
-// Manages relationship types and relationships in the Data API.
+option go_package = "exabel.com/api/data/v1";
+option java_multiple_files = true;
+option java_outer_classname = "RelationshipServiceProto";
+option java_package = "com.exabel.api.data.v1";
+
+// Service for managing relationship types and relationships. See the User Guide for more
+// information about relationship types and relationships:
+// https://help.exabel.com/docs/relationships
 service RelationshipService {
   // List all relationship types from a common catalog.
+  //
+  // Lists all relationship types available to your customer, including those created by you, in
+  // the global catalog, and from data sets you are subscribed to.
   rpc ListRelationshipTypes(ListRelationshipTypesRequest) returns (ListRelationshipTypesResponse) {
-    option (google.api.http) = {
-      get: "/v1/relationshipTypes"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "List relationship types"
-    };
+    option (google.api.http) = {get: "/v1/relationshipTypes"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List relationship types"};
   }
   // Gets one relationship type.
   rpc GetRelationshipType(GetRelationshipTypeRequest) returns (RelationshipType) {
-    option (google.api.http) = {
-      get: "/v1/{name=relationshipTypes/*}"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Get relationship type"
-    };
+    option (google.api.http) = {get: "/v1/{name=relationshipTypes/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Get relationship type"};
   }
   // Creates one relationship type and returns it.
+  //
+  // It is also possible to create a relationship type by calling `UpdateRelationshipType`
+  // with `allow_missing` set to `true`.
   rpc CreateRelationshipType(CreateRelationshipTypeRequest) returns (RelationshipType) {
     option (google.api.http) = {
       post: "/v1/relationshipTypes"
       body: "relationship_type"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Create relationship type"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Create relationship type"};
   }
   // Updates one relationship type and returns it.
+  //
+  // This can also be used to create a relationship type by setting `allow_missing` to `true`.
+  //
+  // Note that this method update all fields unless `update_mask` is set.
+  //
+  // Note that modifying the `is_ownership` property may be a slow operation, as all individual
+  // relationships of this type will have to be updated.
   rpc UpdateRelationshipType(UpdateRelationshipTypeRequest) returns (RelationshipType) {
     option (google.api.http) = {
       patch: "/v1/{relationship_type.name=relationshipTypes/*}"
       body: "relationship_type"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Update relationship type"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Update relationship type"};
   }
-  // Deletes one relationship type. A relationship type cannot be deleted if
-  // there exist relationships having that type.
+  // Deletes one relationship type.
+  //
+  // This can only be performed on relationship types with no relationships. You should delete
+  // relationships before deleting their entity type.
   rpc DeleteRelationshipType(DeleteRelationshipTypeRequest) returns (google.protobuf.Empty) {
-    option (google.api.http) = {
-      delete: "/v1/{name=relationshipTypes/*}"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Delete relationship type"
-    };
+    option (google.api.http) = {delete: "/v1/{name=relationshipTypes/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Delete relationship type"};
   }
-  // Lists relationship for a given entity.
+  // Lists relationship of a specific type.
+  //
+  // If neither `from_entity` or `to_entity` is given, it is expected that this call will
+  // take some time to complete.
   rpc ListRelationships(ListRelationshipsRequest) returns (ListRelationshipsResponse) {
-    option (google.api.http) = {
-      get: "/v1/{parent=relationshipTypes/*}/relationships"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "List relationships"
-    };
+    option (google.api.http) = {get: "/v1/{parent=relationshipTypes/*}/relationships"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List relationships"};
   }
   // Gets one relationship.
   rpc GetRelationship(GetRelationshipRequest) returns (Relationship) {
-    option (google.api.http) = {
-      get: "/v1/{parent=relationshipTypes/*}/relationships/{from_entity=entityTypes/*}/{to_entity=entityTypes/*}"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Get relationship"
-    };
+    option (google.api.http) = {get: "/v1/{parent=relationshipTypes/*}/relationships/{from_entity=entityTypes/*/entities/*}/{to_entity=entityTypes/*/entities/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Get relationship"};
   }
   // Creates one relationship and returns it.
+  //
+  // It is also possible to create a relationship by calling `UpdateRelationship`
+  // with `allow_missing` set to `true`.
   rpc CreateRelationship(CreateRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
       post: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
       body: "relationship"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Create relationship"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Create relationship"};
   }
   // Updates one relationship and returns it.
+  //
+  // This can also be used to create a relationship by setting `allow_missing` to `true`.
+  //
+  // Note that this method will update all fields unless `update_mask` is set.
   rpc UpdateRelationship(UpdateRelationshipRequest) returns (Relationship) {
     option (google.api.http) = {
       patch: "/v1/{relationship.parent=relationshipTypes/*}/relationships"
       body: "relationship"
+      additional_bindings: {
+        patch: "/v1/{relationship.parent=relationshipTypes/*}/relationships/{relationship.from_entity=entityTypes/*/entities/*}/{relationship.to_entity=entityTypes/*/entities/*}"
+        body: "relationship"
+      }
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Update relationship"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Update relationship"};
   }
   // Deletes one relationship.
   rpc DeleteRelationship(DeleteRelationshipRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{parent=relationshipTypes/*}/relationships"
+      additional_bindings: {delete: "/v1/{parent=relationshipTypes/*}/relationships/{from_entity=entityTypes/*/entities/*}/{to_entity=entityTypes/*/entities/*}"}
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Delete relationship"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Delete relationship"};
   }
 }
 
 // The request to list relationship types.
 message ListRelationshipTypesRequest {
-  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
-  // of this field.
+  // Maximum number of results to return. Defaults to 1000, which is the maximum allowed value.
   int32 page_size = 1;
-  // The page token to resume the results from, as returned from a previous request to this method
-  // with the same query parameters.
+  // Token for a specific page of results, as returned from a previous list request with the same
+  // query parameters.
   string page_token = 2;
 }
 
 // The response to list relationship types. Returns all known relationship types.
 message ListRelationshipTypesResponse {
-  // The resulting relationship types.
+  // List of relationship types.
   repeated RelationshipType relationship_types = 1;
-  // The page token where the list continues. Can be sent to a subsequent query.
+  // Token for the next page of results, which can be sent to a subsequent query.
+  // The end of the list is reached when the number of results is less than the page size
+  // (NOT when the token is empty).
   string next_page_token = 2;
-  // The total number of results, irrespective of paging.
+  // Total number of results, irrespective of paging.
   int32 total_size = 3;
 }
 
@@ -145,92 +148,87 @@ message CreateRelationshipTypeRequest {
 message UpdateRelationshipTypeRequest {
   // The relationship type to update.
   RelationshipType relationship_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
-  // modified. If "allow_missing" is set, this field is ignored.
+  // Use this to update only selected fields. For example, specify `description` to update only the
+  // description. If `allow_missing` is set, this field is ignored.
+  //
+  // For REST requests, this is a comma-separated string.
   google.protobuf.FieldMask update_mask = 2;
-  // If set to true, and the resource is not found, a new resource will be created.
-  // If this is set, "update_mask" is ignored.
+  // If set to `true`, a new relationship type will be created if it did not exist, and
+  // `update_mask` is ignored.
   bool allow_missing = 3;
 }
 
 // The request to delete one relationship type.
 message DeleteRelationshipTypeRequest {
-  // The resource name of the relationship type to delete, for example "relationshipTypes/ns.type1".
+  // The resource name of the relationship type to delete, for example `relationshipTypes/ns.type1`.
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "relationshipTypeName"
-      }
+      field_configuration: {path_param_name: "relationshipTypeName"}
     }
   ];
 }
 
 // The response to get one relationship type.
 message GetRelationshipTypeRequest {
-  // The resource name of the requested relationship type, for example "relationshipTypes/ns.type1".
+  // The resource name of the requested relationship type, for example `relationshipTypes/ns.type1`.
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "relationshipTypeName"
-      }
+      field_configuration: {path_param_name: "relationshipTypeName"}
     }
   ];
 }
 
-// The request to list relationship for a given entity. At least one of from_entity and to_entity must be provided.
+// The request to list relationship of a specific type.
 message ListRelationshipsRequest {
-  // The type of the relationship, for example "relationshipTypes/ns.type1".
-  // Use parent 'relationshipTypes/-' to include all types.
+  // The type of the relationship, for example `relationshipTypes/ns.type1`.
+  // Use parent `relationshipTypes/-` to include all types.
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "relationshipTypeName"
-      }
+      field_configuration: {path_param_name: "relationshipTypeName"}
     }
   ];
-  // The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entities/ns.entity1".
+  // Resource name of entity to list relationships from, e.g.
+  // `entityTypes/ns.type1/entities/ns.entity1`.
   string from_entity = 2;
-  // The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entities/ns.entity2".
+  // Resource name of entity to list relationships to, e.g.
+  // `entityTypes/ns.type2/entities/ns.entity2`.
   string to_entity = 3;
-  // The maximum number of results to return. Defaults to 1000, which is also the maximum value
-  // of this field.
+  // Maximum number of results to return. Defaults to 1000, which is the maximum allowed value.
   int32 page_size = 4;
-  // The page token to resume the results from, as returned from a previous request to this method
-  // with the same query parameters.
+  // Token for a specific page of results, as returned from a previous list request with the
+  // same query parameters.
   string page_token = 5;
 }
 
-// The response to list relationships. Returns all the requested relationships.
+// The response to list relationships.
 message ListRelationshipsResponse {
-  // The resulting relationships. Do not include neither description nor properties.
+  // List of relationships. **Does not** return `description` or `properties`.
   repeated Relationship relationships = 1;
-  // The page token where the list continues. Can be sent to a subsequent query.
+  // Token for the next page of results, which can be sent to a subsequent query.
+  // The end of the list is reached when the number of results is less than the page size
+  // (NOT when the token is empty).
   string next_page_token = 2;
-  // The total number of results, irrespective of paging.
+  // Total number of results, irrespective of paging.
   int32 total_size = 3;
 }
 
 // The request to get one relationship.
 message GetRelationshipRequest {
-  // The type of the relationship, for example "relationshipTypes/ns.type1".
+  // The type of the relationship, for example `relationshipTypes/ns.type1`.
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "relationshipTypeName"
-      }
+      field_configuration: {path_param_name: "relationshipTypeName"}
     }
   ];
-  // The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entities/ns.entity1".
+  // Resource name of entity the relationship starts from, e.g.
+  // `entityTypes/ns.type1/entities/ns.entity1`.
   string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
-  // The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entities/ns.entity2".
+  // Resource name of entity the relationship goes to, e.g.
+  // `entityTypes/ns.type2/entities/ns.entity2`.
   string to_entity = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -244,29 +242,29 @@ message CreateRelationshipRequest {
 message UpdateRelationshipRequest {
   // The relationship to update.
   Relationship relationship = 1 [(google.api.field_behavior) = REQUIRED];
-  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
-  // modified. If "allow_missing" is set, this field is ignored.
+  // Use this to update only selected fields. For example, specify `description` to update only the
+  // description. If `allow_missing` is set, this field is ignored.
+  //
+  // For REST requests, this is a comma-separated string.
   google.protobuf.FieldMask update_mask = 2;
-  // If set to true, and the resource is not found, a new resource will be created.
-  // If this is set, "update_mask" is ignored.
+  // If set to `true`, a new relationship will be created if it did not exist, and `update_mask` is
+  // ignored.
   bool allow_missing = 3;
 }
 
 // The request to delete one relationship.
 message DeleteRelationshipRequest {
-  // The parent of the relationship to delete, for example "relationshipTypes/ns.type1".
+  // The parent of the relationship to delete, for example `relationshipTypes/ns.type1`.
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "relationshipTypeName"
-      }
+      field_configuration: {path_param_name: "relationshipTypeName"}
     }
   ];
-  // The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entities/ns.entity1".
+  // Resource name of entity the relationship starts from, e.g.
+  // `entityTypes/ns.type1/entities/ns.entity1`.
   string from_entity = 2 [(google.api.field_behavior) = REQUIRED];
-  // The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entities/ns.entity2".
+  // Resource name of entity the relationship goes to, e.g.
+  // `entityTypes/ns.type2/entities/ns.entity2`.
   string to_entity = 3 [(google.api.field_behavior) = REQUIRED];
 }
