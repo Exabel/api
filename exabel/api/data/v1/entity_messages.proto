@@ -4,78 +4,64 @@ syntax = "proto3";
 
 package exabel.api.data.v1;
 
+import "google/api/field_behavior.proto";
+import "google/protobuf/struct.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
 option go_package = "exabel.com/api/data/v1";
 option java_multiple_files = true;
 option java_outer_classname = "EntityMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
-import "google/api/field_behavior.proto";
-import "google/protobuf/struct.proto";
-import "protoc_gen_openapiv2/options/annotations.proto";
-
 // An entity type resource in the Data API.
 message EntityType {
-  // The resource name of the entity type, for example "entityTypes/entityTypeIdentifier" or
-  // "entityTypes/namespace.entityTypeIdentifier". The namespace must be empty (being global) or
-  // one of the predetermined namespaces the customer has access to.
-  // The entity type identifier must match the regex \w[\w-]{0,63}.
+  // Unique resource name of the entity type, e.g. `entityTypes/entityTypeIdentifier` or
+  // `entityTypes/namespace.entityTypeIdentifier`. The namespace must be empty (being global) or
+  // a namespace accessible to the customer.
+  // The entity type identifier must match the regex `\w[\w-]{0,63}`.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "entityTypeName"
-      }
+      field_configuration: {path_param_name: "entityTypeName"}
       example: "\"entityTypes/company\""
     }
   ];
-  // The display name of the entity type. Required when creating entity type.
-  string display_name = 2 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"Companies\""
-    }
-  ];
-  // One or more paragraphs of text description.
-  string description = 3 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"Public companies\""
-    }
-  ];
-  // Whether this resource is read only.
+  // Used when showing the entity type in the Exabel app. Required when creating an entity type.
+  string display_name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Companies\""}];
+  // This is currently not used in the Exabel app, but may be in future.
+  string description = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Public companies\""}];
+  // Global entity types and those from data sets that you subscribe to will be read-only.
   bool read_only = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Whether this is an associative entity type which is not normally searchable. This is normally
-  // set on entity types that act as many-to-many connections in order to connect a signal to a pair
-  // of entities.
-  bool is_associative = 5 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "false"
-    }
-  ];
+  // Associative entity types connect multiple entity types - e.g. `company_occupation` to connect
+  // `company` and `occupation` entity types. These are typically used to hold time series data
+  // that is defined by the combination of 2 or more entities.
+  bool is_associative = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "false"}];
 }
 
 // An entity resource in the Data API. All entities have one entity type as its parent.
 message Entity {
-  // The resource name of the entity,
-  // for example "entityTypes/entityTypeIdentifier/entities/entityIdentifier" or
-  // "entityTypes/namespace1.entityTypeIdentifier/entities/namespace2.entityIdentifier".
+  // Unique resource name of the entity,
+  // e.g. `entityTypes/entityTypeIdentifier/entities/entityIdentifier` or
+  // `entityTypes/namespace1.entityTypeIdentifier/entities/namespace2.entityIdentifier`.
   // The namespaces must be empty (being global) or one of the predetermined namespaces the customer
-  // has access to. If namespace1 is not empty, it must be equal to namespace2.
-  // The entity identifier must match the regex \w[\w-]{0,63}.
+  // has access to. If `namespace1` is not empty, it must be equal to `namespace2`.
+  // The entity identifier must match the regex `\w[\w-]{0,63}`.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "entityName"
-      }
+      example: "\"entities/ns.my_entity\"",
+      field_configuration: {path_param_name: "entityName"}
     }
   ];
-  // The display name of the entity. Required when creating entity.
-  string display_name = 2;
-  // One or more paragraphs of text description.
-  string description = 3;
-  // Whether this resource is read only.
+  // Used when showing the entity in the Exabel app. Required when creating an entity.
+  string display_name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"My Entity\""}];
+  // This is currently not used in the Exabel app, but may be in future.
+  string description = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"This is a description of My Entity\""}];
+  // Global entities and those from data sets that you subscribe to will be read-only.
   bool read_only = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // The arbitrary properties of this entity.
+  // Additional properties of this entity. This is currently not used in the Exabel app, but may be
+  // in future.
   google.protobuf.Struct properties = 100;
 }

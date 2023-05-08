@@ -1,0 +1,47 @@
+// Copyright (c) 2019-2022 Exabel AS. All rights reserved.
+
+syntax = "proto3";
+
+package exabel.api.data.v1;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
+option go_package = "exabel.com/api/data/v1";
+option java_multiple_files = true;
+option java_outer_classname = "ImportJobsServiceProto";
+option java_package = "com.exabel.api.data.v1";
+
+// Service for managing import jobs.
+//
+// As set of import job stages is run as a single import job task. See the User Guide for more
+// information on import jobs: https://help.exabel.com/docs/importing-via-import-jobs
+//
+// The only current supported operation is run a given import job task.
+service ImportJobService {
+  // Runs an import task.
+  //
+  // Runs all the stages of an import job task.
+  rpc RunTask(RunTaskRequest) returns (RunTaskResponse) {
+    option (google.api.http) = {
+      post: "/v1/{name=tasks/*}:run"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Run import task"};
+  }
+}
+
+// The request run task.
+message RunTaskRequest {
+  // The resource name of the task to run, for example `tasks/123`.
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      field_configuration: {path_param_name: "taskName"}
+    }
+  ];
+}
+
+// The response to run task.
+message RunTaskResponse {}

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package exabel.api.analytics.v1;
+
+import "exabel/api/analytics/v1/item_messages.proto";
+import "google/api/field_behavior.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
+option go_package = "exabel.com/api/analytics/v1";
+option java_multiple_files = true;
+option java_outer_classname = "TagMessagesProto";
+option java_package = "com.exabel.api.analytics.v1";
+
+// Represents a tag.
+message Tag {
+  // Unique resource name of the tag, e.g. `tags/user:806f697b-e9fa-4443-9f92-ba46e5b60930`.
+  string name = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Display name of the tag. This is shown wherever the tag is used in the Exabel app.
+  string display_name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"My tag\""}];
+  // You may use this to provide more information about the tag. This is shown in the Library when
+  // browsing for tags.
+  string description = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"My tag description\""}];
+  // Resource name of the tag's entity type.
+  //
+  // Tags can only contain entities of one entity type. For new tags, this is set once the first
+  // entity is added.
+  string entity_type = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Metadata about the tag.
+  ItemMetadata metadata = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

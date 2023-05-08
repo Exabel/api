@@ -4,40 +4,38 @@ syntax = "proto3";
 
 package exabel.api.data.v1;
 
+import "google/api/field_behavior.proto";
+import "google/protobuf/struct.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
 option go_package = "exabel.com/api/data/v1";
 option java_multiple_files = true;
 option java_outer_classname = "RelationshipMessagesProto";
 option java_package = "com.exabel.api.data.v1";
 
-import "google/api/field_behavior.proto";
-import "google/protobuf/struct.proto";
-import "protoc_gen_openapiv2/options/annotations.proto";
-
 // A relationship type resource in the Data API.
 message RelationshipType {
-  // The resource name of the relationship type, for example
-  // "relationshipTypes/namespace.relationshipTypeIdentifier".
-  // The namespace must be empty (being global) or one of the predetermined namespaces the customer
-  // has access to.
-  // The relationship type identifier must match the regex [A-Z][A-Z0-9_]{0,63}.
+  // Unique resource name of the relationship type, e.g.
+  // `relationshipTypes/namespace.relationshipTypeIdentifier`.
+  // The namespace must be empty (being global) or a namespace accessible to the customer.
+  // The relationship type identifier must match the regex `[A-Z][A-Z0-9_]{0,63}`.
   string name = 1 [
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "relationshipTypeName"
-      }
-      example: "\"relationshipTypeName/customer1.HAS_STORE\""
+      field_configuration: {path_param_name: "relationshipTypeName"}
+      example: "\"relationshipTypes/ns.HAS_STORE\""
     }
   ];
-  // One or more paragraphs of text description.
-  string description = 2;
-  // Whether this resource is read only.
+  // This is currently not used in the Exabel app, but may be in future.
+  string description = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Indicates that an entity owns a store\""}];
+  // Global relationship types and those from data sets that you subscribe to will be read-only.
   bool read_only = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // Whether this relationship type specifices an "ownership" in the data set model. The
-  // relationship direction goes from the owner to the sub entity.
+  // Whether this relationship type specifies an `ownership` in the data set model. Ownership
+  // relationships must go *from* the owner *to* the child entity.
   bool is_ownership = 4;
-  // The arbitrary properties of this relationship type.
+  // Additional properties of this relationship type. This is currently not used in the Exabel app,
+  // but may be in future.
   google.protobuf.Struct properties = 100;
 }
 
@@ -47,37 +45,31 @@ message RelationshipType {
 // single user). The namespaces of the end points must either be empty (being global) or one of the
 // predetermined namespaces the customer has access to.
 message Relationship {
-  // The parent of the relationship, for example "relationshipTypes/ns.type1". This is its
-  // relationship type.
+  // Parent relationship type, e.g. `relationshipTypes/ns.type1`.
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "relationshipTypeName"
-      }
-      example: "\"relationshipTypeName/customer1.HAS_STORE\""
+      field_configuration: {path_param_name: "relationshipTypeName"}
+      example: "\"relationshipTypes/ns.HAS_STORE\""
     }
   ];
-  // The resource name of the start point of the relationship, for example
-  // "entityTypes/ns.type1/entities/ns.entity1".
+  // Resource name of entity the relationship starts from, e.g.
+  // `entityTypes/ns.type1/entities/ns.entity1`.
   string from_entity = 2 [
     (google.api.field_behavior) = REQUIRED,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"entityTypes/company/entities/F_12345-E\""
-    }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"entityTypes/company/entities/F_12345-E\""}
   ];
-  // The resource name of the end point of the relationship, for example
-  // "entityTypes/ns.type2/entities/ns.entity2".
+  // Resource name of entity the relationship goes to, e.g.
+  // `entityTypes/ns.type2/entities/ns.entity2`.
   string to_entity = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"entityTypes/customer1.store/entities/some_store_id\""
-    }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"entityTypes/ns.store/entities/ns.some_store_id\""}
   ];
-  // One or more paragraphs of text description.
-  string description = 4;
-  // Whether this resource is read only.
+  // This is currently not used in the Exabel app, but may be in future.
+  string description = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"F_12345-E owns some_store_id\""}];
+  // Global relationships and those from data sets that you subscribe to will be read-only.
   bool read_only = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // The arbitrary properties of this relationship.
+  // Additional properties of this relationship. This is currently not used in the Exabel app, but
+  // may be in future.
   google.protobuf.Struct properties = 100;
 }

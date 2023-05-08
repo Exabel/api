@@ -4,11 +4,6 @@ syntax = "proto3";
 
 package exabel.api.data.v1;
 
-option go_package = "exabel.com/api/data/v1";
-option java_multiple_files = true;
-option java_outer_classname = "DataSetServiceProto";
-option java_package = "com.exabel.api.data.v1";
-
 import "exabel/api/data/v1/data_set_messages.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
@@ -16,54 +11,61 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 import "protoc_gen_openapiv2/options/annotations.proto";
 
-// Manages data sets in the Data API.
+option go_package = "exabel.com/api/data/v1";
+option java_multiple_files = true;
+option java_outer_classname = "DataSetServiceProto";
+option java_package = "com.exabel.api.data.v1";
+
+// Service for managing data sets. Data sets are collections of signals that you may define and
+// manage, often to group data by source/vendor. The companies and entities that have time series
+// data for these signals are also part of the data set, and searchable within the data set in the
+// Exabel app.
+//
+// You may access data sets by subscribing to an Exabel data partner, or create your own data sets
+// from the data you import.
+//
+// See the User Guide for more information about data sets: https://help.exabel.com/docs/data-sets
 service DataSetService {
   // Lists all data sets.
+  //
+  // Lists all data sets available to your customer, including both your own data sets as well as
+  // those that you have subscribed to.
   rpc ListDataSets(ListDataSetsRequest) returns (ListDataSetsResponse) {
-    option (google.api.http) = {
-      get: "/v1/dataSets"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "List data sets"
-    };
+    option (google.api.http) = {get: "/v1/dataSets"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "List data sets"};
   }
   // Gets one data set.
   rpc GetDataSet(GetDataSetRequest) returns (DataSet) {
-    option (google.api.http) = {
-      get: "/v1/{name=dataSets/*}"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Get data set"
-    };
+    option (google.api.http) = {get: "/v1/{name=dataSets/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Get data set"};
   }
   // Creates one data set and returns it.
+  //
+  // It is also possible to create a data set by calling `UpdateDataSet`
+  // with `allow_missing` set to `true`.
   rpc CreateDataSet(CreateDataSetRequest) returns (DataSet) {
     option (google.api.http) = {
       post: "/v1/dataSets"
       body: "data_set"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Create data set"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Create data set"};
   }
   // Updates one data set and returns it.
+  //
+  // This can also be used to create a data set by setting `allow_missing` to `true`.
+  //
+  // Note that this method will update all fields unless `update_mask` is set.
   rpc UpdateDataSet(UpdateDataSetRequest) returns (DataSet) {
     option (google.api.http) = {
       patch: "/v1/{data_set.name=dataSets/*}"
       body: "data_set"
     };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Update data set"
-    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Update data set"};
   }
   // Deletes one data set.
   rpc DeleteDataSet(DeleteDataSetRequest) returns (google.protobuf.Empty) {
-    option (google.api.http) = {
-      delete: "/v1/{name=dataSets/*}"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      summary: "Delete data set"
-    };
+    option (google.api.http) = {delete: "/v1/{name=dataSets/*}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "Delete data set"};
   }
 }
 
@@ -72,19 +74,17 @@ message ListDataSetsRequest {}
 
 // The response to list data sets. Returns all known data sets.
 message ListDataSetsResponse {
-  // The resulting data sets.
+  // List of data sets.
   repeated DataSet data_sets = 1;
 }
 
 // The request to get one data set.
 message GetDataSetRequest {
-  // The resource name of the requested data set, for example "dataSets/ns.set1".
+  // The resource name of the requested data set, for example `dataSets/ns.set1`.
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "dataSetName"
-      }
+      field_configuration: {path_param_name: "dataSetName"}
     }
   ];
 }
@@ -99,24 +99,24 @@ message CreateDataSetRequest {
 message UpdateDataSetRequest {
   // The data set to update.
   DataSet data_set = 1 [(google.api.field_behavior) = REQUIRED];
-  // The update mask to apply to the resource. Only the fields mentioned in this mask will be
-  // modified. If the "signals" field is updated, the new list will replace the existing list.
-  // If "allow_missing" is set, this field is ignored.
+  // Use this to update only selected fields. For example, specify `display_name` to update only
+  // the display name. If the `signals` field is updated, the new list will replace the existing
+  // list. If `allow_missing` is set, this field is ignored.
+  //
+  // For REST requests, this is a comma-separated string.
   google.protobuf.FieldMask update_mask = 2;
-  // If set to true, and the resource is not found, a new resource will be created.
-  // If this is set, "update_mask" is ignored.
+  // If set to `true`, a new data set will be created if it did not exist, and `update_mask` is
+  // ignored.
   bool allow_missing = 3;
 }
 
 // The request to delete one data set.
 message DeleteDataSetRequest {
-  // The resource name of the data set to delete, for example "dataSets/ns.set1".
+  // The resource name of the data set to delete, for example `dataSets/ns.set1`.
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "dataSetName"
-      }
+      field_configuration: {path_param_name: "dataSetName"}
     }
   ];
 }

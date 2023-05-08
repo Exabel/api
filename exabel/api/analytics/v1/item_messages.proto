@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package exabel.api.analytics.v1;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "exabel.com/api/analytics/v1";
+option java_multiple_files = true;
+option java_outer_classname = "ItemMessagesProto";
+option java_package = "com.exabel.api.analytics.v1";
+
+// Metadata about an item.
+message ItemMetadata {
+  // When the item was created.
+  google.protobuf.Timestamp create_time = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // When the item was last updated.
+  google.protobuf.Timestamp update_time = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Resource name of the user who created the item.
+  string created_by = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Resource name of the user who last updated the item.
+  string updated_by = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Whether the API caller has write access to the item.
+  // May not always be populated.
+  optional bool write_access = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

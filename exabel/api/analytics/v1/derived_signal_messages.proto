@@ -4,91 +4,88 @@ syntax = "proto3";
 
 package exabel.api.analytics.v1;
 
+import "google/api/field_behavior.proto";
+import "google/protobuf/wrappers.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
 option go_package = "exabel.com/api/analytics/v1";
 option java_multiple_files = true;
 option java_outer_classname = "DerivedSignalMessagesProto";
 option java_package = "com.exabel.api.analytics.v1";
-
-import "google/api/field_behavior.proto";
-import "google/protobuf/wrappers.proto";
-import "protoc_gen_openapiv2/options/annotations.proto";
 
 // A derived signal.
 //
 // As opposed to raw signals which represents time series on entities, a derived signal
 // represents a calculation through a DSL expression.
 message DerivedSignal {
-  // The resource name. Example: derivedSignals/123. These resource names are not
-  // namespaced, and the identifier is always an integer. It is required in all operations except the create operation.
+  // Unique resource name of the derived signal, e.g. `derivedSignals/123`. In the "Create derived
+  // signal" method, this is ignored and may be left empty.
   string name = 1 [
+    (google.api.field_behavior) = IMMUTABLE,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "derivedSignalName"
-      }
+      field_configuration: {path_param_name: "derivedSignalName"}
       example: "\"derivedSignals/123\""
     }
   ];
-  // The label. Can be used to refer to this signal in other expressions. Must be a valid Python identifier,
-  // i.e. match the regex `^[a-zA-Z_]\w$` and not equal any Python keyword.
-  string label = 2 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"close_price_ma7\""
-      pattern: "^[a-zA-Z_]\\w$"
-    }
-  ];
-  // The expression. A DSL expression.
-  string expression = 3 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"close_price().moving_average(7)\""
-    }
-  ];
-  // The description.
-  string description = 4 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"Close price 7 day moving average\""
-    }
-  ];
-  // Additional signal metadata.
+  // Label of the derived signal. This appears in the Library when browsing for derived signals,
+  // and when a derived signal is used in any Exabel feature (e.g. chart, dashboard). It can also
+  // be used to reference this derived signal in a second derived signal.
+  //
+  // This is required when creating a derived signal. Must be a valid Python identifier between
+  // 1-100 characters, match the regex `^[a-zA-Z_]\w{0,99}$`, and cannot be a Python keyword.
+  string label = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"close_price_ma7\""
+    pattern: "^[a-zA-Z_]\\w{0,99}$"
+  }];
+  // A DSL expression describing the signal transformations to apply. For more information, see the
+  // DSL reference.
+  string expression = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"close_price().moving_average(7)\""}];
+  // Appears in the Exabel Library, when browsing for derived signals.
+  string description = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Close price 7 day moving average\""}];
+  // Additional metadata to control formatting (decimals and units).
   DerivedSignalMetadata metadata = 5;
 }
 
-// The metadata of a derived signal.
+// Additional metadata to control formatting (decimals and units).
+//
+// Note: this is only used today when a signal is added to a dashboard table. This will be phased
+// out in favour of providing formatting controls in the Exabel features (charts, dashboards, etc.)
+// where signals are used.
 message DerivedSignalMetadata {
-  // The number of decimals to use when displaying signal values.
+  // Number of decimals to use when displaying numeric values.
   google.protobuf.Int32Value decimals = 1;
-  // The unit of the signal.
+  // Unit of the signal.
   DerivedSignalUnit unit = 2;
-  // The type of the signal. Output only.
+  // Type of the signal. Not relevant for external use.
   DerivedSignalType type = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
-// Enum representing the unit of a signal.
+// Unit of the signal.
 enum DerivedSignalUnit {
-  // The signal unit was not specified.
+  // Signal unit was not specified.
   DERIVED_SIGNAL_UNIT_INVALID = 0;
-  // The signal represents normal floating point numbers.
+  // Signal represents normal floating point numbers. This is the default value.
   NUMBER = 1;
-  // The signal represents a ratio, typically with values in the interval [0, 1].
-  // Values will be displayed as a percentage.
+  // Signal represents a ratio, typically with values in the interval [0, 1]. Values will be
+  // displayed as a percentage.
   RATIO = 2;
-  // The signal represents a difference in a ratio. Values will be displayed
-  // as percentage points.
+  // Signal represents a difference in a ratio. Values will be displayed as percentage points.
   RATIO_DIFFERENCE = 3;
 }
 
-// Enum representing the type of a signal.
+// Type of the signal. Not relevant for external use.
 enum DerivedSignalType {
-  // The signal type was not specified.
+  // Signal type was not specified.
   DERIVED_SIGNAL_TYPE_INVALID = 0;
-  // The signal is a normal derived signal, represented by an editable expression and label.
+  // Signal is a derived signal, with an editable label and expression. This is the default value.
   DERIVED_SIGNAL = 1;
-  // A signal time series uploaded through the app's file upload.
-  // The expression refers to a raw signal and cannot be modified.
+  // Signal uploaded through the legacy File Uploader. The expression refers to a raw signal and
+  // cannot be modified.
   FILE_UPLOADED_SIGNAL = 2;
-  // A signal company time series uploaded through the app's file upload.
-  // The expression refers to a raw signal and cannot be modified.
+  // Signal uploaded through the legacy File Uploader. The expression refers to a raw signal and
+  // cannot be modified.
   FILE_UPLOADED_COMPANY_SIGNAL = 3;
-  // A persisted signal.
+  // A persisted signal that is evaluated and cached daily.
   // The expression refers to a raw signal and cannot be modified.
   PERSISTED_SIGNAL = 4;
 }

@@ -4,72 +4,65 @@ syntax = "proto3";
 
 package exabel.api.management.v1;
 
+import "exabel/api/management/v1/user_messages.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
 option go_package = "exabel.com/api/management/v1";
 option java_multiple_files = true;
 option java_outer_classname = "FolderMessagesProto";
 option java_package = "com.exabel.api.management.v1";
 
-import "google/api/field_behavior.proto";
-import "google/protobuf/timestamp.proto";
-import "protoc_gen_openapiv2/options/annotations.proto";
-
 // A folder.
 message Folder {
-  // The folder resource name. Example: `folders/123`. Output only.
-  string name = 1 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "folderName"
-      }
-      example: "\"folders/123\""
-    }
-  ];
-  // The display name.
+  // Unique resource name of the folder, e.g. `folders/123`. In the "Create folder" method, this is
+  // ignored and may be left empty.
+  string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    field_configuration: {path_param_name: "folderName"}
+    example: "\"folders/123\""
+  }];
+  // Appears in the Exabel Library in the list of folders.
   string display_name = 2 [
     (google.api.field_behavior) = REQUIRED,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"My shared folder\""
-    }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"My shared folder\""}
   ];
-  // Whether the caller has write access to the folder. Output only.
+  // The description of the folder.
+  string description = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"This is my shared folder\""}];
+  // Whether the API caller has write access to the folder.
   bool write = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // The items in the folder.
-  repeated FolderItem items = 4 [(google.api.field_behavior) = UNORDERED_LIST];
+  // List of items in the folder. To add or remove folder items, use the "Move folder items" method.
+  repeated FolderItem items = 4 [
+    (google.api.field_behavior) = UNORDERED_LIST,
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
 }
 
 // An item in a folder.
 message FolderItem {
-  // The parent folder resource name. Example `folders/123'`.
-  string parent = 1 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      field_configuration: {
-        path_param_name: "folderName"
-      }
-      example: "\"folders/123\""
-    }
-  ];
-  // The folder item resource name. Example: `derivedSignals/123` or `models/987`. Output only.
+  // Resource name of the parent folder, e.g. `folders/123`.
+  string parent = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    field_configuration: {path_param_name: "folderName"}
+    example: "\"folders/123\""
+  }];
+  // Resource name of the item, e.g. `derivedSignals/123` or `models/987`.
   string name = 2 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"derivedSignals/123\""
-    }
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"derivedSignals/123\""}
   ];
-  // The display name.
-  string display_name = 3 [
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"my_signal\""
-    }
-  ];
-  // The item type.
+  // Appears in the Exabel Library when viewing items in a folder, and also when the item is opened.
+  string display_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"my_signal\""}];
+  // Appears in the Exabel Library under each item, and when the item is opened.
+  string description = 9;
+  // Item type.
   FolderItemType item_type = 4;
-  // The timestamp the item was created.
+  // When the item was created.
   google.protobuf.Timestamp create_time = 5;
-  // The time the item was last updated.
+  // When the item was last updated.
   google.protobuf.Timestamp update_time = 6;
-  // The resource name of the user who created the item.
+  // Resource name of the user who created the item.
   string created_by = 7;
-  // The resource name of the user who last updated the item.
+  // Resource name of the user who last updated the item.
   string updated_by = 8;
 }
 
@@ -91,4 +84,22 @@ enum FolderItemType {
   TAG = 6;
   // Screen.
   SCREEN = 7;
+  // Financial model.
+  FINANCIAL_MODEL = 8;
+  // Chart.
+  CHART = 9;
+}
+
+// An accessor of a folder.
+message FolderAccessor {
+  // User group that has access to the folder.
+  Group group = 1;
+  // Whether the user group has write access. Read access is implied.
+  bool write = 2;
+}
+
+// A search result.
+message SearchResult {
+  // The folder item.
+  FolderItem item = 1;
 }

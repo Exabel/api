@@ -4,23 +4,43 @@ syntax = "proto3";
 
 package exabel.api.analytics.v1;
 
+import "google/api/field_behavior.proto";
+import "protoc_gen_openapiv2/options/annotations.proto";
+
 option go_package = "exabel.com/api/analytics/v1";
 option java_multiple_files = true;
 option java_outer_classname = "PredictionModelMessagesProto";
 option java_package = "com.exabel.api.analytics.v1";
 
-import "google/api/field_behavior.proto";
-import "protoc_gen_openapiv2/options/annotations.proto";
+// Specifies which model configuration to use.
+enum ModelConfiguration {
+  // Not specified - defaults to use the latest configuration.
+  MODEL_CONFIGURATION_NOT_SPECIFIED = 0;
+  // Latest configuration.
+  LATEST = 1;
+  // Configuration of the active run. A specific run may be activated from the prediction model user interface.
+  ACTIVE = 2;
+  // Configuration of a specific run. The run number must be specified as well.
+  SPECIFIC_RUN = 3;
+}
 
 // A prediction model run.
 message PredictionModelRun {
-  // Resource name of the run. Example: predictionModels/123/runs/3.
+  // Unique resource name of the run, e.g. `predictionModels/123/runs/3`.
   string name = 1 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "\"predictionModels/123/runs/3\""
-    }
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"predictionModels/123/runs/3\""}
   ];
-  // An optional description of the run.
-  string description = 2;
+  // You may use this to record some notes about the run. This is shown in the prediction model
+  // interface when viewing all runs, and when viewing the results of a single run.
+  string description = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {example: "\"Initiated by API request\""}];
+  // Which model configuration to use.
+  // If not specified, the latest model configuration is used.
+  ModelConfiguration configuration = 3;
+  // Prediction model run number from which model configuration should be retrieved, e.g. `1`.
+  // Only relevant when `configuration` is set to `ModelConfiguration.SPECIFIC_RUN`.
+  optional int32 configuration_source = 4;
+  // Whether to automatically set this run as active once it completes.
+  // The run will not be activated if it fails for any of the entities in the model.
+  bool auto_activate = 5;
 }
